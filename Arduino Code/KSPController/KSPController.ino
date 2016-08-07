@@ -91,6 +91,8 @@ void loop() {
       if(analogRead(A0) < c_voltage_threshold){ 
          /* powered by USB only, flash the power light and do nothing else */
          light_flash(c_power_led_pin, &t_power_light, c_power_light_flash);
+         /* turn off the error light, if it was flashing on when power was switch off it stays on! */
+           digitalWrite(c_error_led_pin,LOW);
          f_power_on_first_pass = TRUE;
          t_run_time = 0;
          x_databuffer[0] = B00000001; /* set the status byte to 1 to alive (bit 1) but unpowered (bit 2)*/
@@ -129,18 +131,18 @@ void loop() {
         
            /* set the dimmer value */
            analogWrite(c_dimmer_pwm_pin,x_databuffer[15]);
-            
-           /* manage the fan */
-           if (t_run_time < c_fan_power_up_time) { /* max speed initially to ensure it starts */
-             analogWrite(c_fan_pwm_pin,255);
-           }
-           else { /* map fan speed to temp v fan speed curve */
-             analogWrite(c_fan_pwm_pin,x_databuffer[14]*c_fan_speed_m+c_fan_speed_b);
-           }
-  
-           /* check for high temp */
-           if (x_databuffer[14] > c_temp_max) {sys_error(c_overtemp_error_code);}
         }
+
+        /* manage the fan */
+        if (t_run_time < c_fan_power_up_time) { /* max speed initially to ensure it starts */
+          analogWrite(c_fan_pwm_pin,255);
+        }
+        else { /* map fan speed to temp v fan speed curve */
+          analogWrite(c_fan_pwm_pin,x_databuffer[14]*c_fan_speed_m+c_fan_speed_b);
+        }
+
+        /* check for high temp */
+        if (x_databuffer[14] > c_temp_max) {sys_error(c_overtemp_error_code);}
         
         /* measure the processing time, signal if an overun occurs. add actual frame time to data buffer */
         t_frame_actual = millis() - t_current_frame;
