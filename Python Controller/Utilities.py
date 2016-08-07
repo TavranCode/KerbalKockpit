@@ -26,3 +26,17 @@ def map_flt_ctl(ctl_raw, db, trim, fine):
 
 def norm(v):
     return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
+
+
+#returns a string representation of a value with SI prefixs to it is between 0 and 1000
+
+
+def si_val(num,prec=3):
+    prefixes =[''] + list('kMGTPE')
+    temp = num
+    index = 0
+    while temp > 1000:
+        temp = temp / 1000
+        index += 1
+
+    return ('{0:.{1}f}'.format(temp, prec) + prefixes[index])

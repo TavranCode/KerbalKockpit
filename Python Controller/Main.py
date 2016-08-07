@@ -18,7 +18,7 @@ if __name__ == '__main__':
     # Create the root window
     root = Tk()
     root.title("KSP Controller")
-    root.geometry("1024x768")
+    root.geometry("1024x768+700-1000")
 
     # Instatiate the GUI
     app = Application(root)

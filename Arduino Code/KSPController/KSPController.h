@@ -3,7 +3,7 @@
 #define FALSE 0
 
 /* Variables */
-byte x_databuffer[24];                  /* byte buffer for managing outputs */
+byte x_databuffer[25];                  /* byte buffer for managing outputs */
 byte x_inputbuffer[3];                  /* byte bugger for managing inputs */
 int f_data_received = 0;                /* data received flag */
 int f_data_requested = 0;               /* data requested flag */
@@ -22,6 +22,7 @@ unsigned long t_power_on = 0;           /* time when main power came on */
 unsigned long t_gear_flash_timer = 0;   /* timer for gear light flash calculation */
 unsigned long t_last_serial_time = 0;   /* time since last serial data arrived */
 unsigned long t_error_light = 0;        /* timer for error light flashing */
+int x_fan_speed = 0;                    /* fan speed setting */
 
 /* constants */
 const int c_voltage_threshold = 600;    /* analog reading of the voltage sensor about which we know we are externally powered */

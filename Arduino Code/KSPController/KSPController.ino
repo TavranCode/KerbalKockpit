@@ -135,11 +135,12 @@ void loop() {
 
         /* manage the fan */
         if (t_run_time < c_fan_power_up_time) { /* max speed initially to ensure it starts */
-          analogWrite(c_fan_pwm_pin,255);
+          x_fan_speed = 255;        
         }
         else { /* map fan speed to temp v fan speed curve */
-          analogWrite(c_fan_pwm_pin,x_databuffer[14]*c_fan_speed_m+c_fan_speed_b);
+          x_fan_speed = int(x_databuffer[14]*c_fan_speed_m+c_fan_speed_b);
         }
+        analogWrite(c_fan_pwm_pin,x_fan_speed);
 
         /* check for high temp */
         if (x_databuffer[14] > c_temp_max) {sys_error(c_overtemp_error_code);}
@@ -148,6 +149,9 @@ void loop() {
         t_frame_actual = millis() - t_current_frame;
         light_hold(t_frame_actual >= c_frame_time_target, c_overrun_led_pin, &t_overun_light, c_overun_lt_time);
         x_databuffer[23] = t_frame_actual;
+
+        /* add the fan speed data to the buffer */
+        x_databuffer[24] = x_fan_speed;
   
         /* if data was requested, send data back */
         if(f_data_requested) {
