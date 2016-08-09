@@ -14,61 +14,61 @@ def SAS_inputs(input_buffer, input_buffer_prev, vessel, mQ):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.maneuver
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Maneuver"))
+                mQ.put((1, 'Could not set SAS Mode - Maneuver'))
                 pass
         elif is_set(input_buffer[8], 1):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.anti_target
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Anti-Target"))
+                mQ.put((1, 'Could not set SAS Mode - Anti-Target'))
                 pass
         elif is_set(input_buffer[8], 2):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.target
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Target"))
+                mQ.put((1, 'Could not set SAS Mode - Target'))
                 pass
         elif is_set(input_buffer[8], 3):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.anti_radial
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Anti-Radial"))
+                mQ.put((1, 'Could not set SAS Mode - Anti-Radial'))
                 pass
         elif is_set(input_buffer[8], 4):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.radial
             except krpc.client.RPCError:
-                mQ.put((1, "ould not set SAS Mode - Radial"))
+                mQ.put((1, 'ould not set SAS Mode - Radial'))
                 pass
         elif is_set(input_buffer[8], 5):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.anti_normal
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Anti-Normal"))
+                mQ.put((1, 'Could not set SAS Mode - Anti-Normal'))
                 pass
         elif is_set(input_buffer[8], 6):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.normal
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Normal"))
+                mQ.put((1, 'Could not set SAS Mode - Normal'))
                 pass
         elif is_set(input_buffer[8], 7):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.retrograde
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Retrograde"))
+                mQ.put((1, 'Could not set SAS Mode - Retrograde'))
                 pass
         elif is_set(input_buffer[9], 0):
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.prograde
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set SAS Mode - Prograde"))
+                mQ.put((1, 'Could not set SAS Mode - Prograde'))
                 pass
         else:
             try:
                 vessel.control.sas_mode = vessel.control.sas_mode.stability_assist
             except krpc.client.RPCError:
-                mQ.put((1, "Error: Could not set SAS Mode - Stability Assist"))
+                mQ.put((1, 'Error: Could not set SAS Mode - Stability Assist'))
                 pass
 
 
@@ -199,7 +199,7 @@ def camera_inputs(cam, input_buffer, mQ):
             cam.distance = cam.default_distance
             Settings.G_cam_change_timer = -1.0
         except krpc.client.RPCError:
-            mQ.put((1, "Could not set camera distance"))
+            mQ.put((1, 'Could not set camera distance'))
             # todo - set default camera pitch and heading
 
     if is_set(input_buffer[3], 2):
@@ -208,7 +208,7 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.iva
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - IVA"))
+                mQ.put((1, 'Could not set Camera Mode - IVA'))
                 pass
     elif is_set(input_buffer[3], 4):
         if cam.mode != cam.mode.map:
@@ -216,7 +216,7 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.map
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - Map"))
+                mQ.put((1, 'Could not set Camera Mode - Map'))
                 pass
     elif is_set(input_buffer[3], 6):
         if cam.mode != cam.mode.automatic:
@@ -224,7 +224,7 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.automatic
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - Automatic"))
+                mQ.put((1, 'Could not set Camera Mode - Automatic'))
                 pass
     elif is_set(input_buffer[4], 0):
         if cam.mode != cam.mode.chase:
@@ -232,7 +232,7 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.chase
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - Chase"))
+                mQ.put((1, 'Could not set Camera Mode - Chase'))
                 pass
     elif is_set(input_buffer[4], 2):
         if cam.mode != cam.mode.locked:
@@ -240,7 +240,7 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.locked
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - Locked"))
+                mQ.put((1, 'Could not set Camera Mode - Locked'))
                 pass
     elif is_set(input_buffer[4], 4):
         if cam.mode != cam.mode.orbital:
@@ -248,12 +248,12 @@ def camera_inputs(cam, input_buffer, mQ):
                 cam.mode = cam.mode.orbital
                 Settings.G_cam_change_timer = Settings.c_cam_change_time
             except krpc.client.RPCError:
-                mQ.put((1, "Could not set Camera Mode - Orbital"))
+                mQ.put((1, 'Could not set Camera Mode - Orbital'))
                 pass
     elif cam.mode != cam.mode.free:
         try:
             cam.mode = cam.mode.free
             Settings.G_cam_change_timer = Settings.c_cam_change_time
         except krpc.client.RPCError:
-            mQ.put((1, "Could not set Camera Mode - Free"))
+            mQ.put((1, 'Could not set Camera Mode - Free'))
             pass

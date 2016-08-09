@@ -17,4 +17,4 @@ c_cam_change_time = 3.0
 
 G_cam_change_timer = -1.0
 
-msg_prefix = ("MSG", "ERROR", "CRITICAL ERROR")
+msg_prefix = ('MSG', 'ERROR', 'CRITICAL ERROR')
