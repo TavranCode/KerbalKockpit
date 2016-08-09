@@ -1,16 +1,33 @@
 from tkinter import *
 from tkinter import ttk
-from math import degrees
 import krpc
-
 
 from Utilities import is_set, si_val
 from Settings import msg_prefix
 
+
+class Subframe:
+    def __init__(self, root, title, labels, width, height):
+        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
+
+        for i in range(len(labels)):
+            ttk.Label(self.frame_name, text=labels[i]).grid(column=0, row=i, sticky=E)
+
+        self.data_labels = []
+        for i in range(len(labels)):
+            self.data_labels.append(StringVar())
+            ttk.Label(self.frame_name, textvariable=self.data_labels[i]).grid(column=1, row=i)
+
+    def grid(self, row=0, column=0, columnspan=1):
+        self.frame_name.grid(row=row, column=column, columnspan=columnspan)
+        self.frame_name.grid_propagate(False)
+
+    def update(self, value_strings):
+        for i in range(len(value_strings)):
+            self.data_labels[i].set(value_strings[i])
+
+
 class Application:
-
-    global msg_prefix
-
     def __init__(self, root):
 
         mainframe = ttk.Frame(root)
@@ -42,55 +59,13 @@ class Application:
         self.T2L = ttk.LabelFrame(tab2, text='Orbital Data', width=450, height=550)
 
         # Tab 2 --> Left Frame --> Sub Frames
-        self.T2L_OI = ttk.LabelFrame(self.T2L, text='Orbit Info', width=420, height=300)
-        self.T2L_VI = ttk.LabelFrame(self.T2L, text='Vessel Info', width=420, height=150)
-
-        # Tab 2 - Left Frame --> Orbital Data --> Orbital Info
-        ttk.Label(self.T2L_OI, text="Orbital Speed:").grid(column=0, row=0, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Apoapsis:").grid(column=0, row=1, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Periapsis:").grid(column=0, row=2, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Orbital Period:").grid(column=0, row=3, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Time to Apoapsis:").grid(column=0, row=4, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Time to Periapsis:").grid(column=0, row=5, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Inclination:").grid(column=0, row=6, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Ecentricity:").grid(column=0, row=7, sticky=(E))
-        ttk.Label(self.T2L_OI, text="Longitude of Ascending Node:").grid(column=0, row=8, sticky=(E))
-
-        self.T2L_OI_01 = StringVar()
-        self.T2L_OI_02 = StringVar()
-        self.T2L_OI_03 = StringVar()
-        self.T2L_OI_04 = StringVar()
-        self.T2L_OI_05 = StringVar()
-        self.T2L_OI_06 = StringVar()
-        self.T2L_OI_07 = StringVar()
-        self.T2L_OI_08 = StringVar()
-        self.T2L_OI_09 = StringVar()
-
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_01).grid(column=1, row=0)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_02).grid(column=1, row=1)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_03).grid(column=1, row=2)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_04).grid(column=1, row=3)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_05).grid(column=1, row=4)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_06).grid(column=1, row=5)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_07).grid(column=1, row=6)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_08).grid(column=1, row=7)
-        ttk.Label(self.T2L_OI, textvariable=self.T2L_OI_09).grid(column=1, row=8)
-
+        self.T2L_OI = Subframe(self.T2L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
+                                                        'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
+                                                        'Longitude of Ascending Node:'), 420, 300)
         self.T2L_OI.grid(row=0, column=0)
-        self.T2L_OI.grid_propagate(False)
 
-        # Tab 2 - Left Frame --> Orbital Data --> Vessel info
-        ttk.Label(self.T2L_VI, text="Vessel Mass:").grid(column=0, row=0, sticky=(E))
-        ttk.Label(self.T2L_VI, text="Current TWR:").grid(column=0, row=1, sticky=(E))
-
-        self.T2L_VI_01 = StringVar()
-        self.T2L_VI_02 = StringVar()
-
-        ttk.Label(self.T2L_VI, textvariable=self.T2L_VI_01).grid(column=1, row=0)
-        ttk.Label(self.T2L_VI, textvariable=self.T2L_VI_02).grid(column=1, row=1)
-
+        self.T2L_VI = Subframe(self.T2L, 'Orbit Info', ('Vessel Mass:', 'Current TWR:'), 420, 150)
         self.T2L_VI.grid(row=1, column=0)
-        self.T2L_VI.grid_propagate(False)
 
         self.T2L.grid()
 
@@ -99,102 +74,17 @@ class Application:
         self.T9L = ttk.LabelFrame(tab9, text='Arduino Data', width=450, height=550)
 
         # Tab 9 --> Left Frame --> Sub Frames
-        self.T9L_SD = ttk.LabelFrame(self.T9L, text='Status Data', width=420, height=150)
-        self.T9L_DI = ttk.LabelFrame(self.T9L, text='Digital Inputs', width=200, height=300)
-        self.T9L_AI = ttk.LabelFrame(self.T9L, text='Analogue Inputs', width=200, height=300)
-
-        # Tab 9 - Left Frame --> Arduino Data --> Status Data
-        ttk.Label(self.T9L_SD, text="Status Byte:").grid(column=0, row=0, sticky=(E))
-        ttk.Label(self.T9L_SD, text="Frame Rate:").grid(column=0, row=1, sticky=(E))
-        ttk.Label(self.T9L_SD, text="Temperature:").grid(column=0, row=2, sticky=(E))
-        ttk.Label(self.T9L_SD, text="Fan Speed:").grid(column=0, row=3, sticky=(E))
-        ttk.Label(self.T9L_SD, text="Dimmer Setting:").grid(column=0, row=4, sticky=(E))
-
-        self.T9L_SD_01 = StringVar()
-        self.T9L_SD_02 = StringVar()
-        self.T9L_SD_03 = StringVar()
-        self.T9L_SD_04 = StringVar()
-        self.T9L_SD_05 = StringVar()
-
-        ttk.Label(self.T9L_SD, textvariable=self.T9L_SD_01).grid(column=1, row=0)
-        ttk.Label(self.T9L_SD, textvariable=self.T9L_SD_02).grid(column=1, row=1)
-        ttk.Label(self.T9L_SD, textvariable=self.T9L_SD_03).grid(column=1, row=2)
-        ttk.Label(self.T9L_SD, textvariable=self.T9L_SD_04).grid(column=1, row=3)
-        ttk.Label(self.T9L_SD, textvariable=self.T9L_SD_05).grid(column=1, row=4)
-
+        self.T9L_SD = Subframe(self.T9L, 'Status Data', ('Status Byte:', 'Frame Time:', 'Temperature:', 'Fan Speed:', 'Dimmer Setting:'), 420, 200)
         self.T9L_SD.grid(row=0, column=0, columnspan=2)
-        self.T9L_SD.grid_propagate(False)
-        
-        # Tab 9 - Left Frame --> Arduino Data --> Digital Data
-        ttk.Label(self.T9L_DI, text="Pins 8-10:").grid(column=0, row=0, sticky=(E))
-        ttk.Label(self.T9L_DI, text="Pins 22-29:").grid(column=0, row=1, sticky=(E))
-        ttk.Label(self.T9L_DI, text="Pins 30-37:").grid(column=0, row=2, sticky=(E))
-        ttk.Label(self.T9L_DI, text="Pins 38-45:").grid(column=0, row=3, sticky=(E))
-        ttk.Label(self.T9L_DI, text="Pins 46-53:").grid(column=0, row=4, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 0 Bank A:").grid(column=0, row=5, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 0 Bank B:").grid(column=0, row=6, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 1 Bank A:").grid(column=0, row=7, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 1 Bank B:").grid(column=0, row=8, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 2 Bank B:").grid(column=0, row=9, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 3 Bank B:").grid(column=0, row=10, sticky=(E))
-        ttk.Label(self.T9L_DI, text="MUX 4 Bank B:").grid(column=0, row=11, sticky=(E))
 
-        self.T9L_DI_01 = StringVar()
-        self.T9L_DI_02 = StringVar()
-        self.T9L_DI_03 = StringVar()
-        self.T9L_DI_04 = StringVar()
-        self.T9L_DI_05 = StringVar()
-        self.T9L_DI_06 = StringVar()
-        self.T9L_DI_07 = StringVar()
-        self.T9L_DI_08 = StringVar()
-        self.T9L_DI_09 = StringVar()
-        self.T9L_DI_10 = StringVar()
-        self.T9L_DI_11 = StringVar()
-        self.T9L_DI_12 = StringVar()
+        self.T9L_DI = Subframe(self.T9L, 'Digital Inputs', ('Pins 8-10:', 'Pins 22-29:', 'Pins 30-37:', 'Pins 38-45:', 'Pins 46-53:', 'MUX 0 Bank A:',
+                                                            'MUX 0 Bank B:', 'MUX 1 Bank A:', 'MUX 1 Bank B:', 'MUX 2 Bank B:', 'MUX 3 Bank B:',
+                                                            'MUX 4 Bank B:'), 200, 300)
+        self.T9L_DI.grid(row=1, column=0, )
 
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_01).grid(column=1, row=0)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_02).grid(column=1, row=1)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_03).grid(column=1, row=2)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_04).grid(column=1, row=3)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_05).grid(column=1, row=4)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_06).grid(column=1, row=5)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_07).grid(column=1, row=6)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_08).grid(column=1, row=7)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_09).grid(column=1, row=8)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_10).grid(column=1, row=9)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_11).grid(column=1, row=10)
-        ttk.Label(self.T9L_DI, textvariable=self.T9L_DI_12).grid(column=1, row=11)
-
-        self.T9L_DI.grid(row=1, column=0)
-        self.T9L_DI.grid_propagate(False)
-
-        # Tab 9 - Left Frame --> Arduino Data --> Analogue Data
-        ttk.Label(self.T9L_AI, text="Rotation X:").grid(column=0, row=0, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Rotation Y:").grid(column=0, row=1, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Rotation Z:").grid(column=0, row=2, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Translation X:").grid(column=0, row=3, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Translation Y:").grid(column=0, row=4, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Translation Z:").grid(column=0, row=5, sticky=(E))
-        ttk.Label(self.T9L_AI, text="Throttle:").grid(column=0, row=6, sticky=(E))
-
-        self.T9L_AI_01 = IntVar()
-        self.T9L_AI_02 = IntVar()
-        self.T9L_AI_03 = IntVar()
-        self.T9L_AI_04 = IntVar()
-        self.T9L_AI_05 = IntVar()
-        self.T9L_AI_06 = IntVar()
-        self.T9L_AI_07 = IntVar()
-
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_01).grid(column=1, row=0)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_02).grid(column=1, row=1)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_03).grid(column=1, row=2)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_04).grid(column=1, row=3)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_05).grid(column=1, row=4)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_06).grid(column=1, row=5)
-        ttk.Label(self.T9L_AI, textvariable=self.T9L_AI_07).grid(column=1, row=6)
-
+        self.T9L_AI = Subframe(self.T9L, 'Analogue Inputs', ('Rotation X:', 'Rotation Y:', 'Rotation Z:', 'Translation X:', 'Translation Y:',
+                                                             'Translation Z:', 'Throttle:'), 200, 300)
         self.T9L_AI.grid(row=1, column=1)
-        self.T9L_AI.grid_propagate(False)
 
         self.T9L.grid()
 
@@ -217,7 +107,7 @@ class Application:
         self.msg3 = ttk.Label(self.msgframe, textvariable=self.msgL3).grid(row=2, sticky=(E, W))
         self.msg4 = ttk.Label(self.msgframe, textvariable=self.msgL4).grid(row=3, sticky=(E, W))
 
-        self.msgframe.grid(sticky=(E), padx=5, pady=5)
+        self.msgframe.grid(sticky=E, padx=5, pady=5)
         self.msgframe.grid_propagate(False)
 
         # Buttons
@@ -228,7 +118,6 @@ class Application:
 
         # Finally grid the main frame into the root window
         mainframe.grid(column=0, row=0)
-
 
     def connect(self):
         conn = krpc.connect(name='Game Controller GUI')
@@ -242,14 +131,12 @@ class Application:
         self.periapsis = conn.add_stream(getattr, vessel.orbit, 'periapsis_altitude')
         self.orbital_period = conn.add_stream(getattr, vessel.orbit, 'period')
         self.time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
-        self.time_to_periapsis =  conn.add_stream(getattr, vessel.orbit, 'time_to_periapsis')
-        self.inclination =  conn.add_stream(getattr, vessel.orbit, 'inclination')
+        self.time_to_periapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_periapsis')
+        self.inclination = conn.add_stream(getattr, vessel.orbit, 'inclination')
         self.eccentricity = conn.add_stream(getattr, vessel.orbit, 'eccentricity')
         self.long_asc_node = conn.add_stream(getattr, vessel.orbit, 'longitude_of_ascending_node')
 
-
-
-    def update(self, root, data_array, msgQ):
+    def update(self, data_array, msgQ):
         # Manage notebook tab switching
         if is_set(data_array[4], 6):
             self.notebook.select(7)
@@ -271,51 +158,55 @@ class Application:
             self.notebook.select(8)
 
         # Tab 2 - Maintanance
-        #Tab 2 --> Left Frame
-        #Tab 2 --> Left Frame --> Orbital Info Subframe
+        # Tab 2 --> Left Frame
+        # Tab 2 --> Left Frame --> Orbital Info Subframe
 
-        self.T2L_OI_01.set(si_val(self.orbital_speed()) + 'm/s')
-        self.T2L_OI_02.set(si_val(self.apoapsis()) + 'm')
-        self.T2L_OI_03.set('{0:.0f}m'.format(self.periapsis()))
-        self.T2L_OI_04.set('{0:.0f}s'.format(self.orbital_period()))
-        self.T2L_OI_05.set('{0:.0f}s'.format(self.time_to_apoapsis()))
-        self.T2L_OI_06.set('{0:.0f}s'.format(self.time_to_periapsis()))
-        self.T2L_OI_07.set('{0:.2f} deg'.format(self.inclination()))
-        self.T2L_OI_08.set('{0:.4f}'.format(self.eccentricity()))
-        self.T2L_OI_09.set('{0:.2f} deg'.format(self.long_asc_node()))
-
+        temp = [si_val(self.orbital_speed()) + 'm/s',
+                si_val(self.apoapsis()) + 'm',
+                si_val(self.periapsis()) + 'm',
+                '{0:.0f}s'.format(self.orbital_period()),
+                '{0:.0f}s'.format(self.time_to_apoapsis()),
+                '{0:.0f}s'.format(self.time_to_periapsis()),
+                '{0:.2f} deg'.format(self.inclination()),
+                '{0:.4f}'.format(self.eccentricity()),
+                '{0:.2f} deg'.format(self.long_asc_node())]
+        self.T2L_OI.update(temp)
 
         # Tab 9 - Maintanance
-        #Tab 9 --> Left Frame
-        #Tab 9 --> Left Frame --> Status Data Subframe
-        self.T9L_SD_01.set('{0:08b}'.format(data_array[0]))
-        self.T9L_SD_02.set('{:d} ms'.format(data_array[23]))
-        self.T9L_SD_03.set('{0:.0f} deg'.format(data_array[14]*0.69310345 - 68.0241379))
-        self.T9L_SD_04.set('{0:.0f}%'.format(data_array[24]/255*100))
-        self.T9L_SD_05.set('{0:.0f}%'.format(data_array[15]/255*100))
-        
-        #Tab 9 --> Left Frame --> Digital Data Subframe
-        self.T9L_DI_01.set('{0:08b}'.format(data_array[1]))
-        self.T9L_DI_02.set('{0:08b}'.format(data_array[2]))
-        self.T9L_DI_03.set('{0:08b}'.format(data_array[3]))
-        self.T9L_DI_04.set('{0:08b}'.format(data_array[4]))
-        self.T9L_DI_05.set('{0:08b}'.format(data_array[5]))
-        self.T9L_DI_06.set('{0:08b}'.format(data_array[6]))
-        self.T9L_DI_07.set('{0:08b}'.format(data_array[7]))
-        self.T9L_DI_08.set('{0:08b}'.format(data_array[8]))
-        self.T9L_DI_09.set('{0:08b}'.format(data_array[9]))
-        self.T9L_DI_10.set('{0:08b}'.format(data_array[10]))
-        self.T9L_DI_11.set('{0:08b}'.format(data_array[11]))
-        self.T9L_DI_12.set('{0:08b}'.format(data_array[12]))
+        # Tab 9 --> Left Frame
+        # Tab 9 --> Left Frame --> Status Data Subframe
+        temp = ['{0:08b}'.format(data_array[0]),
+                '{:d}ms'.format(data_array[23]),
+                '{0:.0f}deg'.format(data_array[14] * 0.69310345 - 68.0241379),
+                '{0:.0f}%'.format(data_array[24] / 255 * 100),
+                '{0:.0f}%'.format(data_array[15] / 255 * 100)]
 
-        #Tab 9 --> Left Frame --> Analogure Data Subframe
-        self.T9L_AI_01.set(data_array[16])
-        self.T9L_AI_02.set(data_array[17])
-        self.T9L_AI_03.set(data_array[18])
-        self.T9L_AI_04.set(data_array[19])
-        self.T9L_AI_05.set(data_array[20])
-        self.T9L_AI_06.set(data_array[21])
-        self.T9L_AI_07.set(data_array[22])
+        self.T9L_SD.update(temp)
+
+        # Tab 9 --> Left Frame --> Digital Data Subframe
+        temp = ['{0:08b}'.format(data_array[1]),
+                '{0:08b}'.format(data_array[2]),
+                '{0:08b}'.format(data_array[3]),
+                '{0:08b}'.format(data_array[4]),
+                '{0:08b}'.format(data_array[5]),
+                '{0:08b}'.format(data_array[6]),
+                '{0:08b}'.format(data_array[7]),
+                '{0:08b}'.format(data_array[8]),
+                '{0:08b}'.format(data_array[9]),
+                '{0:08b}'.format(data_array[10]),
+                '{0:08b}'.format(data_array[11]),
+                '{0:08b}'.format(data_array[12])]
+        self.T9L_DI.update(temp)
+
+        # Tab 9 --> Left Frame --> Analogure Data Subframe
+        temp = [data_array[16],
+                data_array[17],
+                data_array[18],
+                data_array[19],
+                data_array[20],
+                data_array[21],
+                data_array[22]]
+        self.T9L_AI.update(temp)
 
         # Update message area
         if not msgQ.empty():
@@ -323,7 +214,4 @@ class Application:
             self.msgL1.set(self.msgL2.get())
             self.msgL2.set(self.msgL3.get())
             self.msgL3.set(self.msgL4.get())
-            self.msgL4.set(msg_prefix[m[0]] + ": " + m[1])
-
-
-
+            self.msgL4.set(msg_prefix[m[0]] + ': ' + m[1])
