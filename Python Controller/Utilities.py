@@ -28,15 +28,24 @@ def norm(v):
     return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
 
 
-#returns a string representation of a value with SI prefixs to it is between 0 and 1000
+# returns a string representation of a value with SI prefixs to it is between 0 and 1000
 
 
-def si_val(num,prec=3):
-    prefixes =[''] + list('kMGTPE')
-    temp = num
+def si_val(num, prec=3):
+    prefixes = [''] + list('kMGTPE')
+    if (num > 0 ):
+        temp = num
+        neg = 1
+    else:
+        temp = abs(num)
+        neg = -1
+
     index = 0
     while temp > 1000:
         temp = temp / 1000
         index += 1
 
-    return ('{0:.{1}f}'.format(temp, prec) + prefixes[index])
+    if index == 0:
+        prec = 0
+
+    return ('{0:.{1}f}'.format(temp*neg, prec) + prefixes[index])

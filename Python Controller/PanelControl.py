@@ -26,20 +26,20 @@ def panel_control(data_array, mQ):
 
             # STATE = PANEL CONN - Connect to the panel
             if n_program_state == 1:
-                mQ.put((0, "Connecting to the panel...."))
+                mQ.put((0, 'Connecting to the panel....'))
                 try:
                     ser = serial.Serial('COM3', 115200, timeout=0.1)
                     mQ.put((0, 'Connected to the panel'))
                     time.sleep(1)  # serial needs a little bit of time to initialise, otherwise later code - esp CNIA fails
                     n_program_state = 2
                 except serial.serialutil.SerialException:
-                    mQ.put((1, "Could not connect to the panel"))
+                    mQ.put((1, 'Could not connect to the panel'))
                     time.sleep(5)  # to avoid spamming the message queue
                     pass
 
             # STATE = GAME CONN - Connect to the KRPC Server
             if n_program_state == 2:
-                mQ.put((0, "Connecting to the game server...."))
+                mQ.put((0, 'Connecting to the game server....'))
                 try:
                     conn = krpc.connect(name='Game Controller')
                     mQ.put((0, 'Connected to the game server'))
@@ -50,23 +50,23 @@ def panel_control(data_array, mQ):
 
             # STATE = LINKING - Link to the active Vessel
             if n_program_state == 3 and conn.krpc.current_game_scene == conn.krpc.current_game_scene.flight:
-                mQ.put((0, "Connecting to the vessel...."))
+                mQ.put((0, 'Connecting to the vessel....'))
                 try:
                     vessel = conn.space_center.active_vessel
                     mQ.put((0, 'Linked to ' + vessel.name))
                     n_program_state = 4
                 except krpc.client.RPCError:
-                    mQ.put((1, "Could not connect to a vessel"))
+                    mQ.put((1, 'Could not connect to a vessel'))
                     pass
 
             # STATE = Perform CNIA
             if n_program_state == 4:
-                mQ.put((0, "Starting CNIA..."))
+                mQ.put((0, 'Starting CNIA...'))
                 cnia(ser, conn, vessel)
-                mQ.put((0, "CNIA Complete"))
+                mQ.put((0, 'CNIA Complete'))
                 n_program_state = 5
 
-            # STATE = Streams and objects- setup data input streams and resused objects
+            # STATE = Streams and objects- setup data input streams and reused objects
             if n_program_state == 5:
                 # Camera object
                 cam = conn.space_center.camera
@@ -110,13 +110,13 @@ def panel_control(data_array, mQ):
                 map_view_list = [(vessel.name, vessel)]
                 map_view_list.extend(sorted_bodies)
 
-                mQ.put((0, "Stream setup complete"))
+                mQ.put((0, 'Stream setup complete'))
                 n_program_state = 6
 
             # STATE = RUNNING
             if n_program_state == 6:
                 try:  # catch RPC errors as they generally result from a scene change. Make more specific KRPC issue 256
-                    # Check for vessel change   todo check this stil works!!
+                    # Check for vessel change   todo check this still works!!
 
                     # Send data to the arduino request it to process inputs  - command byte = 0x00
                     BA_output_buffer = bytearray([0x00, 0x00, 0x00])
@@ -130,7 +130,7 @@ def panel_control(data_array, mQ):
                     while ser.in_waiting != 25:
                         pass
 
-                    # readback the data from the arduino
+                    # read back the data from the arduino
                     BA_input_buffer_prev = BA_input_buffer
                     BA_input_buffer = ser.read(25)
 
@@ -191,10 +191,10 @@ def panel_control(data_array, mQ):
                         # Save/Load
                         if is_set(BA_input_buffer[1], 0) and not is_set(BA_input_buffer_prev[1], 0):
                             conn.space_center.quicksave()
-                            conn.ui.message("Quicksaving...", duration=5)
+                            conn.ui.message('Quicksaving...', duration=5)
                         if is_set(BA_input_buffer[1], 1) and not is_set(BA_input_buffer_prev[1], 1):
                             t_quickload_timer = time.time() + 5
-                            conn.ui.message("Hold for 5 seconds to Quickload...", duration=5)
+                            conn.ui.message('Hold for 5 seconds to Quickload...', duration=5)
 
                         if not is_set(BA_input_buffer[1], 1):
                             t_quickload_timer = 0
@@ -266,15 +266,13 @@ def panel_control(data_array, mQ):
                             ser.close()
                             n_program_state = 1
 
-                        i = 0
-                        for x in BA_input_buffer:
+                        for i in range(len(BA_input_buffer)):
                             data_array[i] = BA_input_buffer[i]
-                            i += 1
 
                 except krpc.client.RPCError:
                     n_program_state = 3
-                    mQ.put((1, "Main Loop Error"))
+                    mQ.put((1, 'Main Loop Error'))
 
             # Check for Overuns and send a warning.
             if (time.time() - t_frame_start_time) > Settings.c_loop_frame_rate * 1.1:
-                mQ.put((1, "OVERUN - " + str(int((time.time() - t_frame_start_time) * 1000)) + "ms"))
+                mQ.put((1, 'OVERUN - ' + str(int((time.time() - t_frame_start_time) * 1000)) + 'ms'))

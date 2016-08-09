@@ -11,14 +11,14 @@ msgQ = Queue(0)
 data_array = Array(ctypes.c_ubyte, 50)
 
 if __name__ == '__main__':
-    # Start the panel controller modul
+    # Start the panel controller module
     p = Process(target=panel_control, args=(data_array, msgQ))
     p.start()
 
     # Create the root window
     root = Tk()
-    root.title("KSP Controller")
-    root.geometry("1024x768+700-1000")
+    root.title('KSP Controller')
+    root.geometry('1024x768+700-1000')
 
     # Instatiate the GUI
     app = Application(root)
@@ -28,10 +28,7 @@ if __name__ == '__main__':
 
     # Loop the window, calling an update then refreshing the window
     while 1:
-        app.update(root, data_array, msgQ)
+        app.update(data_array, msgQ)
         root.update()
         root.update_idletasks()
         sleep(0.1)
-
-
-
