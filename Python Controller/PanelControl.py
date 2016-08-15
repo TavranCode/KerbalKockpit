@@ -152,9 +152,6 @@ def panel_control(data_array, mQ):
                         if is_set(BA_input_buffer[11], 7) and not is_set(BA_input_buffer_prev[11], 7):  # todo - Remove this when mux 0 pin A3 is resolved
                             vessel.control.toggle_action_group(3)
 
-                        # SAS
-                        SAS_inputs(BA_input_buffer, BA_input_buffer_prev, vessel, mQ)
-
                         # Staging
                         if is_set(BA_input_buffer[7], 7) and not is_set(BA_input_buffer_prev[7], 7) and is_set(BA_input_buffer[9], 7):
                             vessel.control.activate_next_stage()
@@ -186,7 +183,11 @@ def panel_control(data_array, mQ):
                             ldg_guidance_clear(conn)
 
                         # Flight Control and Trims
-                        flight_control_inputs(BA_input_buffer, vessel, x_trim)
+                        sas_overide = flight_control_inputs(BA_input_buffer, vessel, x_trim)
+                        print(sas_overide)
+
+                        # SAS
+                        SAS_inputs(BA_input_buffer, BA_input_buffer_prev, vessel, mQ, sas_overide)
 
                         # Save/Load
                         if is_set(BA_input_buffer[1], 0) and not is_set(BA_input_buffer_prev[1], 0):

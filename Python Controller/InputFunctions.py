@@ -4,8 +4,10 @@ from Utilities import is_set, map_flt_ctl
 import Settings
 
 
-def SAS_inputs(input_buffer, input_buffer_prev, vessel, mQ):
-    if is_set(input_buffer[9], 2) != is_set(input_buffer_prev[9], 2):
+def SAS_inputs(input_buffer, input_buffer_prev, vessel, mQ, sas_overide):
+    if sas_overide:
+        vessel.control.sas = False
+    elif is_set(input_buffer[9], 2) != is_set(input_buffer_prev[9], 2) or not sas_overide:
         vessel.control.sas = is_set(input_buffer[9], 2)
 
     # need to handle exceptions here, not all modes are available at all times.
@@ -100,57 +102,66 @@ def flight_control_inputs(input_buffer, vessel, trim):
         x_fctl_fine = 1
 
     if is_set(input_buffer[7], 2):  # EVA FC Mode - todo fix EVA controls!!!
-        vessel.control.pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        vessel.control.yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        vessel.control.roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        vessel.control.up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.wheel_steering = 0
-        vessel.control.wheel_throttle = 0
+        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
+        right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
+        forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
+        wheel_steering = 0
+        wheel_throttle = 0
 
     elif is_set(input_buffer[7], 3):  # ROVER FC Mode
-        vessel.control.pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        vessel.control.yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        vessel.control.roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        vessel.control.up = 0
-        vessel.control.right = 0
-        vessel.control.forward = 0
-        vessel.control.wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.wheel_throttle = -map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
+        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = 0
+        right = 0
+        forward = 0
+        wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
+        wheel_throttle = -map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
 
     elif is_set(input_buffer[7], 4):  # ATMOS FC Mode
-        vessel.control.pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        vessel.control.yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        vessel.control.roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        vessel.control.up = 0
-        vessel.control.right = 0
-        vessel.control.forward = 0
+        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = 0
+        right = 0
+        forward = 0
         if is_set(input_buffer[11], 3):  # NWS ON
-            vessel.control.wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
+            wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
         else:
-            vessel.control.wheel_steering = 0
-        vessel.control.wheel_throttle = 0
+            wheel_steering = 0
+        wheel_throttle = 0
 
     elif is_set(input_buffer[7], 5):  # ORBIT FC Mode
-        vessel.control.pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        vessel.control.yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        vessel.control.roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        vessel.control.up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
-        vessel.control.wheel_steering = 0
-        vessel.control.wheel_throttle = 0
+        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
+        right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
+        forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
+        wheel_steering = 0
+        wheel_throttle = 0
 
     else:  # FC Mode is OFF
-        vessel.control.pitch = 0
-        vessel.control.yaw = 0
-        vessel.control.roll = 0
-        vessel.control.up = 0
-        vessel.control.right = 0
-        vessel.control.forward = 0
-        vessel.control.wheel_steering = 0
-        vessel.control.wheel_throttle = 0
+        pitch = 0
+        yaw = 0
+        roll = 0
+        up = 0
+        right = 0
+        forward = 0
+        wheel_steering = 0
+        wheel_throttle = 0
+
+    vessel.control.pitch = pitch
+    vessel.control.yaw = yaw
+    vessel.control.roll = roll
+    vessel.control.up = up
+    vessel.control.right = right
+    vessel.control.forward = forward
+    vessel.control.wheel_steering = wheel_steering
+    vessel.control.wheel_throttle = wheel_throttle
 
     # Throttle
     throttle_mode = 0
@@ -170,6 +181,9 @@ def flight_control_inputs(input_buffer, vessel, trim):
     else:
         vessel.control.wheel_throttle = 0
         vessel.control.throttle = input_buffer[22] / 255 * throttle_mode
+
+    # return if controls in use so SAS can be overidden
+    return (abs(pitch + abs(roll) + abs(yaw))) != 0
 
 
 def camera_inputs(cam, input_buffer, mQ):
