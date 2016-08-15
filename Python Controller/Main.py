@@ -28,4 +28,4 @@ if __name__ == '__main__':
             app.update(data_array, msgQ)
         root.update()
         root.update_idletasks()
-        sleep(0.1)
+        sleep(0.25)

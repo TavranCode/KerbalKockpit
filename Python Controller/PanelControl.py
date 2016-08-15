@@ -184,7 +184,6 @@ def panel_control(data_array, mQ):
 
                         # Flight Control and Trims
                         sas_overide = flight_control_inputs(BA_input_buffer, vessel, x_trim)
-                        print(sas_overide)
 
                         # SAS
                         SAS_inputs(BA_input_buffer, BA_input_buffer_prev, vessel, mQ, sas_overide)

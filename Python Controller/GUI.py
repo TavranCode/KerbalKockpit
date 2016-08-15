@@ -2,8 +2,9 @@ from tkinter import *
 from tkinter import ttk
 import krpc
 from multiprocessing import Process
+from math import degrees
 
-from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar
+from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar, norm
 from Settings import *
 from PanelControl import panel_control
 
@@ -65,8 +66,40 @@ class Application:
                                                          'LAN:'), 420, 320)
         self.T2L_OI.grid(row=0, column=0)
 
-        self.T2L_VI = SubframeLabel(tab2, 'Orbit Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 420, 160)
+        self.T2L_VI = SubframeLabel(tab2, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 420, 160)
         self.T2L_VI.grid(row=1, column=0)
+
+        # Tab 3 - Landing
+        self.T3L_OI = SubframeLabel(tab3, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
+                                                         'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
+                                                         'LAN:'), 440, 320)
+        self.T3L_OI.grid(row=0, column=0)
+
+        self.T3L_SI = SubframeLabel(tab3, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
+                                                           'Speed:', 'Vertical Speed:', 'Horizontal Speed:'), 440, 280)
+        self.T3L_SI.grid(row=1, column=0)
+
+        self.T3L_VI = SubframeLabel(tab3, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 440, 160)
+        self.T3L_VI.grid(row=0, column=1)
+
+        # Tab 4 - Rondezvous
+        self.T4L_OI = SubframeLabel(tab4, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
+                                                         'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
+                                                         'LAN:'), 440, 320)
+        self.T4L_OI.grid(row=0, column=0)
+
+        self.T4L_SI = SubframeLabel(tab4, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
+                                                           'Speed:', 'Vertical Speed:', 'Horizontal Speed:'), 440, 280)
+        self.T4L_SI.grid(row=1, column=0)
+
+        self.T4L_TI = SubframeLabel(tab4, 'Target Info', ('Target:', 'Closest Approach:', 'Intercept Time:', 'Intercept Speed:',
+                                                          'Dist to Target:', 'Target Velocity',
+                                                          'Rel. Distance x:', 'Rel. Distance y:', 'Rel. Distance z:',
+                                                          'Rel. Velocity x:', 'Rel. Velocity y:', 'Rel. Velocity z:'), 440, 440)
+        self.T4L_TI.grid(row=0, column=1)
+
+        self.T4L_VI = SubframeLabel(tab4, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 440, 160)
+        self.T4L_VI.grid(row=1, column=1)
 
         # Tab 8 - Systems
         self.T8L_VD = SubframeVar(tab8, 'Resource Data', 10, 420, 400)
@@ -229,18 +262,15 @@ class Application:
                 self.notebook.select(8)
 
         # Tab 1 - Launch
-        # Tab 2 --> Left Frame
-        # Tab 2 --> Left Frame --> Orbital Info SubframeLabel
-
         T1L_OI_data = [si_val(self.orbital_speed()) + 'm/s',
                        si_val(self.apoapsis()) + 'm',
                        si_val(self.periapsis()) + 'm',
                        sec2time(self.orbital_period()),
                        sec2time(self.time_to_apoapsis()),
                        sec2time(self.time_to_periapsis()),
-                       '{0:.2f} deg'.format(self.inclination()),
+                       '{0:.2f} deg'.format(degrees(self.inclination())),
                        '{0:.4f}'.format(self.eccentricity()),
-                       '{0:.2f} deg'.format(self.long_asc_node())]
+                       '{0:.2f} deg'.format(degrees(self.long_asc_node()))]
         self.T1L_OI.update(T1L_OI_data)
 
         T1L_SI_data = [si_val(self.agl_altitude(), 3) + 'm',
@@ -252,7 +282,6 @@ class Application:
                        si_val(self.h_speed(), 2) + 'm/s']
         self.T1L_SI.update(T1L_SI_data)
 
-        # Tab 1 --> Left Frame --> Vessel Info SubframeLabel
         try:
             twr = self.max_thrust() / (self.mass() * self.surface_gravity())
         except ZeroDivisionError:
@@ -264,13 +293,52 @@ class Application:
                        '{0:.2f}'.format(twr)]
         self.T1L_VI.update(T1L_VI_data)
 
-        # Tab 2 - Orbital
-        # Tab 2 --> Left Frame
-        # Tab 2 --> Left Frame --> Orbital Info SubframeLabel  -- Reuse from tab 1
-        self.T2L_OI.update(T1L_OI_data)
+        # Tab 3 - Landing
+        self.T3L_OI.update(T1L_OI_data)
 
-        # Tab 2 --> Left Frame --> Vessel Info SubframeLabel -- Reuse from tab 1
-        self.T2L_VI.update(T1L_VI_data)
+        self.T3L_VI.update(T1L_VI_data)
+
+        self.T3L_SI.update(T1L_SI_data)
+        
+        # Tab 4 - Rondezvous
+        self.T4L_OI.update(T1L_OI_data)
+
+        self.T4L_VI.update(T1L_VI_data)
+
+        self.T4L_SI.update(T1L_SI_data)
+
+        target_vessel = self.conn.space_center.target_vessel
+
+        if target_vessel is None:
+            T4L_TI_data = ["No Target",
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '',
+                           '']
+        else:
+            target_pos = target_vessel.position(self.vessel.reference_frame)
+            target_vel = target_vessel.velocity(self.vessel.reference_frame)
+            T4L_TI_data = [target_vessel.name,
+                           '',
+                           '',
+                           '',
+                           si_val(norm(target_pos),1)+'m',
+                           si_val(norm(target_vel),1)+'m/s',
+                           '{0:.2f}m'.format(target_pos[0]),
+                           '{0:.2f}m'.format(target_pos[1]),
+                           '{0:.2f}m'.format(target_pos[2]),
+                           '{0:.2f}m/s'.format(target_vel[0]),
+                           '{0:.2f}m/s'.format(target_vel[1]),
+                           '{0:.2f}m/s'.format(target_vel[2])]
+
+        self.T4L_TI.update(T4L_TI_data)
 
         # Tab 8 = Systems
         # Tab 8 --> Left Frame
