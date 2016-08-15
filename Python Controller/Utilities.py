@@ -1,4 +1,6 @@
 from math import sqrt
+from tkinter import *
+from tkinter import ttk
 
 
 # UTILITY Functions
@@ -33,7 +35,7 @@ def norm(v):
 
 def si_val(num, prec=3):
     prefixes = [''] + list('kMGTPE')
-    if (num > 0 ):
+    if num >= 0:
         temp = num
         neg = 1
     else:
@@ -42,10 +44,79 @@ def si_val(num, prec=3):
 
     index = 0
     while temp > 1000:
-        temp = temp / 1000
+        temp /= 1000
         index += 1
 
     if index == 0:
         prec = 0
 
-    return ('{0:.{1}f}'.format(temp*neg, prec) + prefixes[index])
+    return '{0:.{1}f}'.format(temp * neg, prec) + prefixes[index]
+
+
+# returns a string of readable time converted from seconds
+
+
+def sec2time(sec):
+    # Convert seconds to 'D days, HH:MM:SS'
+    m, s = divmod(sec, 60)
+    h, m = divmod(m, 60)
+    d, h = divmod(h, 24)
+
+    pattern = r'%02d:%02d:%02d'
+    if d == 0:
+        return pattern % (h, m, s)
+
+    return ('%d days, ' + pattern) % (d, h, m, s)
+
+
+# This is a frame with fixed text on the left and variable text on the right
+
+
+class SubframeLabel:
+    def __init__(self, root, title, labels, width, height):
+        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
+
+        for i in range(len(labels)):
+            ttk.Label(self.frame_name, text=labels[i], style='Display.TLabel').grid(column=0, row=i, sticky=E)
+
+        self.data_labels = []
+        for i in range(len(labels)):
+            self.data_labels.append(StringVar())
+            ttk.Label(self.frame_name, textvariable=self.data_labels[i], style='Display.TLabel').grid(column=1, row=i, sticky=W)
+
+    def grid(self, row=0, column=0, columnspan=1, rowspan=1):
+        self.frame_name.grid(row=row, column=column, columnspan=columnspan, rowspan=rowspan, padx=10, pady=10, sticky=N)
+        self.frame_name.grid_propagate(False)
+
+    def update(self, value_strings):
+        for i in range(len(value_strings)):
+            self.data_labels[i].set(value_strings[i])
+
+
+# This is a frame with variable text on both sides, with a known number of maximum lines
+
+
+class SubframeVar:
+    def __init__(self, root, title, num_lines, width, height):
+        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
+
+        self.data_labels_l = []
+        for i in range(num_lines):
+            self.data_labels_l.append(StringVar())
+            ttk.Label(self.frame_name, textvariable=self.data_labels_l[i], style='Display.TLabel').grid(column=0, row=i, sticky=E)
+
+        self.data_labels_r = []
+        for i in range(num_lines):
+            self.data_labels_r.append(StringVar())
+            ttk.Label(self.frame_name, textvariable=self.data_labels_r[i], style='Display.TLabel').grid(column=1, row=i, sticky=W)
+
+    def grid(self, row=0, column=0, columnspan=1, rowspan=1):
+        self.frame_name.grid(row=row, column=column, columnspan=columnspan, rowspan=rowspan, padx=10, pady=10, sticky=N)
+        self.frame_name.grid_propagate(False)
+
+    def update(self, l_value_strings, r_value_strings):
+        for i in range(len(l_value_strings)):
+            self.data_labels_l[i].set(l_value_strings[i])
+
+        for i in range(len(r_value_strings)):
+            self.data_labels_r[i].set(r_value_strings[i])

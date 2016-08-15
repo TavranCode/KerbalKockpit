@@ -1,48 +1,40 @@
 from tkinter import *
 from tkinter import ttk
 import krpc
+from multiprocessing import Process
 
-from Utilities import is_set, si_val
-from Settings import msg_prefix
-
-
-class Subframe:
-    def __init__(self, root, title, labels, width, height):
-        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
-
-        for i in range(len(labels)):
-            ttk.Label(self.frame_name, text=labels[i]).grid(column=0, row=i, sticky=E)
-
-        self.data_labels = []
-        for i in range(len(labels)):
-            self.data_labels.append(StringVar())
-            ttk.Label(self.frame_name, textvariable=self.data_labels[i]).grid(column=1, row=i)
-
-    def grid(self, row=0, column=0, columnspan=1):
-        self.frame_name.grid(row=row, column=column, columnspan=columnspan)
-        self.frame_name.grid_propagate(False)
-
-    def update(self, value_strings):
-        for i in range(len(value_strings)):
-            self.data_labels[i].set(value_strings[i])
+from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar
+from Settings import *
+from PanelControl import panel_control
 
 
 class Application:
-    def __init__(self, root):
+    def __init__(self, root, data_array, msgQ):
 
-        mainframe = ttk.Frame(root)
+        # Define Styles
+        self.styles = ttk.Style()
+        self.styles.configure('Display.TLabel', font=('helvetica', '18'), padding=(10, 0), background='black', foreground='blue')
+        self.styles.configure('Msg.TLabel', font=('helvetica', '10'), padding=(10, 0), background='black', foreground='blue')
+        self.styles.configure('Ind.TLabel', font=('helvetica', '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
+        self.styles.configure('TNotebook.Tab', font=('helvetica', '14', 'bold'), padding=(10, 0))
+        self.styles.configure('TLabelframe.Label', font=('helvetica', '24', 'bold'), background='black')
+        self.styles.configure('TLabelframe', background='black')
+        self.styles.configure('TFrame', relief='ridge', background='black')
+        self.styles.configure('TButton', font=('helvetica', '16', 'bold'))
+        self.styles.configure('Ind.TLabel', font=('helvetica', '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
 
-        self.notebook = ttk.Notebook(mainframe, width=1014, height=600)
+        # Create the notebook and define its tabs
+        self.notebook = ttk.Notebook(root, width=c_screen_size_x - 2, height=c_notebook_size_y)
 
-        tab1 = ttk.Frame(self.notebook)
-        tab2 = ttk.Frame(self.notebook)
-        tab3 = ttk.Frame(self.notebook)
-        tab4 = ttk.Frame(self.notebook)
-        tab5 = ttk.Frame(self.notebook)
-        tab6 = ttk.Frame(self.notebook)
-        tab7 = ttk.Frame(self.notebook)
-        tab8 = ttk.Frame(self.notebook)
-        tab9 = ttk.Frame(self.notebook)
+        tab1 = ttk.Frame(self.notebook, borderwidth=10)
+        tab2 = ttk.Frame(self.notebook, borderwidth=10)
+        tab3 = ttk.Frame(self.notebook, borderwidth=10)
+        tab4 = ttk.Frame(self.notebook, borderwidth=10)
+        tab5 = ttk.Frame(self.notebook, borderwidth=10)
+        tab6 = ttk.Frame(self.notebook, borderwidth=10)
+        tab7 = ttk.Frame(self.notebook, borderwidth=10)
+        tab8 = ttk.Frame(self.notebook, borderwidth=10)
+        tab9 = ttk.Frame(self.notebook, borderwidth=10)
 
         self.notebook.add(tab1, text='Launch')
         self.notebook.add(tab2, text='Orbital')
@@ -54,127 +46,243 @@ class Application:
         self.notebook.add(tab8, text='Systems')
         self.notebook.add(tab9, text='Maintenance')
 
-        # Tab 2 - Orbital
-        # Tab 9 --> Left Frame - Orbital Data
-        self.T2L = ttk.LabelFrame(tab2, text='Orbital Data', width=450, height=550)
+        # Tab 1 - Orbital
+        self.T1L_OI = SubframeLabel(tab1, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
+                                                         'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
+                                                         'LAN:'), 440, 320)
+        self.T1L_OI.grid(row=0, column=0)
 
-        # Tab 2 --> Left Frame --> Sub Frames
-        self.T2L_OI = Subframe(self.T2L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
-                                                        'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
-                                                        'Longitude of Ascending Node:'), 420, 300)
+        self.T1L_SI = SubframeLabel(tab1, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
+                                                           'Speed:', 'Vertical Speed:', 'Horizontal Speed:'), 440, 280)
+        self.T1L_SI.grid(row=1, column=0)
+
+        self.T1L_VI = SubframeLabel(tab1, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 440, 160)
+        self.T1L_VI.grid(row=0, column=1)
+
+        # Tab 2 - Orbital
+        self.T2L_OI = SubframeLabel(tab2, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
+                                                         'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
+                                                         'LAN:'), 420, 320)
         self.T2L_OI.grid(row=0, column=0)
 
-        self.T2L_VI = Subframe(self.T2L, 'Orbit Info', ('Vessel Mass:', 'Current TWR:'), 420, 150)
+        self.T2L_VI = SubframeLabel(tab2, 'Orbit Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'), 420, 160)
         self.T2L_VI.grid(row=1, column=0)
 
-        self.T2L.grid()
+        # Tab 8 - Systems
+        self.T8L_VD = SubframeVar(tab8, 'Resource Data', 10, 420, 400)
+        self.T8L_VD.grid(row=0, column=0)
 
         # Tab 9 - Maintenance
         # Tab 9 --> Left Frame - Arduino Data
-        self.T9L = ttk.LabelFrame(tab9, text='Arduino Data', width=450, height=550)
+        self.T9L = ttk.LabelFrame(tab9, text='Arduino Data', width=700, height=600)
 
         # Tab 9 --> Left Frame --> Sub Frames
-        self.T9L_SD = Subframe(self.T9L, 'Status Data', ('Status Byte:', 'Frame Time:', 'Temperature:', 'Fan Speed:', 'Dimmer Setting:'), 420, 200)
-        self.T9L_SD.grid(row=0, column=0, columnspan=2)
+        self.T9L_SD = SubframeLabel(self.T9L, 'Status Data', ('Status Byte:', 'Frame Time:', 'Temperature:', 'Fan Speed:', 'Dimmer:'), 320, 200)
+        self.T9L_SD.grid(row=0, column=0)
 
-        self.T9L_DI = Subframe(self.T9L, 'Digital Inputs', ('Pins 8-10:', 'Pins 22-29:', 'Pins 30-37:', 'Pins 38-45:', 'Pins 46-53:', 'MUX 0 Bank A:',
-                                                            'MUX 0 Bank B:', 'MUX 1 Bank A:', 'MUX 1 Bank B:', 'MUX 2 Bank B:', 'MUX 3 Bank B:',
-                                                            'MUX 4 Bank B:'), 200, 300)
-        self.T9L_DI.grid(row=1, column=0, )
+        self.T9L_DI = SubframeLabel(self.T9L, 'Digital Inputs', ('Pins 8-10:', 'Pins 22-29:', 'Pins 30-37:', 'Pins 38-45:', 'Pins 46-53:', 'MUX 0 Bank A:',
+                                                                 'MUX 0 Bank B:', 'MUX 1 Bank A:', 'MUX 1 Bank B:', 'MUX 2 Bank B:', 'MUX 3 Bank B:',
+                                                                 'MUX 4 Bank B:'), 320, 520)
+        self.T9L_DI.grid(row=0, column=1, rowspan=2)
 
-        self.T9L_AI = Subframe(self.T9L, 'Analogue Inputs', ('Rotation X:', 'Rotation Y:', 'Rotation Z:', 'Translation X:', 'Translation Y:',
-                                                             'Translation Z:', 'Throttle:'), 200, 300)
-        self.T9L_AI.grid(row=1, column=1)
+        self.T9L_AI = SubframeLabel(self.T9L, 'Analogue Inputs', ('Rotation X:', 'Rotation Y:', 'Rotation Z:', 'Translation X:', 'Translation Y:',
+                                                                  'Translation Z:', 'Throttle:'), 320, 300)
+        self.T9L_AI.grid(row=1, column=0)
 
         self.T9L.grid()
 
         # Grid in the notebook once all content is done
-        self.notebook.grid(column=0, row=0, padx=5, pady=5)
+        self.notebook.grid(column=0, row=0)
 
         # Build the lower area for the messages and buttons
-        lowerframe = ttk.Frame(mainframe, width=1014, height=100)
+        lowerframe = ttk.Frame(root, width=c_screen_size_x - 2, height=135)
 
         # Build the Message box with four data lines
-        self.msgframe = ttk.LabelFrame(lowerframe, text='Status Messages', width=950, height=100)
+        self.msgframe = ttk.LabelFrame(lowerframe, text='Status Messages', width=850, height=120)
 
         self.msgL1 = StringVar()
         self.msgL2 = StringVar()
         self.msgL3 = StringVar()
         self.msgL4 = StringVar()
 
-        self.msg1 = ttk.Label(self.msgframe, textvariable=self.msgL1).grid(row=0, sticky=(E, W))
-        self.msg2 = ttk.Label(self.msgframe, textvariable=self.msgL2).grid(row=1, sticky=(E, W))
-        self.msg3 = ttk.Label(self.msgframe, textvariable=self.msgL3).grid(row=2, sticky=(E, W))
-        self.msg4 = ttk.Label(self.msgframe, textvariable=self.msgL4).grid(row=3, sticky=(E, W))
+        self.msg1 = ttk.Label(self.msgframe, style='Msg.TLabel', textvariable=self.msgL1).grid(row=0, sticky=(E, W))
+        self.msg2 = ttk.Label(self.msgframe, style='Msg.TLabel', textvariable=self.msgL2).grid(row=1, sticky=(E, W))
+        self.msg3 = ttk.Label(self.msgframe, style='Msg.TLabel', textvariable=self.msgL3).grid(row=2, sticky=(E, W))
+        self.msg4 = ttk.Label(self.msgframe, style='Msg.TLabel', textvariable=self.msgL4).grid(row=3, sticky=(E, W))
 
-        self.msgframe.grid(sticky=E, padx=5, pady=5)
+        self.msgframe.grid(sticky=E, padx=5, pady=5, rowspan=2)
         self.msgframe.grid_propagate(False)
 
         # Buttons
-        Button(lowerframe, text='Exit', command=root.destroy).grid(column=1, row=0)
+        self.panel_status = StringVar()
+        self.panel_status.set("Disconnected")
+
+        ttk.Button(lowerframe, text='Connect Panel', command=lambda: self.connect_panel(data_array, msgQ), width=15).grid(column=1, row=0, sticky=SE, padx=5, pady=5)
+        ttk.Button(lowerframe, text='Disconnect Panel', command=self.disconnect_panel, width=15).grid(column=1, row=1, sticky=NE, padx=5, pady=5)
+        self.panel_status_button = ttk.Label(lowerframe, textvariable=self.panel_status, width=13, style='Ind.TLabel', relief='raised').grid(column=2, row=0, sticky=(S, E, W), padx=5, pady=8)
+        ttk.Button(lowerframe, text='Exit', command=root.destroy, width=15).grid(column=2, row=1, sticky=NE, padx=5, pady=5)
 
         # Once the lower area is complete, grid it in
-        lowerframe.grid(row=1, sticky=(E, W))
+        lowerframe.grid(row=1, sticky=(E, W), padx=5)
+        lowerframe.grid_propagate(False)
 
-        # Finally grid the main frame into the root window
-        mainframe.grid(column=0, row=0)
+        # Initialise connection attributes
+        self.panel_proc = None
+        self.conn = None
+        self.vessel = None
+        self.speed = None
+        self.h_speed = None
+        self.v_speed = None
+        self.pitch = None
+        self.roll = None
+        self.heading = None
+        self.agl_altitude = None
+        self.orbital_speed = None
+        self.apoapsis = None
+        self.periapsis = None
+        self.orbital_period = None
+        self.time_to_apoapsis = None
+        self.time_to_periapsis = None
+        self.inclination = None
+        self.eccentricity = None
+        self.long_asc_node = None
+        self.mass = None
+        self.thrust = None
+        self.max_thrust = None
+        self.surface_gravity = None
+        self.res_names = None
+        self.res_streams = None
 
-    def connect(self):
-        conn = krpc.connect(name='Game Controller GUI')
-        vessel = conn.space_center.active_vessel
-        spd = conn.add_stream(getattr, vessel.flight(vessel.orbit.body.reference_frame), 'speed')
-        ut = conn.add_stream(getattr, conn.space_center, 'ut')
-        altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
+        # initialise attributes that require a state
+        self.panel_connected = False
+        self.game_connected = False
+        self.vessel_connected = False
 
-        self.orbital_speed = conn.add_stream(getattr, vessel.orbit, 'speed')
-        self.apoapsis = conn.add_stream(getattr, vessel.orbit, 'apoapsis_altitude')
-        self.periapsis = conn.add_stream(getattr, vessel.orbit, 'periapsis_altitude')
-        self.orbital_period = conn.add_stream(getattr, vessel.orbit, 'period')
-        self.time_to_apoapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_apoapsis')
-        self.time_to_periapsis = conn.add_stream(getattr, vessel.orbit, 'time_to_periapsis')
-        self.inclination = conn.add_stream(getattr, vessel.orbit, 'inclination')
-        self.eccentricity = conn.add_stream(getattr, vessel.orbit, 'eccentricity')
-        self.long_asc_node = conn.add_stream(getattr, vessel.orbit, 'longitude_of_ascending_node')
+    def connect(self, mQ):
+        mQ.put((0, 'GUI Connecting to the game server....'))
+        if self.game_connected is False:
+            try:
+                self.conn = krpc.connect(name='Game Controller GUI')
+                mQ.put((0, 'GUI Connected to the game server'))
+                self.game_connected = True
+            except ConnectionRefusedError:
+                mQ.put((1, 'GUI Could not connect to the game server'))
+
+        if self.game_connected and self.vessel_connected is False and self.conn.krpc.current_game_scene == self.conn.krpc.current_game_scene.flight:
+            mQ.put((0, 'GUI Connecting to the vessel....'))
+            try:
+                self.vessel = self.conn.space_center.active_vessel
+                mQ.put((0, 'GUI Linked to ' + self.vessel.name))
+                self.vessel_connected = True
+            except krpc.client.RPCError:
+                mQ.put((1, 'GUI Could not connect to a vessel'))
+                pass
+
+        self.speed = self.conn.add_stream(getattr, self.vessel.flight(self.vessel.orbit.body.reference_frame), 'speed')
+        self.h_speed = self.conn.add_stream(getattr, self.vessel.flight(self.vessel.orbit.body.reference_frame), 'horizontal_speed')
+        self.v_speed = self.conn.add_stream(getattr, self.vessel.flight(self.vessel.orbit.body.reference_frame), 'vertical_speed')
+        self.pitch = self.conn.add_stream(getattr, self.vessel.flight(), 'pitch')
+        self.roll = self.conn.add_stream(getattr, self.vessel.flight(), 'roll')
+        self.heading = self.conn.add_stream(getattr, self.vessel.flight(), 'heading')
+        self.agl_altitude = self.conn.add_stream(getattr, self.vessel.flight(), 'surface_altitude')
+
+        self.orbital_speed = self.conn.add_stream(getattr, self.vessel.orbit, 'speed')
+        self.apoapsis = self.conn.add_stream(getattr, self.vessel.orbit, 'apoapsis_altitude')
+        self.periapsis = self.conn.add_stream(getattr, self.vessel.orbit, 'periapsis_altitude')
+        self.orbital_period = self.conn.add_stream(getattr, self.vessel.orbit, 'period')
+        self.time_to_apoapsis = self.conn.add_stream(getattr, self.vessel.orbit, 'time_to_apoapsis')
+        self.time_to_periapsis = self.conn.add_stream(getattr, self.vessel.orbit, 'time_to_periapsis')
+        self.inclination = self.conn.add_stream(getattr, self.vessel.orbit, 'inclination')
+        self.eccentricity = self.conn.add_stream(getattr, self.vessel.orbit, 'eccentricity')
+        self.long_asc_node = self.conn.add_stream(getattr, self.vessel.orbit, 'longitude_of_ascending_node')
+
+        self.mass = self.conn.add_stream(getattr, self.vessel, 'mass')
+        self.thrust = self.conn.add_stream(getattr, self.vessel, 'thrust')
+        self.max_thrust = self.conn.add_stream(getattr, self.vessel, 'max_thrust')
+        self.surface_gravity = self.conn.add_stream(getattr, self.vessel.orbit.body, 'surface_gravity')
+
+        self.res_names = list(set([res.name for res in self.vessel.resources.all]))
+        self.res_streams = []
+        for res in self.res_names:
+            self.res_streams.append(self.conn.add_stream(self.vessel.resources.amount, res))
 
     def update(self, data_array, msgQ):
         # Manage notebook tab switching
-        if is_set(data_array[4], 6):
-            self.notebook.select(7)
-        elif is_set(data_array[5], 0):
-            self.notebook.select(6)
-        elif is_set(data_array[5], 2):
-            self.notebook.select(5)
-        elif is_set(data_array[5], 4):
-            self.notebook.select(4)
-        elif is_set(data_array[5], 6):
-            self.notebook.select(3)
-        elif is_set(data_array[2], 4):
-            self.notebook.select(2)
-        elif is_set(data_array[2], 6):
-            self.notebook.select(1)
-        elif is_set(data_array[3], 0):
-            self.notebook.select(0)
-        else:
-            self.notebook.select(8)
+        if self.panel_connected:
+            if is_set(data_array[4], 6):
+                self.notebook.select(7)
+            elif is_set(data_array[5], 0):
+                self.notebook.select(6)
+            elif is_set(data_array[5], 2):
+                self.notebook.select(5)
+            elif is_set(data_array[5], 4):
+                self.notebook.select(4)
+            elif is_set(data_array[5], 6):
+                self.notebook.select(3)
+            elif is_set(data_array[2], 4):
+                self.notebook.select(2)
+            elif is_set(data_array[2], 6):
+                self.notebook.select(1)
+            elif is_set(data_array[3], 0):
+                self.notebook.select(0)
+            else:
+                self.notebook.select(8)
 
-        # Tab 2 - Maintanance
+        # Tab 1 - Launch
         # Tab 2 --> Left Frame
-        # Tab 2 --> Left Frame --> Orbital Info Subframe
+        # Tab 2 --> Left Frame --> Orbital Info SubframeLabel
 
-        temp = [si_val(self.orbital_speed()) + 'm/s',
-                si_val(self.apoapsis()) + 'm',
-                si_val(self.periapsis()) + 'm',
-                '{0:.0f}s'.format(self.orbital_period()),
-                '{0:.0f}s'.format(self.time_to_apoapsis()),
-                '{0:.0f}s'.format(self.time_to_periapsis()),
-                '{0:.2f} deg'.format(self.inclination()),
-                '{0:.4f}'.format(self.eccentricity()),
-                '{0:.2f} deg'.format(self.long_asc_node())]
-        self.T2L_OI.update(temp)
+        T1L_OI_data = [si_val(self.orbital_speed()) + 'm/s',
+                       si_val(self.apoapsis()) + 'm',
+                       si_val(self.periapsis()) + 'm',
+                       sec2time(self.orbital_period()),
+                       sec2time(self.time_to_apoapsis()),
+                       sec2time(self.time_to_periapsis()),
+                       '{0:.2f} deg'.format(self.inclination()),
+                       '{0:.4f}'.format(self.eccentricity()),
+                       '{0:.2f} deg'.format(self.long_asc_node())]
+        self.T1L_OI.update(T1L_OI_data)
+
+        T1L_SI_data = [si_val(self.agl_altitude(), 3) + 'm',
+                       '{0:.1f} deg'.format(self.pitch()),
+                       '{0:.0f} deg'.format(self.heading()),
+                       '{0:.1f} deg'.format(self.roll()),
+                       si_val(self.speed(), 2) + 'm/s',
+                       si_val(self.v_speed(), 2) + 'm/s',
+                       si_val(self.h_speed(), 2) + 'm/s']
+        self.T1L_SI.update(T1L_SI_data)
+
+        # Tab 1 --> Left Frame --> Vessel Info SubframeLabel
+        try:
+            twr = self.max_thrust() / (self.mass() * self.surface_gravity())
+        except ZeroDivisionError:
+            twr = 0
+
+        T1L_VI_data = [si_val(self.mass() * 1000) + 'g',
+                       si_val(self.max_thrust(), 0) + 'N',
+                       si_val(self.thrust(), 0) + 'N',
+                       '{0:.2f}'.format(twr)]
+        self.T1L_VI.update(T1L_VI_data)
+
+        # Tab 2 - Orbital
+        # Tab 2 --> Left Frame
+        # Tab 2 --> Left Frame --> Orbital Info SubframeLabel  -- Reuse from tab 1
+        self.T2L_OI.update(T1L_OI_data)
+
+        # Tab 2 --> Left Frame --> Vessel Info SubframeLabel -- Reuse from tab 1
+        self.T2L_VI.update(T1L_VI_data)
+
+        # Tab 8 = Systems
+        # Tab 8 --> Left Frame
+        # Tab 8 --> Left Frame --> Resource Data
+        res_vals = []
+        for res in self.res_streams:
+            res_vals.append('{0:.0f}'.format(res()))
+        self.T8L_VD.update(self.res_names, res_vals)
 
         # Tab 9 - Maintanance
         # Tab 9 --> Left Frame
-        # Tab 9 --> Left Frame --> Status Data Subframe
+        # Tab 9 --> Left Frame --> Status Data SubframeLabel
         temp = ['{0:08b}'.format(data_array[0]),
                 '{:d}ms'.format(data_array[23]),
                 '{0:.0f}deg'.format(data_array[14] * 0.69310345 - 68.0241379),
@@ -183,7 +291,7 @@ class Application:
 
         self.T9L_SD.update(temp)
 
-        # Tab 9 --> Left Frame --> Digital Data Subframe
+        # Tab 9 --> Left Frame --> Digital Data SubframeLabel
         temp = ['{0:08b}'.format(data_array[1]),
                 '{0:08b}'.format(data_array[2]),
                 '{0:08b}'.format(data_array[3]),
@@ -198,7 +306,7 @@ class Application:
                 '{0:08b}'.format(data_array[12])]
         self.T9L_DI.update(temp)
 
-        # Tab 9 --> Left Frame --> Analogure Data Subframe
+        # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
         temp = [data_array[16],
                 data_array[17],
                 data_array[18],
@@ -215,3 +323,17 @@ class Application:
             self.msgL2.set(self.msgL3.get())
             self.msgL3.set(self.msgL4.get())
             self.msgL4.set(msg_prefix[m[0]] + ': ' + m[1])
+
+    def connect_panel(self, data_array, msgQ):
+        # Start the panel controller module
+        self.panel_proc = Process(target=panel_control, args=(data_array, msgQ))
+        self.panel_proc.start()
+        self.panel_connected = True
+        self.panel_status.set("Connected")
+        self.styles.configure('Ind.TLabel', background='green')
+
+    def disconnect_panel(self):
+        self.panel_proc.terminate()
+        self.panel_connected = False
+        self.panel_status.set("Disconnected")
+        self.styles.configure('Ind.TLabel', background='light grey')

@@ -50,7 +50,7 @@ def cnia(ser, conn, vessel):
             conn.ui.message(msg_line, duration=1)
 
         # Throttle
-        if input_buffer[22] != 0:
+        if input_buffer[22] >= 3:
             msg_line = 'Set Throttle to Closed'
             f_cnia_repeat = True
             conn.ui.message(msg_line, duration=1)

@@ -47,7 +47,7 @@ def output_mapping(output_buffer, conn, temps_list, prop_list, mono_list, elec_l
         if (temp[0]() / temp[1]) > 0.3 or (temp[2]() / temp[3]) > 0.3:
             output_buffer[2] |= 1 << 2
 
-    # Gear  #todo refactor this to use streams
+    # Gear
     gear_up = 0
     gear_down = 0
     for gear in gear_list[0]:
