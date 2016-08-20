@@ -1,5 +1,5 @@
 void sys_error(void);
-int light_flash(int pin, unsigned long *timer_prev, int flashtime);
+int light_flash(int pin, unsigned long *timer, int flashtime);
 int light_hold(int cond, int pin, unsigned long *timer, int holdtime);
 int mux_Tx(int adr, int reg, byte data);
 int mux_Rx(int adr, int reg, int numbytes, byte *data);
