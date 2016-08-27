@@ -15,17 +15,24 @@ if __name__ == '__main__':
     # Create the root window
     root = Tk()
     root.title('KSP Controller')
+    root.configure(background = "black")
     root.geometry('{0}x{1}'.format(c_screen_size_x,c_screen_size_y) + c_screen_pos)
 
     # Instatiate the GUI
     app = Application(root, data_array, msgQ)
 
+    stage_prev = None
+
     # Loop the window, calling an update then refreshing the window
     while 1:
         if app.game_connected == False or app.vessel_connected == False:
             app.connect(msgQ)
-        else:
+        elif app.conn.krpc.current_game_scene == app.conn.krpc.current_game_scene.flight:
+            if app.vessel.control.current_stage is not stage_prev:
+                app.update_streams()
+            stage_prev = app.vessel.control.current_stage
             app.update(data_array, msgQ)
+
         root.update()
         root.update_idletasks()
         sleep(0.25)

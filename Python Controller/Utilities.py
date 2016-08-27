@@ -73,8 +73,8 @@ def sec2time(sec):
 
 
 class SubframeLabel:
-    def __init__(self, root, title, labels, width, height):
-        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
+    def __init__(self, root, title, labels):
+        self.frame_name = ttk.LabelFrame(root, text=title)
 
         for i in range(len(labels)):
             ttk.Label(self.frame_name, text=labels[i], style='Display.TLabel').grid(column=0, row=i, sticky=E)
@@ -84,9 +84,8 @@ class SubframeLabel:
             self.data_labels.append(StringVar())
             ttk.Label(self.frame_name, textvariable=self.data_labels[i], style='Display.TLabel').grid(column=1, row=i, sticky=W)
 
-    def grid(self, row=0, column=0, columnspan=1, rowspan=1):
-        self.frame_name.grid(row=row, column=column, columnspan=columnspan, rowspan=rowspan, padx=10, pady=10, sticky=N)
-        self.frame_name.grid_propagate(False)
+    def pack(self):
+        self.frame_name.pack(anchor=N, expand=1, fill=X)
 
     def update(self, value_strings):
         for i in range(len(value_strings)):
@@ -97,8 +96,9 @@ class SubframeLabel:
 
 
 class SubframeVar:
-    def __init__(self, root, title, num_lines, width, height):
-        self.frame_name = ttk.LabelFrame(root, text=title, width=width, height=height)
+    def __init__(self, root, title, num_lines):
+        self.frame_name = ttk.LabelFrame(root, text=title)
+        self.lines = num_lines
 
         self.data_labels_l = []
         for i in range(num_lines):
@@ -110,13 +110,17 @@ class SubframeVar:
             self.data_labels_r.append(StringVar())
             ttk.Label(self.frame_name, textvariable=self.data_labels_r[i], style='Display.TLabel').grid(column=1, row=i, sticky=W)
 
-    def grid(self, row=0, column=0, columnspan=1, rowspan=1):
-        self.frame_name.grid(row=row, column=column, columnspan=columnspan, rowspan=rowspan, padx=10, pady=10, sticky=N)
-        self.frame_name.grid_propagate(False)
+    def pack(self):
+        self.frame_name.pack(anchor=N, expand=1, fill=X)
 
     def update(self, l_value_strings, r_value_strings):
-        for i in range(len(l_value_strings)):
-            self.data_labels_l[i].set(l_value_strings[i])
-
-        for i in range(len(r_value_strings)):
-            self.data_labels_r[i].set(r_value_strings[i])
+        for i in range(self.lines):
+            if i < len(l_value_strings):
+                self.data_labels_l[i].set(l_value_strings[i])
+            else:
+                self.data_labels_l[i].set("")
+        for i in range(self.lines):
+            if i < len(r_value_strings):
+                self.data_labels_r[i].set(r_value_strings[i])
+            else:
+                self.data_labels_r[i].set("")
