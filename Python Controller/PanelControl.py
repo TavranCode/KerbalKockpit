@@ -127,12 +127,12 @@ def panel_control(data_array, mQ):
                     output_mapping(BA_output_buffer, conn, part_temp_list, engine_propellant_status, mono_status, elec_status, gear_status)
 
                     # Make sure the Arduino has responded
-                    while ser.in_waiting != 25:
+                    while ser.in_waiting != 30:
                         pass
 
                     # read back the data from the arduino
                     BA_input_buffer_prev = BA_input_buffer
-                    BA_input_buffer = ser.read(25)
+                    BA_input_buffer = ser.read(30)
 
                     # Now send the output date we calculated earlier
                     ser.write(BA_output_buffer)

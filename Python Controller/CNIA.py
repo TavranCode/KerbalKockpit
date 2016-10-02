@@ -13,10 +13,10 @@ def cnia(ser, conn, vessel):
         output_buffer = bytearray([0x00, 0x00, 0x00])
         ser.write(output_buffer)
         # Give the arduino time to do its processing and return the data.
-        while ser.in_waiting != 25:  # Seems to work but needs a timeout/ error catch
+        while ser.in_waiting != 30:  # Seems to work but needs a timeout/ error catch
             pass
 
-        input_buffer = ser.read(25)
+        input_buffer = ser.read(30)
 
         f_cnia_repeat = False
         # SAS
@@ -50,7 +50,7 @@ def cnia(ser, conn, vessel):
             conn.ui.message(msg_line, duration=1)
 
         # Throttle
-        if input_buffer[22] >= 3:
+        if input_buffer[26] >= 3:
             msg_line = 'Set Throttle to Closed'
             f_cnia_repeat = True
             conn.ui.message(msg_line, duration=1)

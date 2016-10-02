@@ -1,7 +1,7 @@
 from multiprocessing import Process, Queue, Array
 from tkinter import Tk
 import ctypes
-from time import sleep
+from time import sleep, time
 from Settings import *
 
 
@@ -22,17 +22,24 @@ if __name__ == '__main__':
     app = Application(root, data_array, msgQ)
 
     stage_prev = None
+    frame_time = time()
 
     # Loop the window, calling an update then refreshing the window
     while 1:
-        if app.game_connected == False or app.vessel_connected == False:
-            app.connect(msgQ)
-        elif app.conn.krpc.current_game_scene == app.conn.krpc.current_game_scene.flight:
-            if app.vessel.control.current_stage is not stage_prev:
-                app.update_streams()
-            stage_prev = app.vessel.control.current_stage
-            app.update(data_array, msgQ)
+        if time() > frame_time + 0.250:
+            frame_time = time()
 
-        root.update()
-        root.update_idletasks()
-        sleep(0.25)
+            if app.game_connected == False or app.vessel_connected == False:
+                app.connect(msgQ)
+            elif app.conn.krpc.current_game_scene == app.conn.krpc.current_game_scene.flight:
+                if app.vessel.control.current_stage is not stage_prev:
+                    app.update_streams()
+                stage_prev = app.vessel.control.current_stage
+                app.update(data_array, msgQ)
+
+            root.update()
+            root.update_idletasks()
+
+            frame_delta = time() - frame_time
+            if frame_delta > 0.25:
+                print ('{0:0f}ms'.format(frame_delta*1000))

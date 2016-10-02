@@ -102,45 +102,45 @@ def flight_control_inputs(input_buffer, vessel, trim):
         x_fctl_fine = 1
 
     if is_set(input_buffer[7], 2):  # EVA FC Mode - todo fix EVA controls!!!
-        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
-        right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
+        pitch = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[22], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = map_flt_ctl(input_buffer[23], Settings.c_fctl_db, 0, x_fctl_fine)
+        right = map_flt_ctl(input_buffer[24], Settings.c_fctl_db, 0, x_fctl_fine)
+        forward = map_flt_ctl(input_buffer[25], Settings.c_fctl_db, 0, x_fctl_fine)
         wheel_steering = 0
         wheel_throttle = 0
 
     elif is_set(input_buffer[7], 3):  # ROVER FC Mode
-        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        pitch = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[22], Settings.c_fctl_db, trim[2], x_fctl_fine)
         up = 0
         right = 0
         forward = 0
-        wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        wheel_throttle = -map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
+        wheel_steering = map_flt_ctl(input_buffer[24], Settings.c_fctl_db, 0, x_fctl_fine)
+        wheel_throttle = -map_flt_ctl(input_buffer[23], Settings.c_fctl_db, 0, x_fctl_fine)
 
     elif is_set(input_buffer[7], 4):  # ATMOS FC Mode
-        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        yaw = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        roll = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        pitch = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[22], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, trim[2], x_fctl_fine)
         up = 0
         right = 0
         forward = 0
         if is_set(input_buffer[11], 3):  # NWS ON
-            wheel_steering = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
+            wheel_steering = map_flt_ctl(input_buffer[24], Settings.c_fctl_db, 0, x_fctl_fine)
         else:
             wheel_steering = 0
         wheel_throttle = 0
 
     elif is_set(input_buffer[7], 5):  # ORBIT FC Mode
-        pitch = map_flt_ctl(input_buffer[16], Settings.c_fctl_db, trim[0], x_fctl_fine)
-        yaw = map_flt_ctl(input_buffer[17], Settings.c_fctl_db, trim[1], x_fctl_fine)
-        roll = map_flt_ctl(input_buffer[18], Settings.c_fctl_db, trim[2], x_fctl_fine)
-        up = map_flt_ctl(input_buffer[19], Settings.c_fctl_db, 0, x_fctl_fine)
-        right = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, 0, x_fctl_fine)
-        forward = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, 0, x_fctl_fine)
+        pitch = map_flt_ctl(input_buffer[20], Settings.c_fctl_db, trim[0], x_fctl_fine)
+        yaw = map_flt_ctl(input_buffer[21], Settings.c_fctl_db, trim[1], x_fctl_fine)
+        roll = map_flt_ctl(input_buffer[22], Settings.c_fctl_db, trim[2], x_fctl_fine)
+        up = map_flt_ctl(input_buffer[23], Settings.c_fctl_db, 0, x_fctl_fine)
+        right = map_flt_ctl(input_buffer[24], Settings.c_fctl_db, 0, x_fctl_fine)
+        forward = map_flt_ctl(input_buffer[25], Settings.c_fctl_db, 0, x_fctl_fine)
         wheel_steering = 0
         wheel_throttle = 0
 
@@ -176,11 +176,11 @@ def flight_control_inputs(input_buffer, vessel, trim):
 
     if is_set(input_buffer[7], 3):  # ROVER FC Mode - throttle used to set steady fwd power but stick overrides.
         if vessel.control.wheel_throttle >= 0:
-            vessel.control.wheel_throttle = max(vessel.control.wheel_throttle, input_buffer[22] / 255 * throttle_mode)
+            vessel.control.wheel_throttle = max(vessel.control.wheel_throttle, input_buffer[26] / 255 * throttle_mode)
         vessel.control.throttle = 0
     else:
         vessel.control.wheel_throttle = 0
-        vessel.control.throttle = input_buffer[22] / 255 * throttle_mode
+        vessel.control.throttle = input_buffer[26] / 255 * throttle_mode
 
     # return if controls in use so SAS can be overidden
     return (abs(pitch + abs(roll) + abs(yaw))) != 0

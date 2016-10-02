@@ -91,7 +91,9 @@ class Application:
         self.OpCanvas = FigureCanvasTkAgg(self.T2_OP.fig, master=self.T2R)
         self.OpCanvas._tkcanvas.config(highlightthickness=0)
         self.OpCanvas.show()
-        self.OpCanvas.get_tk_widget().pack(anchor=N)
+        self.OpCanvas.get_tk_widget().pack(anchor=N, expand=1, fill=X)
+
+        ttk.Button(self.T2R, text="Switch View Mode", command=self.T2_OP.switch).pack(anchor=N)
 
         self.T2L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
         self.T2R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
@@ -161,9 +163,9 @@ class Application:
         self.T9_SD = SubframeLabel(self.T9L, 'Arduino Status', ('Status Byte:', 'Frame Time:', 'Temperature:', 'Fan Speed:', 'Dimmer:'))
         self.T9_SD.pack()
 
-        self.T9_DI = SubframeLabel(self.T9L, 'Digital Inputs', ('Pins 8-10:', 'Pins 22-29:', 'Pins 30-37:', 'Pins 38-45:', 'Pins 46-53:', 'MUX 0 Bank A:',
+        self.T9_DI = SubframeLabel(self.T9L, 'Digital Inputs', ('Pins 8-9:', 'Pins 22-29:', 'Pins 30-37:', 'Pins 38-45:', 'Pins 46-53:', 'MUX 0 Bank A:',
                                                                 'MUX 0 Bank B:', 'MUX 1 Bank A:', 'MUX 1 Bank B:', 'MUX 2 Bank B:', 'MUX 3 Bank B:',
-                                                                'MUX 4 Bank B:'))
+                                                                'MUX 4 Bank B:', 'MUX 5 Bank A:', 'MUX 5 Bank B:', 'MUX 6 Bank B:', 'MUX 6 Bank B:'))
         self.T9_DI.pack()
 
         self.T9_AI = SubframeLabel(self.T9R, 'Analogue Inputs', ('Rotation X:', 'Rotation Y:', 'Rotation Z:', 'Translation X:', 'Translation Y:',
@@ -200,10 +202,10 @@ class Application:
 
         self.buttonframe = ttk.LabelFrame(lowerframe, text='Controls')
 
-        ttk.Button(self.buttonframe, text='Connect Panel', command=lambda: self.connect_panel(data_array, msgQ), width=15).grid(column=1, row=0, sticky=SE, padx=5, pady=5)
-        ttk.Button(self.buttonframe, text='Disconnect Panel', command=self.disconnect_panel, width=15).grid(column=1, row=1, sticky=NE, padx=5, pady=5)
-        self.panel_status_button = ttk.Label(self.buttonframe, textvariable=self.panel_status, width=13, style='Ind.TLabel', relief='raised').grid(column=2, row=0, sticky=(S, E, W), padx=5, pady=8)
-        ttk.Button(self.buttonframe, text='Exit', command=root.destroy, width=15).grid(column=2, row=1, sticky=NE, padx=5, pady=5)
+        ttk.Button(self.buttonframe, text='Connect Panel', command=lambda: self.connect_panel(data_array, msgQ), width=15).grid(column=1, row=0, sticky=SE, padx=5, pady=3)
+        ttk.Button(self.buttonframe, text='Disconnect Panel', command=self.disconnect_panel, width=15).grid(column=1, row=1, sticky=NE, padx=4, pady=3)
+        self.panel_status_button = ttk.Label(self.buttonframe, textvariable=self.panel_status, width=13, style='Ind.TLabel', relief='raised').grid(column=2, row=0, sticky=(S, E, W), padx=4, pady=6)
+        ttk.Button(self.buttonframe, text='Exit', command=root.destroy, width=15).grid(column=2, row=1, sticky=NE, padx=5, pady=3)
 
         self.buttonframe.pack(side=RIGHT, fill=Y, padx=5, pady=5)
 
@@ -242,11 +244,13 @@ class Application:
         self.mean_altitude = None
         self.latitude = None
         self.longitude = None
+        self.arg_periapsis = None
 
         # initialise attributes that require a state
         self.panel_connected = False
         self.game_connected = False
         self.vessel_connected = False
+        self.notebook_page = 0
 
     def connect(self, mQ):
         mQ.put((0, 'GUI Connecting to the game server....'))
@@ -307,6 +311,7 @@ class Application:
             self.mean_altitude = self.conn.add_stream(getattr, self.vessel.flight(orbital_ref_frame), "mean_altitude")
             self.latitude = self.conn.add_stream(getattr, self.vessel.flight(orbital_ref_frame), "latitude")
             self.longitude = self.conn.add_stream(getattr, self.vessel.flight(orbital_ref_frame), "longitude")
+            self.arg_periapsis = self.conn.add_stream(getattr, self.vessel.orbit, "argument_of_periapsis")
 
     def update_streams(self):
         for res in self.resIDS_streams:
@@ -339,8 +344,10 @@ class Application:
             else:
                 self.notebook.select(8)
 
-        # Tab 1 - Launch
-        T1_OI_data = [si_val(self.orbital_speed()) + 'm/s',
+        self.notebook_page = self.notebook.index(self.notebook.select())
+
+        # Update reused elements
+        OI_data = [si_val(self.orbital_speed()) + 'm/s',
                       si_val(self.apoapsis(), 2) + 'm',
                       si_val(self.periapsis(), 2) + 'm',
                       sec2time(self.orbital_period()),
@@ -349,132 +356,137 @@ class Application:
                       '{0:.2f} deg'.format(self.inclination() * pi / 180),  # TODO temp fix, should be    degrees(self.inclination())
                       '{0:.4f}'.format(self.eccentricity()),
                       '{0:.2f} deg'.format(degrees(self.long_asc_node()))]
-        self.T1_OI.update(T1_OI_data)
 
-        T1_SI_data = [si_val(self.agl_altitude(), 3) + 'm',
+
+        SI_data = [si_val(self.agl_altitude(), 3) + 'm',
                       '{0:.1f} deg'.format(self.pitch()),
                       '{0:.0f} deg'.format(self.heading()),
                       '{0:.1f} deg'.format(self.roll()),
                       si_val(self.speed(), 2) + 'm/s',
                       si_val(self.v_speed(), 2) + 'm/s',
                       si_val(self.h_speed(), 2) + 'm/s']
-        self.T1_SI.update(T1_SI_data)
 
         try:
             twr = self.max_thrust() / (self.mass() * self.surface_gravity())
         except ZeroDivisionError:
             twr = 0
 
-        T1_VI_data = [si_val(self.mass() * 1000) + 'g',
+        VI_data = [si_val(self.mass() * 1000) + 'g',
                       si_val(self.max_thrust(), 3) + 'N',
                       si_val(self.thrust(), 3) + 'N',
                       '{0:.2f}'.format(twr)]
-        self.T1_VI.update(T1_VI_data)
 
-        self.T1_LP.animate(self.vessel, (self.latitude(), self.longitude()), self.mean_altitude())
+        # Tab 1 - Launch
+        if self.notebook_page == 0:
+            self.T1_OI.update(OI_data)
+            self.T1_SI.update(SI_data)
+            self.T1_VI.update(VI_data)
+
+            self.T1_LP.animate(self.vessel, (self.latitude(), self.longitude()), self.mean_altitude())
 
         # Tab 2 - Orbital
-        self.T2_OI.update(T1_OI_data)
+        if self.notebook_page == 1:
+            self.T2_OI.update(OI_data)
+            self.T2_VI.update(VI_data)
 
-        self.T2_VI.update(T1_VI_data)
-
-        self.T2_OP.animate(self.vessel, self.periapsis(), self.eccentricity(), self.ecc_anomaly(), self.inclination(), self.long_asc_node())
+            self.T2_OP.animate(self.vessel, self.periapsis(), self.eccentricity(), self.ecc_anomaly(), self.inclination(), self.arg_periapsis())
 
         # Tab 3 - Landing
-        self.T3_OI.update(T1_OI_data)
-
-        self.T3_VI.update(T1_VI_data)
-
-        self.T3_SI.update(T1_SI_data)
+        if self.notebook_page == 2:
+            self.T3_OI.update(OI_data)
+            self.T3_VI.update(VI_data)
+            self.T3_SI.update(SI_data)
 
         # Tab 4 - Rondezvous
-        self.T4_OI.update(T1_OI_data)
+        if self.notebook_page == 3:
+            self.T4_OI.update(OI_data)
+            self.T4_VI.update(VI_data)
+            self.T4_SI.update(SI_data)
 
-        self.T4_VI.update(T1_VI_data)
+            target_vessel = self.conn.space_center.target_vessel
 
-        self.T4_SI.update(T1_SI_data)
+            if target_vessel is None:
+                T4_TI_data = ["No Target",
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '',
+                              '']
+            else:
+                target_pos = target_vessel.position(self.vessel.reference_frame)
+                target_vel = target_vessel.velocity(self.vessel.reference_frame)
+                T4_TI_data = [target_vessel.name,
+                              '',
+                              '',
+                              '',
+                              si_val(norm(target_pos), 1) + 'm',
+                              si_val(norm(target_vel), 1) + 'm/s',
+                              '{0:.2f}m'.format(target_pos[0]),
+                              '{0:.2f}m'.format(target_pos[1]),
+                              '{0:.2f}m'.format(target_pos[2]),
+                              '{0:.2f}m/s'.format(target_vel[0]),
+                              '{0:.2f}m/s'.format(target_vel[1]),
+                              '{0:.2f}m/s'.format(target_vel[2])]
 
-        target_vessel = self.conn.space_center.target_vessel
-
-        if target_vessel is None:
-            T4_TI_data = ["No Target",
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '']
-        else:
-            target_pos = target_vessel.position(self.vessel.reference_frame)
-            target_vel = target_vessel.velocity(self.vessel.reference_frame)
-            T4_TI_data = [target_vessel.name,
-                          '',
-                          '',
-                          '',
-                          si_val(norm(target_pos), 1) + 'm',
-                          si_val(norm(target_vel), 1) + 'm/s',
-                          '{0:.2f}m'.format(target_pos[0]),
-                          '{0:.2f}m'.format(target_pos[1]),
-                          '{0:.2f}m'.format(target_pos[2]),
-                          '{0:.2f}m/s'.format(target_vel[0]),
-                          '{0:.2f}m/s'.format(target_vel[1]),
-                          '{0:.2f}m/s'.format(target_vel[2])]
-
-        self.T4_TI.update(T4_TI_data)
+            self.T4_TI.update(T4_TI_data)
 
         # Tab 8 = Systems
-        # Tab 8 --> Left Frame
-        # Tab 8 --> Left Frame --> Resource Data
-        res_vals = []
-        for res in self.res_streams:
-            res_vals.append('{0:.0f}'.format(res()))
-        self.T8_TRD.update(self.res_names, res_vals)
+        if self.notebook_page == 7:
+            res_vals = []
+            for res in self.res_streams:
+                res_vals.append('{0:.0f}'.format(res()))
+            self.T8_TRD.update(self.res_names, res_vals)
 
-        resIDS_vals = []
-        for res in self.resIDS_streams:
-            resIDS_vals.append('{0:.0f}'.format(res()))
-        self.T8_SRD.update(self.resIDS_names, resIDS_vals)
+            resIDS_vals = []
+            for res in self.resIDS_streams:
+                resIDS_vals.append('{0:.0f}'.format(res()))
+            self.T8_SRD.update(self.resIDS_names, resIDS_vals)
 
         # Tab 9 - Maintanance
-        # Tab 9 --> Left Frame
-        # Tab 9 --> Left Frame --> Status Data SubframeLabel
-        temp = ['{0:08b}'.format(data_array[0]),
-                '{:d}ms'.format(data_array[23]),
-                '{0:.0f}deg'.format(data_array[14] * 0.69310345 - 68.0241379),
-                '{0:.0f}%'.format(data_array[24] / 255 * 100),
-                '{0:.0f}%'.format(data_array[15] / 255 * 100)]
+        if self.notebook_page == 8:
+            temp = ['{0:08b}'.format(data_array[0]),
+                    '{:d}ms'.format(data_array[27]),
+                    '{0:.0f}deg'.format(data_array[18] * 0.69310345 - 68.0241379),
+                    '{0:.0f}%'.format(data_array[28] / 255 * 100),
+                    '{0:.0f}%'.format(data_array[19] / 255 * 100)]
 
-        self.T9_SD.update(temp)
+            self.T9_SD.update(temp)
 
-        # Tab 9 --> Left Frame --> Digital Data SubframeLabel
-        temp = ['{0:08b}'.format(data_array[1]),
-                '{0:08b}'.format(data_array[2]),
-                '{0:08b}'.format(data_array[3]),
-                '{0:08b}'.format(data_array[4]),
-                '{0:08b}'.format(data_array[5]),
-                '{0:08b}'.format(data_array[6]),
-                '{0:08b}'.format(data_array[7]),
-                '{0:08b}'.format(data_array[8]),
-                '{0:08b}'.format(data_array[9]),
-                '{0:08b}'.format(data_array[10]),
-                '{0:08b}'.format(data_array[11]),
-                '{0:08b}'.format(data_array[12])]
-        self.T9_DI.update(temp)
+            # Tab 9 --> Left Frame --> Digital Data SubframeLabel
+            temp = ['{0:08b}'.format(data_array[1]),
+                    '{0:08b}'.format(data_array[2]),
+                    '{0:08b}'.format(data_array[3]),
+                    '{0:08b}'.format(data_array[4]),
+                    '{0:08b}'.format(data_array[5]),
+                    '{0:08b}'.format(data_array[6]),
+                    '{0:08b}'.format(data_array[7]),
+                    '{0:08b}'.format(data_array[8]),
+                    '{0:08b}'.format(data_array[9]),
+                    '{0:08b}'.format(data_array[10]),
+                    '{0:08b}'.format(data_array[11]),
+                    '{0:08b}'.format(data_array[12]),
+                    '{0:08b}'.format(data_array[13]),
+                    '{0:08b}'.format(data_array[14]),
+                    '{0:08b}'.format(data_array[15]),
+                    '{0:08b}'.format(data_array[16]),
+                    ]
+            self.T9_DI.update(temp)
 
-        # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
-        temp = [data_array[16],
-                data_array[17],
-                data_array[18],
-                data_array[19],
-                data_array[20],
-                data_array[21],
-                data_array[22]]
-        self.T9_AI.update(temp)
+            # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
+            temp = [data_array[20],
+                    data_array[21],
+                    data_array[22],
+                    data_array[23],
+                    data_array[24],
+                    data_array[25],
+                    data_array[26]]
+            self.T9_AI.update(temp)
 
         # Update message area
         if not msgQ.empty():
