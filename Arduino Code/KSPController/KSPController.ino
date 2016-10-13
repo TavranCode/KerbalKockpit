@@ -118,7 +118,7 @@ void loop() {
       t_last_serial_time += t_frame_time;
     }
 
-    /* DEBUG - Removes requirement for a valid serial connection */
+    /* DEBUG - Removes requirement for a valid serial connection, allowing testing without game running */
     #ifdef DEBUG
     t_last_serial_time = 0;
     #endif
@@ -177,7 +177,10 @@ void loop() {
         }
 
         /* manage the autopilot */
-        autopilot(x_databuffer);
+        n_ap_subband_count = (n_ap_subband_count + 1) % c_ap_subband;
+        if (n_ap_subband_count == 0){
+          autopilot(x_databuffer);
+        }
       }
       /* manage dimmer controls */
       light_dim_ctl(c_dimmer_pwm_pin, f_serial_state, x_dimmer_setting, 0);
@@ -312,6 +315,13 @@ int autopilot(byte databuffer[]) {
       f_ap_power_state = false;
       f_ap_system_state = 0;
       t_ap_init_timer = 0;
+      for (i = 0; i < 3; i++) {
+        APSetting[i].setmode = 0;
+        APSetting[i].setval = 0;
+        APSetting[i].displaymode = 0;
+        APSetting[i].displayval = 0;
+        APSetting[i].isconn = 0;
+      }
       lcd.clear();
     }
     else { /* switch on */
@@ -331,9 +341,13 @@ int autopilot(byte databuffer[]) {
     }
     if (t_ap_init_timer > c_ap_init_time) {
       f_ap_system_state++;
+      for (i = 0; i < 3; i++) {
+        APSetting[i].setval = APModes[i][0].defval;
+        APSetting[i].displayval = APModes[i][0].defval;
+      }
       f_ap_screen_refresh = true;
     }
-    t_ap_init_timer += t_frame_time;
+    t_ap_init_timer += t_frame_time*c_ap_subband;
   }
   if (f_ap_system_state == 2) { /* running state */
     /* map in the switch inputs */
@@ -375,7 +389,7 @@ int autopilot(byte databuffer[]) {
 
     /* Axis buttons */
     for (i = 0; i < 3; i++) {
-      if (f_ap_inputs[i][0] && !f_ap_inputs_p[i][0]) {
+      if (f_ap_inputs[i][0] && !f_ap_inputs_p[i][0]) { /* Mode Up Button */
         APSetting[i].displaymode = mod((APSetting[i].displaymode - 1), n_ap_modes[i]);
         if (APSetting[i].displaymode == APSetting[i].setmode) {
           APSetting[i].displayval = APSetting[i].setval;
@@ -385,7 +399,7 @@ int autopilot(byte databuffer[]) {
         }
         f_ap_screen_refresh = true;
       }
-      if (f_ap_inputs[i][1] && !f_ap_inputs_p[i][1]) {
+      if (f_ap_inputs[i][1] && !f_ap_inputs_p[i][1]) { /* Mode Dn Button */
         APSetting[i].displaymode = mod((APSetting[i].displaymode + 1), n_ap_modes[i]);
         if (APSetting[i].displaymode == APSetting[i].setmode) {
           APSetting[i].displayval = APSetting[i].setval;
@@ -395,7 +409,7 @@ int autopilot(byte databuffer[]) {
         }
         f_ap_screen_refresh = true;
       }
-      if (f_ap_inputs[i][2] && !f_ap_inputs_p[i][2]) {
+      if (f_ap_inputs[i][2] && !f_ap_inputs_p[i][2]) { /* Cancel Button */
         if (APSetting[i].displaymode == APSetting[i].setmode &&
             APSetting[i].displayval == APSetting[i].setval) {
           APSetting[i].isconn = false;
@@ -406,21 +420,80 @@ int autopilot(byte databuffer[]) {
         }
         f_ap_screen_refresh = true;
       }
-      if (f_ap_inputs[i][3] && !f_ap_inputs_p[i][3]) {
+      if (f_ap_inputs[i][3] && !f_ap_inputs_p[i][3]) { /* Set Button */
         APSetting[i].setmode = APSetting[i].displaymode;
         APSetting[i].setval = APSetting[i].displayval;
         APSetting[i].isconn = true;
         f_ap_screen_refresh = true;
       }
-      if (f_ap_inputs[i][4] && !f_ap_inputs_p[i][4]) {
-        APSetting[i].displayval = min(APSetting[i].displayval + APModes[i][APSetting[i].displaymode].valstep, 
-                                      APModes[i][APSetting[i].displaymode].maxval);
+      if (f_ap_inputs[i][4]){ /* Val Up Button */
+        if (!f_ap_inputs_p[i][4]) { /* First Press */
+           if(APModes[i][APSetting[i].displaymode].wrap){
+             APSetting[i].displayval = mod(APSetting[i].displayval + APModes[i][APSetting[i].displaymode].valstep,
+                                           APModes[i][APSetting[i].displaymode].maxval);
+           }
+           else{
+             APSetting[i].displayval = min(APSetting[i].displayval + APModes[i][APSetting[i].displaymode].valstep, 
+                                           APModes[i][APSetting[i].displaymode].maxval);
+           }
+        }
+        else{ /* Button Held */
+          if (n_ap_faststep_ucount[i] < c_ap_faststep_delay){
+            n_ap_faststep_ucount[i] ++;
+          }
+          else{
+            if(APModes[i][APSetting[i].displaymode].wrap){
+              APSetting[i].displayval = mod(APSetting[i].displayval + APModes[i][APSetting[i].displaymode].valstep * 
+                                             APModes[i][APSetting[i].displaymode].stepmult, 
+                                            APModes[i][APSetting[i].displaymode].maxval);
+            }
+            else{
+              APSetting[i].displayval = min(APSetting[i].displayval + 
+                                              APModes[i][APSetting[i].displaymode].valstep * 
+                                              APModes[i][APSetting[i].displaymode].stepmult, 
+                                            APModes[i][APSetting[i].displaymode].maxval);
+            }
+          }
+        }
         f_ap_screen_refresh = true;
       }
-      if (f_ap_inputs[i][5] && !f_ap_inputs_p[i][5]) {
-        APSetting[i].displayval = max(APSetting[i].displayval - APModes[i][APSetting[i].displaymode].valstep, 
-                                      APModes[i][APSetting[i].displaymode].minval);
+      else{
+        n_ap_faststep_ucount[i] = 0;
+      }
+      if (f_ap_inputs[i][5]){ /* Val Dn Button */
+        if (!f_ap_inputs_p[i][5]) { /* First Press */
+           if(APModes[i][APSetting[i].displaymode].wrap){
+             APSetting[i].displayval = mod(APSetting[i].displayval - APModes[i][APSetting[i].displaymode].valstep, 
+                                           APModes[i][APSetting[i].displaymode].maxval);
+           }
+           else{
+             APSetting[i].displayval = max(APSetting[i].displayval - APModes[i][APSetting[i].displaymode].valstep, 
+                                           APModes[i][APSetting[i].displaymode].minval);
+           }
+
+        }
+        else{ /* Button Held */
+          if (n_ap_faststep_dcount[i] < c_ap_faststep_delay){
+            n_ap_faststep_dcount[i] ++;
+          }
+          else{
+            if(APModes[i][APSetting[i].displaymode].wrap){
+              APSetting[i].displayval = mod(APSetting[i].displayval - APModes[i][APSetting[i].displaymode].valstep * 
+                                             APModes[i][APSetting[i].displaymode].stepmult,
+                                            APModes[i][APSetting[i].displaymode].maxval);
+            }
+            else{
+              APSetting[i].displayval = max(APSetting[i].displayval - 
+                                              APModes[i][APSetting[i].displaymode].valstep *
+                                              APModes[i][APSetting[i].displaymode].stepmult, 
+                                            APModes[i][APSetting[i].displaymode].minval);
+            }
+          }
+        }
         f_ap_screen_refresh = true;
+      }
+      else{
+        n_ap_faststep_dcount[i] = 0;
       }
     } /* end for loop */
   } /* end if AP state = 2 */
@@ -474,18 +547,18 @@ int autopilot(byte databuffer[]) {
   /* Status byte - power, state and connections */
   databuffer[29] = 0;
   bitWrite(databuffer[29], 0, f_ap_power_state);
-  bitWrite(databuffer[29], 0, f_ap_system_state == 2);
-  bitWrite(databuffer[29], 0, APSetting[0].isconn);
-  bitWrite(databuffer[29], 0, APSetting[1].isconn);
-  bitWrite(databuffer[29], 0, APSetting[2].isconn); 
+  bitWrite(databuffer[29], 1, f_ap_system_state == 2);
+  bitWrite(databuffer[29], 2, APSetting[0].isconn);
+  bitWrite(databuffer[29], 3, APSetting[1].isconn);
+  bitWrite(databuffer[29], 4, APSetting[2].isconn); 
   databuffer[30] = APSetting[0].setmode;
   databuffer[31] = APSetting[1].setmode;
   databuffer[32] = APSetting[2].setmode;  
-  databuffer[33] = APSetting[0].setval / 256;
-  databuffer[34] = APSetting[0].setval % 256;  
-  databuffer[35] = APSetting[1].setval / 256;
-  databuffer[36] = APSetting[1].setval % 256;
-  databuffer[37] = APSetting[2].setval / 256;
-  databuffer[38] = APSetting[2].setval % 256; 
+  databuffer[33] = highByte(APSetting[0].setval);
+  databuffer[34] = lowByte(APSetting[0].setval);  
+  databuffer[35] = highByte(APSetting[1].setval);
+  databuffer[36] = lowByte(APSetting[1].setval);
+  databuffer[37] = highByte(APSetting[2].setval);
+  databuffer[38] = lowByte(APSetting[2].setval); 
 }
 

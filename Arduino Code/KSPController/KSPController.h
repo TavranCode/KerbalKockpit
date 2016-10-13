@@ -1,7 +1,7 @@
 /* Definitions */
 #define TRUE 1
 #define FALSE 0
-// #define DEBUG                /* This flag will enable debug code */
+//#define DEBUG                /* This flag will enable debug code */
 
 /* Variables */
 byte x_databuffer[40];                  /* byte buffer for managing outputs */
@@ -14,6 +14,9 @@ int f_data_requested = 0;               /* data requested flag */
 int i;                                  /* general loop counter */
 int j;                                  /* general loop counter */
 int n_mux_chips_detected = 0;           /* number of MUX chips detected in the IBIT */
+int n_ap_subband_count = 0;             /* Counter for AP subbanding */
+int n_ap_faststep_ucount[3] = {0,0,0};  /* Counter for AP button hold delay */
+int n_ap_faststep_dcount[3] = {0,0,0};  /* Counter for AP button hold delay */
 int f_critical_error = 0;               /* critical error detected flag */
 int f_power_on_first_pass = 1;          /* first pass flag when main power is turned on */
 int x_fan_speed = 0;                    /* fan speed setting */
@@ -46,17 +49,19 @@ const int c_voltage_threshold = 600;    /* voltage sensor limit for externally p
 const int c_power_light_flash = 1000;   /* power light flash rate [ms] */
 const int c_num_mux_chips = 7;          /* the number of MCP23017 chips installed [-]*/
 const int c_error_code_mux_missing = 1; /* error code if MUX count is incorrect [-]*/
-const int c_frame_time_target = 16;     /* target frame time [ms]*/
+const int c_frame_time_target = 10;     /* target frame time [ms]*/
 const int c_fan_power_up_time = 5000;   /* Time that fan will run full speed at start [ms]*/
 const int c_temp_max = 160;             /* overtemp limit, stop. Equates to about 3 degrees above max fan speed.  [-]*/
 const int c_overtemp_error_code = 2;    /* error code if overtemp limit exceeded [-]*/
-const int c_gear_light_flash = 500;     /* gear light flash rate [ms]*/
+const int c_gear_light_flash = 100;     /* gear light flash rate [ms]*/
 const int c_first_mux_address = 32;     /* the first I2C address in the MUX range [-]*/
 const int c_last_mux_address = 40;      /* the last I2C address in the MUX range [-]*/
 const int c_light_bit_time = 1000;      /* time to delay to allow light BIT test to be seen [ms]*/
 const int c_serial_timeout = 5000;      /* serial timeout [ms]*/
 const int c_error_light_flash = 250;    /* no data flash rate for error light [ms]*/
 const int c_ap_init_time = 3000;        /* Init time for the AP display [ms]*/
+const int c_ap_subband = 10;            /* Subbanding of AP panel, AP code runs every nth frame [-]*/
+const int c_ap_faststep_delay = 5;      /* Number of AP frames with button held to use fast more [-]*/
 const float c_fan_speed_m = 3.448;      /* fan speed vs temp slope [rpm/deg]*/
 const float c_fan_speed_b = -282.931;   /* fan speed vs temp Y intercept [rpm]*/
 const long c_serial_speed = 115200;     /* serial bus baud rate [baud]*/
@@ -87,27 +92,32 @@ LiquidCrystal lcd(14, 15, 16, 17, 18, 19);  /* Refer docs, this sets the pin num
 
 /* structs */
 typedef struct apmode {
-  char mode[13];
-  int defval;
-  int minval;
-  int maxval;
-  int valstep;
-  int dec;
-  char prefix[4];
-  char suffix[4];
+  char mode[13];            /* The text name of the mode */
+  int defval;               /* The default value */
+  int minval;               /* The minimum value */
+  int maxval;               /* The maximum value */
+  int valstep;              /* The step change from a single value up/dn press */
+  int stepmult;             /* The step change multiplier when button is held */
+  int wrap;                 /* True if the value should wrap around, minval must be 0! */
+  int dec;                  /* Offset value with decimal, but this many digits, Not yet implemented! */
+  char prefix[4];           /* Text that appears before the value */
+  char suffix[4];           /* Text that appears after the value */
 } ApMode;
 
    /* Array of all AP modes.
    The second dimension size must be the large enough for the largest axis.
-   The actual number of modes per axis is captured below. */
-ApMode APModes[3][2] = {{{"Heading", 0, 0, 360, 1, 0, "", "deg"},
-    {"Bank", 0, -45, 45, 1, 0 , "", "deg"}
-  },
-  { {"Pitch", 0, -20, 20, 1, 0, "", "deg"},
-    {"Altitude", 100, 0, 500, 10, 0 , "FL", ""}
-  },
-  {{"Speed", 200, 20, 1000, 10, 0, "", "m/s"}}
-};
+   e.g. if vertical had 15 modes, the array must be [3][15] and the extras
+   are unused in other modes. The actual number of modes per axis is 
+   captured in the array below and must match the definitions! */
+ApMode APModes[3][2] = {{{"Heading", 90, 0, 360, 1, 5, TRUE, 0, "", "deg"},
+                         {"Bank", 0, -45, 45, 1, 1, FALSE, 0, "", "deg"}
+                        },
+                        {{"Pitch", 0, -20, 20, 1, 1, FALSE, 0, "", "deg"},
+                         {"Altitude", 100, 0, 500, 10, 1, FALSE, 0, "FL", ""}
+                        },
+                        {{"Speed", 200, 20, 1000, 1, 20, FALSE, 0, "", "m/s"}
+                        }
+                       };
 
 const int n_ap_modes[3] = {2, 2, 1};         /* actual number of AP modes per axis*/
 
