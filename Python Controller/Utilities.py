@@ -69,6 +69,15 @@ def sec2time(sec):
     return ('%d days, ' + pattern) % (d, h, m, s)
 
 
+# converts two bytes to a signed int
+
+def bytes2int(bytes):
+    # if bytes[0] == 0:
+    #     return int.from_bytes([bytes[1]], byteorder='big', signed = True)
+    # else:
+    return int.from_bytes([bytes[0], bytes[1]], byteorder='big', signed=True)
+
+
 # This is a frame with fixed text on the left and variable text on the right
 
 

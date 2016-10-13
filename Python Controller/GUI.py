@@ -5,7 +5,7 @@ from multiprocessing import Process
 from math import degrees, pi
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar, norm
+from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar, norm, bytes2int
 from Settings import *
 from PanelControl import panel_control
 from Plots import Launchplot, Orbitplot
@@ -172,6 +172,11 @@ class Application:
                                                                  'Translation Z:', 'Throttle:'))
         self.T9_AI.pack()
 
+        self.T9_AP = SubframeLabel(self.T9R, 'Autoilot Status', ('System Power:', 'State:', 'Lateral - Connected:', 'Lateral - Mode:', 'Lateral - Setting:',
+                                                                 'Vertical - Connected:', 'Vertical - Mode:', 'Vertical - Setting:',
+                                                                 'Speed - Connected:', 'Speed - Mode:', 'Speed - Setting:'))
+        self.T9_AP.pack()
+
         self.T9L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
         self.T9R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
 
@@ -205,7 +210,7 @@ class Application:
         ttk.Button(self.buttonframe, text='Connect Panel', command=lambda: self.connect_panel(data_array, msgQ), width=15).grid(column=1, row=0, sticky=SE, padx=5, pady=3)
         ttk.Button(self.buttonframe, text='Disconnect Panel', command=self.disconnect_panel, width=15).grid(column=1, row=1, sticky=NE, padx=4, pady=3)
         self.panel_status_button = ttk.Label(self.buttonframe, textvariable=self.panel_status, width=13, style='Ind.TLabel', relief='raised').grid(column=2, row=0, sticky=(S, E, W), padx=4, pady=6)
-        ttk.Button(self.buttonframe, text='Exit', command=root.destroy, width=15).grid(column=2, row=1, sticky=NE, padx=5, pady=3)
+        ttk.Button(self.buttonframe, text='Exit', command=lambda: self.exit(root), width=15).grid(column=2, row=1, sticky=NE, padx=5, pady=3)
 
         self.buttonframe.pack(side=RIGHT, fill=Y, padx=5, pady=5)
 
@@ -353,7 +358,7 @@ class Application:
                       sec2time(self.orbital_period()),
                       sec2time(self.time_to_apoapsis()),
                       sec2time(self.time_to_periapsis()),
-                      '{0:.2f} deg'.format(self.inclination() * pi / 180),  # TODO temp fix, should be    degrees(self.inclination())
+                      '{0:.2f} deg'.format(degrees(self.inclination())),
                       '{0:.4f}'.format(self.eccentricity()),
                       '{0:.2f} deg'.format(degrees(self.long_asc_node()))]
 
@@ -469,12 +474,12 @@ class Application:
                     '{0:08b}'.format(data_array[8]),
                     '{0:08b}'.format(data_array[9]),
                     '{0:08b}'.format(data_array[10]),
-                    '{0:08b}'.format(data_array[11]),
-                    '{0:08b}'.format(data_array[12]),
-                    '{0:08b}'.format(data_array[13]),
-                    '{0:08b}'.format(data_array[14]),
-                    '{0:08b}'.format(data_array[15]),
-                    '{0:08b}'.format(data_array[16]),
+                    '{0:08b}'.format(data_array[33]),
+                    '{0:08b}'.format(data_array[34]),
+                    '{0:08b}'.format(data_array[35]),
+                    '{0:08b}'.format(data_array[36]),
+                    '{0:08b}'.format(data_array[37]),
+                    '{0:08b}'.format(data_array[38])
                     ]
             self.T9_DI.update(temp)
 
@@ -487,6 +492,19 @@ class Application:
                     data_array[25],
                     data_array[26]]
             self.T9_AI.update(temp)
+            # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
+            temp = ["ON" if is_set(data_array[29], 0) else "OFF",
+                    "RUNNING" if is_set(data_array[29], 1) else "INITIATING",
+                    "CONNECTED" if is_set(data_array[29], 2) else "DISCON",
+                    data_array[30],
+                    bytes2int([data_array[33], data_array[34]]),
+                    "CONNECTED" if is_set(data_array[29], 3) else "DISCON",
+                    data_array[31],
+                    bytes2int([data_array[35], data_array[36]]),
+                    "CONNECTED" if is_set(data_array[29], 4) else "DISCON",
+                    data_array[32],
+                    bytes2int([data_array[37], data_array[38]])]
+            self.T9_AP.update(temp)
 
         # Update message area
         if not msgQ.empty():
@@ -509,3 +527,9 @@ class Application:
         self.panel_connected = False
         self.panel_status.set("Disconnected")
         self.styles.configure('Ind.TLabel', background='light grey')
+
+    def exit(self,root):
+        if self.panel_connected:
+            self.disconnect_panel()
+        root.destroy()
+        quit()

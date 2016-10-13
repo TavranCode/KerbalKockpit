@@ -74,7 +74,7 @@ def SAS_inputs(input_buffer, input_buffer_prev, vessel, mQ, sas_overide):
                 pass
 
 
-def flight_control_inputs(input_buffer, vessel, trim):
+def flight_control_inputs(input_buffer, vessel, trim, thr_inhib):
 
     # Trims
     if is_set(input_buffer[10], 1):
@@ -174,13 +174,14 @@ def flight_control_inputs(input_buffer, vessel, trim):
     if is_set(input_buffer[9], 6):
         throttle_mode = 0.25
 
-    if is_set(input_buffer[7], 3):  # ROVER FC Mode - throttle used to set steady fwd power but stick overrides.
-        if vessel.control.wheel_throttle >= 0:
-            vessel.control.wheel_throttle = max(vessel.control.wheel_throttle, input_buffer[26] / 255 * throttle_mode)
-        vessel.control.throttle = 0
-    else:
-        vessel.control.wheel_throttle = 0
-        vessel.control.throttle = input_buffer[26] / 255 * throttle_mode
+    if not thr_inhib:
+        if is_set(input_buffer[7], 3):  # ROVER FC Mode - throttle used to set steady fwd power but stick overrides.
+            if vessel.control.wheel_throttle >= 0:
+                vessel.control.wheel_throttle = max(vessel.control.wheel_throttle, input_buffer[26] / 255 * throttle_mode)
+            vessel.control.throttle = 0
+        else:
+            vessel.control.wheel_throttle = 0
+            vessel.control.throttle = input_buffer[26] / 255 * throttle_mode
 
     # return if controls in use so SAS can be overidden
     return (abs(pitch + abs(roll) + abs(yaw))) != 0

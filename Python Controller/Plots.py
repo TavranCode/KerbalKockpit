@@ -194,7 +194,7 @@ class Orbitplot:
             y2 = r2 * np.sin(theta)
             zo = np.zeros(181)
 
-            inclination = radians(inclination * np.pi / 180)  # todo temp hack due to inclination bug
+            inclination = incl
 
             x2 = xo * np.cos(inclination) + zo * np.sin(inclination)
             # y2 = yo

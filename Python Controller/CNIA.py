@@ -13,10 +13,10 @@ def cnia(ser, conn, vessel):
         output_buffer = bytearray([0x00, 0x00, 0x00])
         ser.write(output_buffer)
         # Give the arduino time to do its processing and return the data.
-        while ser.in_waiting != 30:  # Seems to work but needs a timeout/ error catch
+        while ser.in_waiting != 40:  # Seems to work but needs a timeout/ error catch
             pass
 
-        input_buffer = ser.read(30)
+        input_buffer = ser.read(40)
 
         f_cnia_repeat = False
         # SAS

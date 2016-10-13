@@ -9,6 +9,7 @@ from OutputFunctions import output_mapping
 from InputFunctions import SAS_inputs, flight_control_inputs, camera_inputs
 from LandingGuidance import ldg_guidance_draw, ldg_guidance_clear
 from CNIA import cnia
+from Autopilot import Autopilot
 
 
 def panel_control(data_array, mQ):
@@ -18,6 +19,9 @@ def panel_control(data_array, mQ):
     BA_input_buffer = bytearray()
     f_first_pass = 1
     x_trim = [0, 0, 0]
+    throttle_inhib = False
+    spd_err = 0
+    spd_err_p = 0
 
     while 1:
         if time.time() - t_frame_start_time >= Settings.c_loop_frame_rate:
@@ -116,7 +120,6 @@ def panel_control(data_array, mQ):
             # STATE = RUNNING
             if n_program_state == 6:
                 try:  # catch RPC errors as they generally result from a scene change. Make more specific KRPC issue 256
-                    # Check for vessel change   todo check this still works!!
 
                     # Send data to the arduino request it to process inputs  - command byte = 0x00
                     BA_output_buffer = bytearray([0x00, 0x00, 0x00])
@@ -127,12 +130,12 @@ def panel_control(data_array, mQ):
                     output_mapping(BA_output_buffer, conn, part_temp_list, engine_propellant_status, mono_status, elec_status, gear_status)
 
                     # Make sure the Arduino has responded
-                    while ser.in_waiting != 30:
+                    while ser.in_waiting != 40:
                         pass
 
                     # read back the data from the arduino
                     BA_input_buffer_prev = BA_input_buffer
-                    BA_input_buffer = ser.read(30)
+                    BA_input_buffer = ser.read(40)
 
                     # Now send the output date we calculated earlier
                     ser.write(BA_output_buffer)
@@ -182,8 +185,12 @@ def panel_control(data_array, mQ):
                         elif not is_set(BA_input_buffer[12], 4) and is_set(BA_input_buffer_prev[12], 4):
                             ldg_guidance_clear(conn)
 
+                        # Autopiliot
+                        spd_err_p = spd_err
+                        throttle_inhib, spd_err = Autopilot(BA_input_buffer, BA_input_buffer_prev, vessel, spd_err_p, 100)
+
                         # Flight Control and Trims
-                        sas_overide = flight_control_inputs(BA_input_buffer, vessel, x_trim)
+                        sas_overide = flight_control_inputs(BA_input_buffer, vessel, x_trim, throttle_inhib)
 
                         # SAS
                         SAS_inputs(BA_input_buffer, BA_input_buffer_prev, vessel, mQ, sas_overide)
@@ -260,12 +267,7 @@ def panel_control(data_array, mQ):
                             conn.space_center.active_vessel = vessel_list[(vessel_list.index(vessel) - 1) % len(vessel_list)]
                             n_program_state = 4
 
-                        # Reset button - close the game connection and the serial and reset the state to the start.
-                        if is_set(BA_input_buffer[1], 2) and not is_set(BA_input_buffer_prev[1], 2):
-                            conn.close()
-                            ser.close()
-                            n_program_state = 1
-
+                        # put all the data onto the shared array for use by the GUI
                         for i in range(len(BA_input_buffer)):
                             data_array[i] = BA_input_buffer[i]
 

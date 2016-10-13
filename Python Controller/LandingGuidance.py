@@ -1,4 +1,4 @@
-def ldg_guidance_draw(conn, vessel):  # todo rebuild this when KRPC 3.6 is available to use custome reference frames.
+def ldg_guidance_draw(conn, vessel):  # todo rebuild this when KRPC 3.7 is available to use custome reference frames.
     conn.drawing.clear()
 
     v1_start = (158095.3939033646, -478.99761794020907, -578869.7132278137)
