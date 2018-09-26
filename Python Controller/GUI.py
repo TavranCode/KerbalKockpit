@@ -16,15 +16,15 @@ class Application:
 
         # Define Styles
         self.styles = ttk.Style()
-        self.styles.configure('Display.TLabel', font=('helvetica', '18'), padding=(10, 0), background='black', foreground='blue')
-        self.styles.configure('Msg.TLabel', font=('helvetica', '10'), padding=(10, 0), background='black', foreground='blue')
-        self.styles.configure('Ind.TLabel', font=('helvetica', '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
-        self.styles.configure('TNotebook.Tab', font=('helvetica', '14', 'bold'), padding=(10, 0))
-        self.styles.configure('TLabelframe.Label', font=('helvetica', '24', 'bold'), background='black')
+        self.styles.configure('Display.TLabel', font=(defaultfont, '18'), padding=(10, 0), background='black', foreground=darkcolor)
+        self.styles.configure('Msg.TLabel', font=(defaultfont, '10'), padding=(10, 0), background='black', foreground=darkcolor)
+        self.styles.configure('Ind.TLabel', font=(defaultfont, '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
+        self.styles.configure('TNotebook.Tab', font=(defaultfont, '14', 'bold'), padding=(10, 0))
+        self.styles.configure('TLabelframe.Label', font=(defaultfont, '24', 'bold'), background='black',foreground=lightcolor)
         self.styles.configure('TLabelframe', background='black')
         self.styles.configure('TFrame', background='black')
-        self.styles.configure('TButton', font=('helvetica', '16', 'bold'))
-        self.styles.configure('Ind.TLabel', font=('helvetica', '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
+        self.styles.configure('TButton', font=(defaultfont, '16', 'bold'))
+        self.styles.configure('Ind.TLabel', font=(defaultfont, '16', 'bold'), padding=(10, 0), relief='raised', anchor='center')
 
         # Create the notebook and define its tabs
         self.notebook = ttk.Notebook(root)
@@ -42,7 +42,7 @@ class Application:
         self.notebook.add(tab1, text='Launch')
         self.notebook.add(tab2, text='Orbital')
         self.notebook.add(tab3, text='Landing')
-        self.notebook.add(tab4, text='Rondezvous')
+        self.notebook.add(tab4, text='Rendezvous')
         self.notebook.add(tab5, text='Flight')
         self.notebook.add(tab6, text='Runway')
         self.notebook.add(tab7, text='Rover')
@@ -68,7 +68,7 @@ class Application:
         self.T1_LP = Launchplot()
 
         self.LpCanvas = FigureCanvasTkAgg(self.T1_LP.fig, master=self.T1R)
-        self.LpCanvas.show()
+        self.LpCanvas.draw()
         self.LpCanvas.get_tk_widget().pack(anchor=N, expand=1, fill=X)
 
         self.T1L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
@@ -90,7 +90,7 @@ class Application:
 
         self.OpCanvas = FigureCanvasTkAgg(self.T2_OP.fig, master=self.T2R)
         self.OpCanvas._tkcanvas.config(highlightthickness=0)
-        self.OpCanvas.show()
+        self.OpCanvas.draw()
         self.OpCanvas.get_tk_widget().pack(anchor=N, expand=1, fill=X)
 
         ttk.Button(self.T2R, text="Switch View Mode", command=self.T2_OP.switch).pack(anchor=N)
@@ -117,7 +117,7 @@ class Application:
         self.T3L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
         self.T3R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
 
-        # Tab 4 - Rondezvous
+        # Tab 4 - Rendezvous
         self.T4L = ttk.Frame(tab4)
         self.T4R = ttk.Frame(tab4)
 
@@ -172,10 +172,10 @@ class Application:
                                                                  'Translation Z:', 'Throttle:'))
         self.T9_AI.pack()
 
-        self.T9_AP = SubframeLabel(self.T9R, 'Autoilot Status', ('System Power:', 'State:', 'Lateral - Connected:', 'Lateral - Mode:', 'Lateral - Setting:',
-                                                                 'Vertical - Connected:', 'Vertical - Mode:', 'Vertical - Setting:',
-                                                                 'Speed - Connected:', 'Speed - Mode:', 'Speed - Setting:'))
-        self.T9_AP.pack()
+        # self.T9_AP = SubframeLabel(self.T9R, 'Autoilot Status', ('System Power:', 'State:', 'Lateral - Connected:', 'Lateral - Mode:', 'Lateral - Setting:',
+                                                                 # 'Vertical - Connected:', 'Vertical - Mode:', 'Vertical - Setting:',
+                                                                 # 'Speed - Connected:', 'Speed - Mode:', 'Speed - Setting:'))
+        # self.T9_AP.pack()
 
         self.T9L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
         self.T9R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
@@ -483,7 +483,7 @@ class Application:
                     ]
             self.T9_DI.update(temp)
 
-            # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
+            # Tab 9 --> Left Frame --> Analog Data SubframeLabel
             temp = [data_array[20],
                     data_array[21],
                     data_array[22],
@@ -493,18 +493,18 @@ class Application:
                     data_array[26]]
             self.T9_AI.update(temp)
             # Tab 9 --> Left Frame --> Analogure Data SubframeLabel
-            temp = ["ON" if is_set(data_array[29], 0) else "OFF",
-                    "RUNNING" if is_set(data_array[29], 1) else "INITIATING",
-                    "CONNECTED" if is_set(data_array[29], 2) else "DISCON",
-                    data_array[30],
-                    bytes2int([data_array[33], data_array[34]]),
-                    "CONNECTED" if is_set(data_array[29], 3) else "DISCON",
-                    data_array[31],
-                    bytes2int([data_array[35], data_array[36]]),
-                    "CONNECTED" if is_set(data_array[29], 4) else "DISCON",
-                    data_array[32],
-                    bytes2int([data_array[37], data_array[38]])]
-            self.T9_AP.update(temp)
+            # temp = ["ON" if is_set(data_array[29], 0) else "OFF",
+                    # "RUNNING" if is_set(data_array[29], 1) else "INITIATING",
+                    # "CONNECTED" if is_set(data_array[29], 2) else "DISCON",
+                    # data_array[30],
+                    # bytes2int([data_array[33], data_array[34]]),
+                    # "CONNECTED" if is_set(data_array[29], 3) else "DISCON",
+                    # data_array[31],
+                    # bytes2int([data_array[35], data_array[36]]),
+                    # "CONNECTED" if is_set(data_array[29], 4) else "DISCON",
+                    # data_array[32],
+                    # bytes2int([data_array[37], data_array[38]])]
+            #self.T9_AP.update(temp)
 
         # Update message area
         if not msgQ.empty():

@@ -2,8 +2,8 @@ void sys_error(void);
 void light_flash(int pin, unsigned long *timer, int flashtime);
 void light_flash_pwm(int pin, unsigned long *timer, int *state, int flashtime, int intensity);
 void light_dim_ctl(int pin, int cond, int on_val, int off_val);
-void mux_Tx(int adr, int reg, byte data);
-void mux_Rx(int adr, int reg, int numbytes, byte *data);
+//void mux_Tx(int adr, int reg, byte data);
+//void mux_Rx(int adr, int reg, int numbytes, byte *data);
 void pad(char* text);
 int mod(int x, int m);
 
@@ -90,3 +90,46 @@ int mod(int x, int m) {
   return r < 0 ? r + m : r;
 }
 
+double GetTemp(void)
+{
+  unsigned int wADC;
+  double t;
+
+  // The internal temperature has to be used
+  // with the internal reference of 1.1V.
+  // Channel 8 can not be selected with
+  // the analogRead function yet.
+
+  // Set the internal reference and mux.
+  ADMUX = (_BV(REFS1) | _BV(REFS0) | _BV(MUX3));
+  ADCSRA |= _BV(ADEN);  // enable the ADC
+
+  delay(20);            // wait for voltages to become stable.
+
+  ADCSRA |= _BV(ADSC);  // Start the ADC
+
+  // Detect end-of-conversion
+  while (bit_is_set(ADCSRA,ADSC));
+
+  // Reading register "ADCW" takes care of how to read ADCL and ADCH.
+  wADC = ADCW;
+
+  // The offset of 324.31 could be wrong. It is just an indication.
+  t = (wADC - 324.31 ) / 1.22;
+
+  // The returned temperature is in degrees Celsius.
+  return (t);
+}
+
+// The selectMuxPin function sets the S0, S1, and S2 pins
+// accordingly, given a pin from 0-7.
+void selectAMuxPin(byte pin)
+{
+  for (int i=0; i<3; i++)
+  {
+    if (pin & (1<<i))
+      digitalWrite(selectPins[i], HIGH);
+    else
+      digitalWrite(selectPins[i], LOW);
+  }
+}

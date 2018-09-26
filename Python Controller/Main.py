@@ -3,8 +3,6 @@ from tkinter import Tk
 import ctypes
 from time import sleep, time
 from Settings import *
-
-
 from GUI import Application
 
 # Define the shared data between the processes

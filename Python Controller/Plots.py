@@ -45,13 +45,13 @@ class Launchplot:
         plt.ylim(0, self.ylim)
 
         self.ax1.imshow(self.Z, cmap=self.colormap, interpolation="bicubic", extent=[-2, self.xlim, 0, self.ylim])
-        self.ax1.set_title("Launch Trajectory", fontsize=24, color="blue", fontweight="bold")
-        self.ax1.set_xlabel("Horizontal distance (km)", fontsize=20, color="blue", fontweight="bold")
-        self.ax1.set_ylabel("Altitude (km)", fontsize=20, color="blue", fontweight="bold")
-        self.ax1.tick_params(color="blue", labelcolor="blue", labelsize=16)
+        self.ax1.set_title("Launch Trajectory", fontsize=24, color='#FFB000', fontweight="bold")
+        self.ax1.set_xlabel("Horizontal distance (km)", fontsize=20, color='#FFB000', fontweight="bold")
+        self.ax1.set_ylabel("Altitude (km)", fontsize=20, color='#FFB000', fontweight="bold")
+        self.ax1.tick_params(color='#FFB000', labelcolor='#FFB000', labelsize=16)
 
         for spine in self.ax1.spines.values():
-            spine.set_edgecolor("blue")
+            spine.set_edgecolor('#FFB000')
 
         self.fig.canvas.draw()
 
@@ -93,13 +93,13 @@ class Launchplot:
             plt.ylim(0, self.ylim)
 
             self.ax1.imshow(self.Z, cmap=self.colormap, interpolation="bicubic", extent=[-2, self.xlim, 0, self.ylim])
-            self.ax1.set_title("Launch Trajectory", fontsize=24, color="blue", fontweight="bold")
-            self.ax1.set_xlabel("Horizontal distance (km)", fontsize=20, color="blue", fontweight="bold")
-            self.ax1.set_ylabel("Altitude (km)", fontsize=20, color="blue", fontweight="bold")
-            self.ax1.tick_params(color="blue", labelcolor="blue", labelsize=16)
+            self.ax1.set_title("Launch Trajectory", fontsize=24, color='#FFB000', fontweight="bold")
+            self.ax1.set_xlabel("Horizontal distance (km)", fontsize=20, color='#FFB000', fontweight="bold")
+            self.ax1.set_ylabel("Altitude (km)", fontsize=20, color='#FFB000', fontweight="bold")
+            self.ax1.tick_params(color='#FFB000', labelcolor='#FFB000', labelsize=16)
 
             for spine in self.ax1.spines.values():
-                spine.set_edgecolor("blue")
+                spine.set_edgecolor('#FFB000')
 
             self.fig.canvas.draw()
 
@@ -107,8 +107,8 @@ class Launchplot:
 class Orbitplot:
     def __init__(self):
         self.fig = plt.figure(figsize=(7, 9), facecolor="black")
-        self.ax1 = self.fig.add_subplot(211, polar=True, axisbg="black")
-        self.ax2 = self.fig.add_subplot(212, projection='3d', axisbg="black", aspect="equal")
+        self.ax1 = self.fig.add_subplot(211, polar=True, facecolor="black")
+        self.ax2 = self.fig.add_subplot(212, projection='3d', facecolor="black", aspect="equal")
 
         # set the starting view mode
         self.mode = 2
@@ -134,7 +134,7 @@ class Orbitplot:
             self.ax1.clear()
             self.ax1.set_theta_offset(np.pi)
             self.ax1.axis("off")
-            self.ax1.set_title("Orbit - Planar View", fontsize=24, color="blue", fontweight="bold")
+            self.ax1.set_title("Orbit - Planar View", fontsize=24, color='#FFB000', fontweight="bold")
 
             #  plot the planet
             circle = plt.Circle((0, 0), pr, transform=self.ax1.transData._b, color="grey", alpha=1)
@@ -152,7 +152,7 @@ class Orbitplot:
             self.ax1.set_rlim(ap * 1.25)
 
             # plot the orbit
-            self.ax1.plot(theta, r, color="blue", lw=3)
+            self.ax1.plot(theta, r, color='#FFB000', lw=3)
 
             # plot PE and AP
             self.ax1.plot([0], [q], "D", color="white", markersize=7)
@@ -182,7 +182,7 @@ class Orbitplot:
         if self.mode is not 0:
             self.ax2.clear()
             self.ax2.axis("off")
-            self.ax2.set_title("Orbit - Oblique View", fontsize=24, color="blue", fontweight="bold")
+            self.ax2.set_title("Orbit - Oblique View", fontsize=24, color='#FFB000', fontweight="bold")
 
             # Adjustment of the axes, so that they all have the same span:
             for axis in 'xyz':
