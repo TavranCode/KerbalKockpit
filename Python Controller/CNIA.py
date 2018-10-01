@@ -1,16 +1,16 @@
 from Utilities import is_set
-from time import sleep
+#from time import sleep
+import time
 
 # This function takes care of the Controls Not In Agreement logic that ensures the panel is algined with the vessel state on vessel change.
 # The function blocks until the state is consistent to avoid issues when the panel state takes over the vessel.
 
 
-def cnia(ser, conn, vessel):
+def cnia(ser, conn, vessel,mQ):
     f_cnia_repeat = True
-    raise TimeoutError("clnr: fake timeout2")
+    
     while f_cnia_repeat:
         # we need to get a state reading from the panel. Send a 0 value to get a switch reading back
-        raise TimeoutError("clnr: fake timeout")
         output_buffer = bytearray([0x00, 0x00, 0x00])
         print('sending CNIA output request')
         ser.write(output_buffer)
@@ -20,7 +20,7 @@ def cnia(ser, conn, vessel):
         timeout = time.time() + 10
         while ser.inWaiting() != 40:  # Seems to work but needs a timeout/ error catch
             if time.time() > timeout:
-                raise TimeoutError("clnr: timeout with",ser.inWaiting(),"in waiting")
+                raise TimeoutError("clnr: timeout with ",str(ser.inWaiting())," in waiting")
             pass
 
         print('CNIA: Reading')

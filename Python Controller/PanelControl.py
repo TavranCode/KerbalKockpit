@@ -1,3 +1,4 @@
+import sys
 import serial
 import krpc
 import time
@@ -11,8 +12,12 @@ from InputFunctions import flight_control_inputs #SAS_inputs, camera_inputs
 from CNIA import cnia
 #from Autopilot import Autopilot
 
+def testmq(mQ):
+    mQ.put((0,'test message'))
 
 def panel_control(data_array, mQ):
+    sys.stdout = open('panelcontrolout.txt', 'w')
+    sys.stderr = open('panelcontrolerror.txt', 'w')
     n_program_state = 1
     t_quickload_timer = 0
     t_frame_start_time = time.time()
@@ -66,21 +71,15 @@ def panel_control(data_array, mQ):
             # STATE = Perform CNIA
             if n_program_state == 4:
                 mQ.put((0, 'Starting CNIA...'))
-                raise TimeoutError("Out of function timeout")
-                cnia(ser,conn,vessel)
-                # try:
-                    # cnia(ser, conn, vessel)
-                # except TimeoutError:
-                    # mq.put((1,'exception'))
-                    # mq.put((1, ' '.join(err.args)))
-                    # time.sleep(5)
-                    # pass
-                # except serial.serialutil.SerialException:
-                    # mQ.put((1, 'CNIA could not connect to the panel'))
-                    # time.sleep(5)  # to avoid spamming the message queue
-                    # pass
-                mQ.put((0, 'CNIA Complete'))
-                n_program_state = 5
+                try:
+                    cnia(ser, conn, vessel,mQ)
+                    mQ.put((0, 'CNIA Complete'))
+                    n_program_state = 5
+                except TimeoutError as err:
+                    mQ.put((0, ' '.join(err.args)))
+                    time.sleep(5)
+                    pass
+
 
             # STATE = Streams and objects- setup data input streams and reused objects
             if n_program_state == 5:
