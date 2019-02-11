@@ -51,16 +51,28 @@ void setup()
 //  Serial.println("---\t---\t---\t---\t---\t---\t---\t---");
 }
 
+// The selectMuxPin function sets the S0, S1, and S2 pins
+// accordingly, given a pin from 0-7.
+void selectAMuxPin(byte pin)
+{
+  for (int i=0; i<3; i++)
+  {
+    if (pin & (1<<i))
+      digitalWrite(selectPins[i], HIGH);
+    else
+      digitalWrite(selectPins[i], LOW);
+  }
+}
+
 void loop() 
 {
   // Loop through all eight pins.
   for (byte pin=0; pin<=3; pin++)
   {
-    selectMuxPin(pin); // Select one at a time
+    selectAMuxPin(pin); // Select one at a time
     int inputValue = analogRead(A0); // and read Z
     Serial.print(String(inputValue) + " ");
   }
   Serial.println();
 //  delay(1000);
 }
-

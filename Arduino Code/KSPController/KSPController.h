@@ -1,7 +1,7 @@
 /* Definitions */
 #define TRUE 1
 #define FALSE 0
-#define DEBUG               /* This flag will enable debug code */
+//#define DEBUG               /* This flag will enable debug code */
 
 /* Analog Multiplex Vars */
 const int selectPins[3] = {2, 3, 4}; // S0~2, S1~3, S2~4
@@ -46,7 +46,7 @@ unsigned long t_run_time = 0;           /* time since main power on */
 unsigned long t_power_on = 0;           /* time when main power came on */
 //unsigned long t_gear_flash_timer = 0;   /* timer for gear light flash calculation */
 unsigned long t_last_serial_time = 0;   /* time since last serial data arrived */
-unsigned long t_error_light = 0;        /* timer for error light flashing */
+unsigned long t_error_light = 100;        /* timer for error light flashing */
 //unsigned long t_ap_init_timer = 0;      /* AP init mode timer */
 
 /* constants */
@@ -69,7 +69,7 @@ const int c_error_light_flash = 250;    /* no data flash rate for error light [m
 //const int c_ap_faststep_delay = 5;      /* Number of AP frames with button held to use fast more [-]*/
 //const float c_fan_speed_m = 3.448;      /* fan speed vs temp slope [rpm/deg]*/
 //const float c_fan_speed_b = -282.931;   /* fan speed vs temp Y intercept [rpm]*/
-const long c_serial_speed = 9600;/*115200;     /* serial bus baud rate [baud]*/
+const long c_serial_speed = 115200;     /* serial bus baud rate [baud]*/
 
 /* pin mappings */
 //const int c_dimmer_pwm_pin = 2;
@@ -77,68 +77,19 @@ const long c_serial_speed = 9600;/*115200;     /* serial bus baud rate [baud]*/
 //const int c_ap_reset_pin = 4;
 //const int c_ap_dimmer_pin = 5;
 //const int c_fan_pwm_pin = 6;
-const int c_overrun_led_pin = 5;
-const int c_error_led_pin = 6;
-const int c_power_led_pin = 7;
+const int c_overrun_led_pin = 7;
+const int c_error_led_pin = 8;
+const int c_power_led_pin = 5;
 
 /* pin ranges */
-const int c_first_input_pin1 = 8;       /* the first pin used for digital IO */
-const int c_last_input_pin1 = 9;        /* the last input pin used for digital IO */
+const int c_first_input_pin1 = 9;       /* the first pin used for digital IO */
+const int c_last_input_pin1 = 10;        /* the last input pin used for digital IO */
 //const int c_first_input_pin2 = 22;      /* the first pin used for digital IO */
 //const int c_last_input_pin2 = 54;       /* the last input pin used for digital IO */
 //const int c_first_pwm_pin = 2;          /* the first pin used for digital output */
 //const int c_last_pwm_pin = 6;           /* the last output pin used for digital IO */
 const int c_first_output_pin = 2;      /* the first pin used for digital output */
 const int c_last_output_pin = 5;       /* the last output pin used for digital IO */
-
-/* LCD Panel definition */
-//LiquidCrystal lcd(14, 15, 16, 17, 18, 19);  /* Refer docs, this sets the pin numbers for the LCD connections
-//                                               Order is CRITICAL! */
-
-/* structs */
-//typedef struct apmode {
-//  char mode[13];            /* The text name of the mode */
-//  int defval;               /* The default value */
-//  int minval;               /* The minimum value */
-//  int maxval;               /* The maximum value */
-//  int valstep;              /* The step change from a single value up/dn press */
-//  int stepmult;             /* The step change multiplier when button is held */
-//  int wrap;                 /* True if the value should wrap around, minval must be 0! */
-//  int dec;                  /* Offset value with decimal, but this many digits, Not yet implemented! */
-//  char prefix[4];           /* Text that appears before the value */
-//  char suffix[4];           /* Text that appears after the value */
-//} ApMode;
-//
-//   /* Array of all AP modes.
-//   The second dimension size must be the large enough for the largest axis.
-//   e.g. if vertical had 15 modes, the array must be [3][15] and the extras
-//   are unused in other modes. The actual number of modes per axis is 
-//   captured in the array below and must match the definitions! */
-//ApMode APModes[3][2] = {{{"Heading", 90, 0, 360, 1, 5, TRUE, 0, "", "deg"},
-//                         {"Bank", 0, -45, 45, 1, 1, FALSE, 0, "", "deg"}
-//                        },
-//                        {{"Pitch", 0, -20, 20, 1, 1, FALSE, 0, "", "deg"},
-//                         {"Altitude", 100, 0, 500, 10, 1, FALSE, 0, "FL", ""}
-//                        },
-//                        {{"Speed", 200, 20, 1000, 1, 20, FALSE, 0, "", "m/s"}
-//                        }
-//                       };
-//
-//const int n_ap_modes[3] = {2, 2, 1};         /* actual number of AP modes per axis*/
-//
-//typedef struct apsetting {
-//  int setmode;
-//  int setval;
-//  int displaymode;
-//  int displayval;
-//  int isconn;
-//
-//} ApSetting;
-//
-//ApSetting APSetting[3] = {{0, 0, 0, 0, 0},
-//  {0, 0, 0, 0, 0},
-//  {0, 0, 0, 0, 0}
-//};
 
 /* function prototypes*/
 int read_inputs(byte buff[]);

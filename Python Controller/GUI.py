@@ -11,6 +11,7 @@ from PanelControl import panel_control
 from Plots import Launchplot, Orbitplot
 
 
+
 class Application:
     def __init__(self, root, data_array, msgQ):
 

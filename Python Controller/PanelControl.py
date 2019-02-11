@@ -37,9 +37,9 @@ def panel_control(data_array, mQ):
             if n_program_state == 1:
                 mQ.put((0, 'Connecting to the panel....'))
                 try:
-                    ser = serial.Serial('./COM3', 9600, timeout=0.1)
+                    ser = serial.Serial('./COM3', 115200, timeout=0.1)
                     mQ.put((0, 'Connected to the panel'))
-                    time.sleep(1)  # serial needs a little bit of time to initialise, otherwise later code - esp CNIA fails
+                    time.sleep(5)  # serial needs a little bit of time to initialise, otherwise later code - esp CNIA fails
                     n_program_state = 2
                 except serial.serialutil.SerialException:
                     mQ.put((1, 'Could not connect to the panel'))
@@ -118,17 +118,16 @@ def panel_control(data_array, mQ):
                     # Check the status of the Arduino and make the controls work
                     #mQ.put((0,'input buffer is ' + BA_input_buffer[0]))
                     if BA_input_buffer[0] == 3:  # status of 00000011 is fully powered
-                        #mQ.put((0,'starting input buffer statement'))
                         # SAS
                         #SAS_inputs(BA_input_buffer, BA_input_buffer_prev, vessel, mQ)
                         # Flight Control (currently just throttle)
                         try:
-                            throttle_justset = flight_control_inputs(BA_input_buffer, vessel, throttle_inhib, mQ)
+                            sas_overide = flight_control_inputs(BA_input_buffer, vessel, x_trim, throttle_inhib, mQ)
                         except Exception as e:
                             mQ.put((1,'flight control error'))
                             mQ.put((1,repr(e)))
                         # put all the data onto the shared array for use by the GUI
-                        mQ.put((0,'ran flight control'))
+                        #mQ.put((0,'ran flight control'))
                         for i in range(len(BA_input_buffer)):
                             data_array[i] = BA_input_buffer[i]
                         #mQ.put((0,'out of loop'))

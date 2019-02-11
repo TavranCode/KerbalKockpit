@@ -33,9 +33,12 @@ void setup() {
   {
     Serial.print("Testing ");
     Serial.print(a);
-    Serial.print("\n");
     Wire.beginTransmission (a);
-    if (Wire.endTransmission () == 0) {
+    int testval = Wire.endTransmission ();
+    Serial.print(" returned ");
+    Serial.print(testval);
+    Serial.print("\n");
+    if (testval == 0) {
       n_mux_chips_detected++;
     }
   }

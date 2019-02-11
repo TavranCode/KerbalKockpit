@@ -15,11 +15,11 @@ void sys_error(int code) {
   while (true) {
     for (int i = 0; i < code; i++) {
       digitalWrite(c_error_led_pin, HIGH);
-      delay(200);
+      delay(500);
       digitalWrite(c_error_led_pin, LOW);
-      delay(200);
+      delay(500);
     }
-    delay(1000);
+    delay(2000);
   }
 }
 

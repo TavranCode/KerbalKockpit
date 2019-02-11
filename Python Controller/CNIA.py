@@ -1,5 +1,5 @@
 from Utilities import is_set
-#from time import sleep
+from time import sleep
 import time
 
 # This function takes care of the Controls Not In Agreement logic that ensures the panel is algined with the vessel state on vessel change.

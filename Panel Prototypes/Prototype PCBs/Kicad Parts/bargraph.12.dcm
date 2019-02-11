@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP Bargraph.12
+D BAR GRAPH 12 segment
+K display LED array
+$ENDCMP
+#
+#End Doc Library

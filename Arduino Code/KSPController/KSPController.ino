@@ -44,32 +44,7 @@ void setup() {
   if (n_mux_chips_detected != c_num_mux_chips) {
     sys_error(c_error_code_mux_missing);
   }
-
-//  /* setup the MUX output lines - MUX pins default to input on start up */
-//  mux_Tx(0x23, 0x00, 0x00);  /* MUX 0x23, IODIRA, Set all to output (0) */
-//  mux_Tx(0x23, 0x01, B11111110);  /* MUX 0x23, IODIRB, Set only pin 1 to output (0) */
-//  mux_Tx(0x24, 0x00, 0x00);  /* MUX 0x24, IODIRA, Set all to output (0) */
-//  mux_Tx(0x24, 0x01, B11111110);  /* MUX 0x24, IODIRB, Set only pin 1 to output (0) */
-//
-//  /* reverse the polarity for all pins except the stage switch (which is already reversed) */
-//  mux_Tx(0x20, 0x02, 0xFF);     /* Mux 0x20, IPOLA, Set All to reverse */
-//  mux_Tx(0x20, 0x03, B01111111); /* Mux 0x20, IPOLB, Set All but pin B7 (stage sw) to reverse */
-//  mux_Tx(0x21, 0x02, 0xFF);     /* Mux 0x21, IPOLA, Set All to reverse */
-//  mux_Tx(0x21, 0x03, 0xFF);     /* Mux 0x21, IPOLB, Set All to reverse */
-//  mux_Tx(0x22, 0x03, 0xFF);     /* Mux 0x22, IPOLB, Set All to reverse */
-//  mux_Tx(0x23, 0x03, B11111110); /* Mux 0x23, IPOLB, Set All but pin B1 (output) to reverse */
-//  mux_Tx(0x24, 0x03, B11111110); /* Mux 0x23, IPOLB, Set All but pin B1 (output) to reverse */
-//  mux_Tx(0x25, 0x02, 0xFF);     /* Mux 0x25, IPOLA, Set All to reverse */
-//  mux_Tx(0x25, 0x03, 0xFF);     /* Mux 0x25, IPOLB, Set All to reverse */
-//  mux_Tx(0x26, 0x02, 0xFF);     /* Mux 0x26, IPOLA, Set All to reverse */
-//  mux_Tx(0x26, 0x03, 0xFF);     /* Mux 0x27, IPOLB, Set All to reverse */
-//
-//  /* turn on the input pullups on the AP panel */
-//  mux_Tx(0x25, 0x0C, 0xFF);     /* Mux 0x25, GPPUA, Set All to pullup */
-//  mux_Tx(0x25, 0x0D, 0xFF);     /* Mux 0x25, GPPUB, Set All to pullup */
-//  mux_Tx(0x26, 0x0C, 0xFF);     /* Mux 0x26, GPPUA, Set All to pullup */
-//  mux_Tx(0x26, 0x0D, 0xFF);     /* Mux 0x26, GPPUB, Set All to pullup */
-
+  
   /* start serial comms */
   Serial.begin(c_serial_speed);
   #ifdef DEBUG
@@ -126,32 +101,11 @@ void loop() {
     t_last_serial_time = 0;
     #endif
     
-    /* check the input power */
-//    if (analogRead(A0) < c_voltage_threshold) {
-      /* powered by USB only, flash the power light and do nothing else */
-//      light_flash_pwm(c_power_led_pin, &t_power_light, &f_power_light_state, c_power_light_flash, 10);
-      /* turn off lights */
-//      digitalWrite(c_error_led_pin, LOW);
-//      digitalWrite(c_dimmer_pwm_pin, LOW);
-//      digitalWrite(c_ap_power_pin, LOW);
-//      digitalWrite(c_ap_dimmer_pin, LOW);
-//      digitalWrite(c_ap_reset_pin, LOW);
-      
-//      f_power_on_first_pass = TRUE;
-//      t_run_time = 0;
-//      x_databuffer[0] = B00000001; /* set the status byte to 1 to alive (bit 1) but unpowered (bit 2)*/
-////    }
-//    else { /* power is on, run the main program */
-//      if (f_power_on_first_pass ) {
-//        t_power_on = t_current_frame;
-//        f_power_on_first_pass = FALSE;
-//      }
+    t_power_on = t_current_frame;
+    f_power_on_first_pass = FALSE;
+    //digitalWrite(c_error_led_pin, LOW);
 
-      /* Code replaces the power checks above since the prototype just uses usb power: */
-        t_power_on = t_current_frame;
-        f_power_on_first_pass = FALSE;
-        digitalWrite(c_error_led_pin, LOW);
-      /* Manage the dimmer input  */
+    /* Manage the dimmer input  */
      
       x_dimmer_setting = 1023; //map(analogRead(A2), 0, 1023, 255, 2); /* Dimmer - REVERSED - set a minimum to avoid no lights */
       /* Turn on the power light */
@@ -174,7 +128,6 @@ void loop() {
 
         /* set the status byte */
         x_databuffer[0] = B00000011; /* bit 1 is true (alive) and bit 2 is true (powered) */
-        //Serial.println(map(analogRead(A5), 1023, 0, 0, 255));
         /* read all the inputs into the databuffer */
         read_inputs(&x_databuffer[1]);
 
@@ -183,32 +136,12 @@ void loop() {
           write_outputs(x_inputbuffer, x_databuffer);
           f_data_received = FALSE;
         }
-
-        /* manage the autopilot */
-//        n_ap_subband_count = (n_ap_subband_count + 1) % c_ap_subband;
-//        if (n_ap_subband_count == 0){
-//          autopilot(x_databuffer);
-//        }
       }
       /* manage dimmer controls */
 //      light_dim_ctl(c_dimmer_pwm_pin, f_serial_state, x_dimmer_setting, 0);
 //      light_dim_ctl(c_ap_power_pin, f_serial_state, x_dimmer_setting, 0);
 //      light_dim_ctl(c_ap_dimmer_pin, f_ap_power_state, x_dimmer_setting, 0);
 //      light_dim_ctl(c_ap_reset_pin, f_ap_power_state, x_dimmer_setting, 0);
-
-      /* manage the fan */
-//      if (t_run_time < c_fan_power_up_time) { /* max speed initially to ensure it starts */
-//        x_fan_speed = 255;
-//      }
-//      else { /* map fan speed to temp v fan speed curve */
-//        x_fan_speed = int(x_databuffer[18] * c_fan_speed_m + c_fan_speed_b);
-//      }
-//      analogWrite(c_fan_pwm_pin, x_fan_speed);
-
-      /* check for high temp */
-      if (x_databuffer[18] > c_temp_max) {
-        sys_error(c_overtemp_error_code);
-      }
 
       /* measure the processing time, signal if an overun occurs. add actual frame time to data buffer */
       t_frame_actual = millis() - t_current_frame;
@@ -217,7 +150,6 @@ void loop() {
       if (t_frame_actual >= c_frame_time_target) {
         digitalWrite(c_overrun_led_pin, HIGH);
         #ifdef DEBUG
-        //Serial.println("OVRFLW");
         Serial.println(t_frame_actual);
         #endif
       }
@@ -226,14 +158,13 @@ void loop() {
       }
 
       /* add the fan speed data to the buffer */
-//      x_databuffer[28] = x_fan_speed;
+      x_databuffer[28] = 0x99;
 
       /* if data was requested, send data back */
       if (f_data_requested) {
         Serial.write(x_databuffer, sizeof(x_databuffer));
         f_data_requested = FALSE;
       }
-     /* end of 'if power on' condition */
   } /* end of 'if frame time reached' condition */
 }
 
@@ -248,10 +179,6 @@ int read_inputs(byte buff[]) {
   for (i = c_first_input_pin1; i <= c_last_input_pin1; i++) {
     bitWrite(buff[0], (i - c_first_input_pin1) % 8, !digitalRead(i));
   }
-//
-//  for (i = c_first_input_pin2; i <= c_last_input_pin2; i++) {
-//    bitWrite(buff[(i - c_first_input_pin2) / 8 + 1], (i - c_first_input_pin2) % 8, !digitalRead(i));
-//  }
 
   /* now read the digital ins from each MUX bank.
       note that they already come as bytes so they can be copied straight in.
@@ -272,17 +199,17 @@ int read_inputs(byte buff[]) {
 //  buff[16] = map(analogRead(A0), 0, 1023, 0, 255); /* Voltage sensor */
     buff[17] = map(GetTemp(), 0, 1023, 0, 255); /* Temperature Sensor */
 //  buff[18] = map(analogRead(A2), 0, 1023, 255, 2); /* Dimmer - REVERSED - set a minimum to avoid no lights */
-  selectAMuxPin(2);
-  buff[19] = map(analogRead(zInput), 0, 1023, 0, 255); /* Rotation X */
-  selectAMuxPin(3);
-  buff[20] = map(analogRead(zInput), 0, 1023, 0, 255); /* Rotation Y */
   selectAMuxPin(1);
+  buff[19] = map(analogRead(zInput), 0, 1023, 0, 255); /* Rotation X */
+  selectAMuxPin(2);
+  buff[20] = map(analogRead(zInput), 0, 1023, 0, 255); /* Rotation Y */
+  selectAMuxPin(0);
   buff[21] = map(analogRead(zInput), 0, 1023, 0, 255); /* Rotation Z */
 //  buff[22] = map(analogRead(A6), 0, 1023, 255, 0); /* Translation X - REVERSED */
 //  buff[23] = map(analogRead(A7), 0, 1023, 0, 255); /* Translation Y */
 //  buff[24] = map(analogRead(A8), 0, 1023, 0, 255); /* Translation Z */
-  selectAMuxPin(4);
-  buff[25] = map(analogRead(zInput), 1023, 0, 0, 255); /* Throttle */
+  selectAMuxPin(3);
+  buff[25] = map(analogRead(zInput), 0, 1023, 0, 255); /* Throttle */
   return 0;
 }
 
@@ -293,7 +220,7 @@ int write_outputs(byte inputs[], byte outputs[]) {
 //  bitWrite(temp, 4, bitRead(outputs[9], 7)); /* staging armed */
 //  bitWrite(temp, 5, (bitRead(outputs[9], 3) || bitRead(outputs[9], 4) || bitRead(outputs[9], 5) || bitRead(outputs[9], 6))); /* throttle armed */
 //  bitWrite(temp, 6, (bitRead(outputs[9], 4) || bitRead(outputs[9], 5) || bitRead(outputs[9], 6))); /* throttle limited */
-  bitWrite(temp, 7, bitRead(outputs[9], 2)); /* SAS Power On */
+//  bitWrite(temp, 7, bitRead(outputs[9], 2)); /* SAS Power On */
 //  mux_Tx(0x23, 0x12, temp);  /* MUX 0x23, GPIOA */
 
   temp = 0; /* we are not receiving anything here */

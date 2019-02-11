@@ -1,0 +1,167 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+5V #PWR?
+U 1 1 5C0F4F4E
+P 850 600
+F 0 "#PWR?" H 850 450 50  0001 C CNN
+F 1 "+5V" H 865 773 50  0000 C CNN
+F 2 "" H 850 600 50  0001 C CNN
+F 3 "" H 850 600 50  0001 C CNN
+	1    850  600 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x05 J?
+U 1 1 5C0F5033
+P 700 1150
+F 0 "J?" H 620 725 50  0000 C CNN
+F 1 "Conn_01x05" H 620 816 50  0000 C CNN
+F 2 "" H 700 1150 50  0001 C CNN
+F 3 "~" H 700 1150 50  0001 C CNN
+	1    700  1150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	900  1050 1250 1050
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 5C0F558C
+P 2050 1150
+F 0 "SW1" H 2050 1385 50  0000 C CNN
+F 1 "SW_SPST" H 2050 1294 50  0000 C CNN
+F 2 "" H 2050 1150 50  0001 C CNN
+F 3 "" H 2050 1150 50  0001 C CNN
+	1    2050 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW2
+U 1 1 5C0F55D8
+P 2050 1450
+F 0 "SW2" H 2050 1685 50  0000 C CNN
+F 1 "SW_SPST" H 2050 1594 50  0000 C CNN
+F 2 "" H 2050 1450 50  0001 C CNN
+F 3 "" H 2050 1450 50  0001 C CNN
+	1    2050 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW3
+U 1 1 5C0F5616
+P 2050 1750
+F 0 "SW3" H 2050 1985 50  0000 C CNN
+F 1 "SW_SPST" H 2050 1894 50  0000 C CNN
+F 2 "" H 2050 1750 50  0001 C CNN
+F 3 "" H 2050 1750 50  0001 C CNN
+	1    2050 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2250 1150 2250 1450
+Wire Wire Line
+	2250 1450 2250 1750
+Connection ~ 2250 1450
+$Comp
+L Device:R_US R1
+U 1 1 5C0F5954
+P 1400 1050
+F 0 "R1" V 1605 1050 50  0000 C CNN
+F 1 "R_US" V 1514 1050 50  0000 C CNN
+F 2 "" V 1440 1040 50  0001 C CNN
+F 3 "~" H 1400 1050 50  0001 C CNN
+	1    1400 1050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_US R2
+U 1 1 5C0F5D95
+P 1400 1350
+F 0 "R2" V 1605 1350 50  0000 C CNN
+F 1 "R_US" V 1514 1350 50  0000 C CNN
+F 2 "" V 1440 1340 50  0001 C CNN
+F 3 "~" H 1400 1350 50  0001 C CNN
+	1    1400 1350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_US R3
+U 1 1 5C0F5E1D
+P 1400 1650
+F 0 "R3" V 1605 1650 50  0000 C CNN
+F 1 "R_US" V 1514 1650 50  0000 C CNN
+F 2 "" V 1440 1640 50  0001 C CNN
+F 3 "~" H 1400 1650 50  0001 C CNN
+	1    1400 1650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	900  950  900  600 
+Wire Wire Line
+	900  600  2250 600 
+Wire Wire Line
+	2250 600  2250 1150
+Connection ~ 2250 1150
+Wire Wire Line
+	900  600  850  600 
+Connection ~ 900  600 
+$Comp
+L power:GND #PWR?
+U 1 1 5C0F6871
+P 1250 850
+F 0 "#PWR?" H 1250 600 50  0001 C CNN
+F 1 "GND" H 1255 677 50  0000 C CNN
+F 2 "" H 1250 850 50  0001 C CNN
+F 3 "" H 1250 850 50  0001 C CNN
+	1    1250 850 
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1250 850  1250 1050
+Connection ~ 1250 1050
+Wire Wire Line
+	1250 1350 1250 1050
+Wire Wire Line
+	1250 1350 1250 1650
+Connection ~ 1250 1350
+Wire Wire Line
+	1850 1150 1850 1050
+Wire Wire Line
+	1850 1050 1550 1050
+Wire Wire Line
+	1850 1150 900  1150
+Connection ~ 1850 1150
+Wire Wire Line
+	1850 1450 1850 1350
+Wire Wire Line
+	1850 1350 1550 1350
+Wire Wire Line
+	1850 1450 1200 1450
+Wire Wire Line
+	1200 1450 1200 1250
+Wire Wire Line
+	1200 1250 900  1250
+Connection ~ 1850 1450
+Wire Wire Line
+	1850 1750 900  1750
+Wire Wire Line
+	900  1750 900  1350
+Wire Wire Line
+	1550 1650 1850 1650
+Wire Wire Line
+	1850 1650 1850 1750
+Connection ~ 1850 1750
+$EndSCHEMATC
