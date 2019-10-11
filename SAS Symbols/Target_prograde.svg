@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Edited by hand -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="16" height="16">
+  <path d="m 9,2 a 5,5,0,0,1,5,5 m 0,2 a 5,5,0,0,1,-5,5 m -2,0 a 5,5,0,0,1,-5,-5 m 0,-2 a 5,5,0,0,1,5,-5" style="fill:none;stroke:#D600D6;" />
+  <circle cx="8" cy="8" r="1.5" style="fill:#D600D6;stroke:none;" />
+</svg>

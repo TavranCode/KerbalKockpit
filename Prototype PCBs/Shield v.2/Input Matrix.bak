@@ -1,0 +1,2100 @@
+EESchema Schematic File Version 4
+LIBS:Shield v.2-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	8350 4800 8350 5050
+Wire Wire Line
+	9050 5050 9050 5250
+Connection ~ 9050 5050
+$Comp
+L Diode:1N4148 D64
+U 1 1 5D5B1B9C
+P 8900 5050
+F 0 "D64" H 8910 5250 50  0000 L CNN
+F 1 "1N4148" H 8900 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 5250 50  0001 C CNN
+F 3 "" H 8900 5250 50  0001 C CNN
+	1    8900 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	7600 4800 7600 5050
+Wire Wire Line
+	8300 5050 8300 5250
+Connection ~ 8300 5050
+$Comp
+L Diode:1N4148 D56
+U 1 1 5D5B1B9A
+P 8150 5050
+F 0 "D56" H 8160 5250 50  0000 L CNN
+F 1 "1N4148" H 8150 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 5250 50  0001 C CNN
+F 3 "" H 8150 5250 50  0001 C CNN
+	1    8150 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	6850 4800 6850 5050
+Wire Wire Line
+	7550 5050 7550 5250
+Connection ~ 7550 5050
+$Comp
+L Diode:1N4148 D48
+U 1 1 5D5B1B98
+P 7400 5050
+F 0 "D48" H 7410 5250 50  0000 L CNN
+F 1 "1N4148" H 7400 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 5250 50  0001 C CNN
+F 3 "" H 7400 5250 50  0001 C CNN
+	1    7400 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	6100 4800 6100 5050
+Wire Wire Line
+	6800 5050 6800 5250
+Connection ~ 6800 5050
+$Comp
+L Diode:1N4148 D40
+U 1 1 5D5B1B96
+P 6650 5050
+F 0 "D40" H 6660 5250 50  0000 L CNN
+F 1 "1N4148" H 6650 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 5250 50  0001 C CNN
+F 3 "" H 6650 5250 50  0001 C CNN
+	1    6650 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	5350 4800 5350 5050
+Wire Wire Line
+	6050 5050 6050 5250
+Connection ~ 6050 5050
+$Comp
+L Diode:1N4148 D32
+U 1 1 5D5B1B94
+P 5900 5050
+F 0 "D32" H 5910 5250 50  0000 L CNN
+F 1 "1N4148" H 5900 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 5250 50  0001 C CNN
+F 3 "" H 5900 5250 50  0001 C CNN
+	1    5900 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	4600 4800 4600 5050
+Wire Wire Line
+	5300 5050 5300 5250
+Connection ~ 5300 5050
+$Comp
+L Diode:1N4148 D24
+U 1 1 5D5B1B92
+P 5150 5050
+F 0 "D24" H 5160 5250 50  0000 L CNN
+F 1 "1N4148" H 5150 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 5250 50  0001 C CNN
+F 3 "" H 5150 5250 50  0001 C CNN
+	1    5150 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	3850 4800 3850 5050
+Wire Wire Line
+	4550 5050 4550 5250
+Connection ~ 4550 5050
+$Comp
+L Diode:1N4148 D16
+U 1 1 5D5B1B90
+P 4400 5050
+F 0 "D16" H 4410 5250 50  0000 L CNN
+F 1 "1N4148" H 4400 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 5250 50  0001 C CNN
+F 3 "" H 4400 5250 50  0001 C CNN
+	1    4400 5050
+	1    0    0    -1  
+$EndComp
+Text Notes 2900 1200 0    180  ~ 36
+Shield V2 8x8
+Wire Wire Line
+	3100 4800 3100 5050
+Wire Wire Line
+	3100 4800 3850 4800
+Wire Wire Line
+	2900 4800 3100 4800
+Wire Wire Line
+	3800 5050 3800 5250
+Connection ~ 3800 5050
+$Comp
+L Diode:1N4148 D8
+U 1 1 5D5B1B8E
+P 3650 5050
+F 0 "D8" H 3660 5250 50  0000 L CNN
+F 1 "1N4148" H 3650 4950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 5250 50  0001 C CNN
+F 3 "" H 3650 5250 50  0001 C CNN
+	1    3650 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 4300 8350 4550
+Wire Wire Line
+	9050 4550 9050 5050
+Connection ~ 9050 4550
+$Comp
+L Diode:1N4148 D63
+U 1 1 5D5B1B8C
+P 8900 4550
+F 0 "D63" H 8910 4750 50  0000 L CNN
+F 1 "1N4148" H 8900 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 4750 50  0001 C CNN
+F 3 "" H 8900 4750 50  0001 C CNN
+	1    8900 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 4300 7600 4550
+Wire Wire Line
+	8300 4550 8300 5050
+Connection ~ 8300 4550
+$Comp
+L Diode:1N4148 D55
+U 1 1 5D5B1B8A
+P 8150 4550
+F 0 "D55" H 8160 4750 50  0000 L CNN
+F 1 "1N4148" H 8150 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 4750 50  0001 C CNN
+F 3 "" H 8150 4750 50  0001 C CNN
+	1    8150 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 4300 6850 4550
+Wire Wire Line
+	7550 4550 7550 5050
+Connection ~ 7550 4550
+$Comp
+L Diode:1N4148 D47
+U 1 1 5D5B1B88
+P 7400 4550
+F 0 "D47" H 7410 4750 50  0000 L CNN
+F 1 "1N4148" H 7400 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 4750 50  0001 C CNN
+F 3 "" H 7400 4750 50  0001 C CNN
+	1    7400 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 4300 6100 4550
+Wire Wire Line
+	6800 4550 6800 5050
+Connection ~ 6800 4550
+$Comp
+L Diode:1N4148 D39
+U 1 1 5D5B1B86
+P 6650 4550
+F 0 "D39" H 6660 4750 50  0000 L CNN
+F 1 "1N4148" H 6650 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 4750 50  0001 C CNN
+F 3 "" H 6650 4750 50  0001 C CNN
+	1    6650 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 4300 5350 4550
+Wire Wire Line
+	6050 4550 6050 5050
+Connection ~ 6050 4550
+$Comp
+L Diode:1N4148 D31
+U 1 1 5D5B1B84
+P 5900 4550
+F 0 "D31" H 5910 4750 50  0000 L CNN
+F 1 "1N4148" H 5900 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 4750 50  0001 C CNN
+F 3 "" H 5900 4750 50  0001 C CNN
+	1    5900 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 4300 4600 4550
+Wire Wire Line
+	5300 4550 5300 5050
+Connection ~ 5300 4550
+$Comp
+L Diode:1N4148 D23
+U 1 1 5D5B1B82
+P 5150 4550
+F 0 "D23" H 5160 4750 50  0000 L CNN
+F 1 "1N4148" H 5150 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 4750 50  0001 C CNN
+F 3 "" H 5150 4750 50  0001 C CNN
+	1    5150 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 4300 3850 4550
+Wire Wire Line
+	4550 4550 4550 5050
+Connection ~ 4550 4550
+$Comp
+L Diode:1N4148 D15
+U 1 1 5D5B1B80
+P 4400 4550
+F 0 "D15" H 4410 4750 50  0000 L CNN
+F 1 "1N4148" H 4400 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 4750 50  0001 C CNN
+F 3 "" H 4400 4750 50  0001 C CNN
+	1    4400 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 4300 3100 4550
+Wire Wire Line
+	3100 4300 3850 4300
+Wire Wire Line
+	2900 4300 3100 4300
+Wire Wire Line
+	3800 4550 3800 5050
+Connection ~ 3800 4550
+$Comp
+L Diode:1N4148 D7
+U 1 1 5D5B1B7E
+P 3650 4550
+F 0 "D7" H 3660 4750 50  0000 L CNN
+F 1 "1N4148" H 3650 4450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 4750 50  0001 C CNN
+F 3 "" H 3650 4750 50  0001 C CNN
+	1    3650 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 3800 8350 4050
+Wire Wire Line
+	9050 4050 9050 4550
+Connection ~ 9050 4050
+$Comp
+L Diode:1N4148 D62
+U 1 1 5D5B1B7C
+P 8900 4050
+F 0 "D62" H 8910 4250 50  0000 L CNN
+F 1 "1N4148" H 8900 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 4250 50  0001 C CNN
+F 3 "" H 8900 4250 50  0001 C CNN
+	1    8900 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 3800 7600 4050
+Wire Wire Line
+	8300 4050 8300 4550
+Connection ~ 8300 4050
+$Comp
+L Diode:1N4148 D54
+U 1 1 5D5B1B7A
+P 8150 4050
+F 0 "D54" H 8160 4250 50  0000 L CNN
+F 1 "1N4148" H 8150 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 4250 50  0001 C CNN
+F 3 "" H 8150 4250 50  0001 C CNN
+	1    8150 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 3800 6850 4050
+Wire Wire Line
+	7550 4050 7550 4550
+Connection ~ 7550 4050
+$Comp
+L Diode:1N4148 D46
+U 1 1 5D5B1B78
+P 7400 4050
+F 0 "D46" H 7410 4250 50  0000 L CNN
+F 1 "1N4148" H 7400 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 4250 50  0001 C CNN
+F 3 "" H 7400 4250 50  0001 C CNN
+	1    7400 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 3800 6100 4050
+Wire Wire Line
+	6800 4050 6800 4550
+Connection ~ 6800 4050
+$Comp
+L Diode:1N4148 D38
+U 1 1 5D5B1B76
+P 6650 4050
+F 0 "D38" H 6660 4250 50  0000 L CNN
+F 1 "1N4148" H 6650 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 4250 50  0001 C CNN
+F 3 "" H 6650 4250 50  0001 C CNN
+	1    6650 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 3800 5350 4050
+Wire Wire Line
+	6050 4050 6050 4550
+Connection ~ 6050 4050
+$Comp
+L Diode:1N4148 D30
+U 1 1 5D5B1B74
+P 5900 4050
+F 0 "D30" H 5910 4250 50  0000 L CNN
+F 1 "1N4148" H 5900 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 4250 50  0001 C CNN
+F 3 "" H 5900 4250 50  0001 C CNN
+	1    5900 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3800 4600 4050
+Wire Wire Line
+	5300 4050 5300 4550
+Connection ~ 5300 4050
+$Comp
+L Diode:1N4148 D22
+U 1 1 5D5B1B72
+P 5150 4050
+F 0 "D22" H 5160 4250 50  0000 L CNN
+F 1 "1N4148" H 5150 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 4250 50  0001 C CNN
+F 3 "" H 5150 4250 50  0001 C CNN
+	1    5150 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 3800 3850 4050
+Wire Wire Line
+	4550 4050 4550 4550
+Connection ~ 4550 4050
+$Comp
+L Diode:1N4148 D14
+U 1 1 5D5B1B70
+P 4400 4050
+F 0 "D14" H 4410 4250 50  0000 L CNN
+F 1 "1N4148" H 4400 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 4250 50  0001 C CNN
+F 3 "" H 4400 4250 50  0001 C CNN
+	1    4400 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 3800 3100 4050
+Wire Wire Line
+	3100 3800 3850 3800
+Wire Wire Line
+	2900 3800 3100 3800
+Wire Wire Line
+	3800 4050 3800 4550
+Connection ~ 3800 4050
+$Comp
+L Diode:1N4148 D6
+U 1 1 5D5B1B6E
+P 3650 4050
+F 0 "D6" H 3660 4250 50  0000 L CNN
+F 1 "1N4148" H 3650 3950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 4250 50  0001 C CNN
+F 3 "" H 3650 4250 50  0001 C CNN
+	1    3650 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 3300 8350 3400
+Wire Wire Line
+	9050 3550 9050 4050
+Connection ~ 9050 3550
+$Comp
+L Diode:1N4148 D61
+U 1 1 5D5B1B6C
+P 8900 3550
+F 0 "D61" H 8910 3750 50  0000 L CNN
+F 1 "1N4148" H 8900 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 3750 50  0001 C CNN
+F 3 "" H 8900 3750 50  0001 C CNN
+	1    8900 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 3300 7600 3550
+Wire Wire Line
+	8300 3550 8300 4050
+Connection ~ 8300 3550
+$Comp
+L Diode:1N4148 D53
+U 1 1 5D5B1B6A
+P 8150 3550
+F 0 "D53" H 8160 3750 50  0000 L CNN
+F 1 "1N4148" H 8150 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 3750 50  0001 C CNN
+F 3 "" H 8150 3750 50  0001 C CNN
+	1    8150 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 3300 6850 3550
+Wire Wire Line
+	7550 3550 7550 4050
+Connection ~ 7550 3550
+$Comp
+L Diode:1N4148 D45
+U 1 1 5D5B1B68
+P 7400 3550
+F 0 "D45" H 7410 3750 50  0000 L CNN
+F 1 "1N4148" H 7400 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 3750 50  0001 C CNN
+F 3 "" H 7400 3750 50  0001 C CNN
+	1    7400 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 3300 6100 3550
+Wire Wire Line
+	6800 3550 6800 4050
+Connection ~ 6800 3550
+$Comp
+L Diode:1N4148 D37
+U 1 1 5D5B1B66
+P 6650 3550
+F 0 "D37" H 6660 3750 50  0000 L CNN
+F 1 "1N4148" H 6650 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 3750 50  0001 C CNN
+F 3 "" H 6650 3750 50  0001 C CNN
+	1    6650 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 3300 5350 3550
+Wire Wire Line
+	6050 3550 6050 4050
+Connection ~ 6050 3550
+$Comp
+L Diode:1N4148 D29
+U 1 1 5D5B1B64
+P 5900 3550
+F 0 "D29" H 5910 3750 50  0000 L CNN
+F 1 "1N4148" H 5900 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 3750 50  0001 C CNN
+F 3 "" H 5900 3750 50  0001 C CNN
+	1    5900 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3300 4600 3550
+Wire Wire Line
+	5300 3550 5300 4050
+Connection ~ 5300 3550
+$Comp
+L Diode:1N4148 D21
+U 1 1 5D5B1B62
+P 5150 3550
+F 0 "D21" H 5160 3750 50  0000 L CNN
+F 1 "1N4148" H 5150 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 3750 50  0001 C CNN
+F 3 "" H 5150 3750 50  0001 C CNN
+	1    5150 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 3300 3850 3550
+Wire Wire Line
+	4550 3550 4550 4050
+Connection ~ 4550 3550
+$Comp
+L Diode:1N4148 D13
+U 1 1 5D5B1B60
+P 4400 3550
+F 0 "D13" H 4410 3750 50  0000 L CNN
+F 1 "1N4148" H 4400 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 3750 50  0001 C CNN
+F 3 "" H 4400 3750 50  0001 C CNN
+	1    4400 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 3300 3100 3550
+Wire Wire Line
+	3100 3300 3850 3300
+Wire Wire Line
+	2900 3300 3100 3300
+Wire Wire Line
+	8350 2800 8350 2900
+Wire Wire Line
+	7600 2800 7600 3050
+Wire Wire Line
+	8300 3050 8300 3550
+Connection ~ 8300 3050
+$Comp
+L Diode:1N4148 D52
+U 1 1 5D5B1B5A
+P 8150 3050
+F 0 "D52" H 8160 3250 50  0000 L CNN
+F 1 "1N4148" H 8150 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 3250 50  0001 C CNN
+F 3 "" H 8150 3250 50  0001 C CNN
+	1    8150 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 2800 6850 3050
+Wire Wire Line
+	7550 3050 7550 3550
+Connection ~ 7550 3050
+$Comp
+L Diode:1N4148 D44
+U 1 1 5D5B1B58
+P 7400 3050
+F 0 "D44" H 7410 3250 50  0000 L CNN
+F 1 "1N4148" H 7400 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 3250 50  0001 C CNN
+F 3 "" H 7400 3250 50  0001 C CNN
+	1    7400 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 2800 6100 3050
+Wire Wire Line
+	6800 3050 6800 3550
+Connection ~ 6800 3050
+$Comp
+L Diode:1N4148 D36
+U 1 1 5D5B1B56
+P 6650 3050
+F 0 "D36" H 6660 3250 50  0000 L CNN
+F 1 "1N4148" H 6650 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 3250 50  0001 C CNN
+F 3 "" H 6650 3250 50  0001 C CNN
+	1    6650 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 2800 5350 3050
+Wire Wire Line
+	6050 3050 6050 3550
+Connection ~ 6050 3050
+$Comp
+L Diode:1N4148 D28
+U 1 1 5D5B1B54
+P 5900 3050
+F 0 "D28" H 5910 3250 50  0000 L CNN
+F 1 "1N4148" H 5900 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 3250 50  0001 C CNN
+F 3 "" H 5900 3250 50  0001 C CNN
+	1    5900 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 2800 4600 3050
+Wire Wire Line
+	5300 3050 5300 3550
+Connection ~ 5300 3050
+$Comp
+L Diode:1N4148 D20
+U 1 1 5D5B1B52
+P 5150 3050
+F 0 "D20" H 5160 3250 50  0000 L CNN
+F 1 "1N4148" H 5150 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 3250 50  0001 C CNN
+F 3 "" H 5150 3250 50  0001 C CNN
+	1    5150 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 2800 3850 3050
+Wire Wire Line
+	4550 3050 4550 3550
+Connection ~ 4550 3050
+$Comp
+L Diode:1N4148 D12
+U 1 1 5D5B1B50
+P 4400 3050
+F 0 "D12" H 4410 3250 50  0000 L CNN
+F 1 "1N4148" H 4400 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 3250 50  0001 C CNN
+F 3 "" H 4400 3250 50  0001 C CNN
+	1    4400 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 2800 3100 3050
+Wire Wire Line
+	3100 2800 3850 2800
+Wire Wire Line
+	2900 2800 3100 2800
+Wire Wire Line
+	8350 2300 8350 2400
+Wire Wire Line
+	7600 2300 7600 2550
+Wire Wire Line
+	8300 2550 8300 3050
+Connection ~ 8300 2550
+$Comp
+L Diode:1N4148 D51
+U 1 1 5D5B1B4A
+P 8150 2550
+F 0 "D51" H 8160 2750 50  0000 L CNN
+F 1 "1N4148" H 8150 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 2750 50  0001 C CNN
+F 3 "" H 8150 2750 50  0001 C CNN
+	1    8150 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 2300 6850 2550
+Wire Wire Line
+	7550 2550 7550 3050
+Connection ~ 7550 2550
+$Comp
+L Diode:1N4148 D43
+U 1 1 5D5B1B48
+P 7400 2550
+F 0 "D43" H 7410 2750 50  0000 L CNN
+F 1 "1N4148" H 7400 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 2750 50  0001 C CNN
+F 3 "" H 7400 2750 50  0001 C CNN
+	1    7400 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 2300 6100 2550
+Wire Wire Line
+	6800 2550 6800 3050
+Connection ~ 6800 2550
+$Comp
+L Diode:1N4148 D35
+U 1 1 5D5B1B46
+P 6650 2550
+F 0 "D35" H 6660 2750 50  0000 L CNN
+F 1 "1N4148" H 6650 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 2750 50  0001 C CNN
+F 3 "" H 6650 2750 50  0001 C CNN
+	1    6650 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 2300 5350 2550
+Wire Wire Line
+	6050 2550 6050 3050
+Connection ~ 6050 2550
+$Comp
+L Diode:1N4148 D27
+U 1 1 5D5B1B44
+P 5900 2550
+F 0 "D27" H 5910 2750 50  0000 L CNN
+F 1 "1N4148" H 5900 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 2750 50  0001 C CNN
+F 3 "" H 5900 2750 50  0001 C CNN
+	1    5900 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 2300 4600 2550
+Wire Wire Line
+	5300 2550 5300 3050
+Connection ~ 5300 2550
+$Comp
+L Diode:1N4148 D19
+U 1 1 5D5B1B42
+P 5150 2550
+F 0 "D19" H 5160 2750 50  0000 L CNN
+F 1 "1N4148" H 5150 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 2750 50  0001 C CNN
+F 3 "" H 5150 2750 50  0001 C CNN
+	1    5150 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 2300 3850 2550
+Wire Wire Line
+	4550 2550 4550 3050
+Connection ~ 4550 2550
+$Comp
+L Diode:1N4148 D11
+U 1 1 5D5B1B40
+P 4400 2550
+F 0 "D11" H 4410 2750 50  0000 L CNN
+F 1 "1N4148" H 4400 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 2750 50  0001 C CNN
+F 3 "" H 4400 2750 50  0001 C CNN
+	1    4400 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 2300 3100 2550
+Wire Wire Line
+	3100 2300 3850 2300
+Wire Wire Line
+	2900 2300 3100 2300
+Wire Wire Line
+	8350 1800 8350 1900
+Wire Wire Line
+	7600 1800 7600 2050
+Wire Wire Line
+	8300 2050 8300 2550
+Wire Wire Line
+	8300 1550 8300 2050
+Connection ~ 8300 2050
+$Comp
+L Diode:1N4148 D50
+U 1 1 5D5B1B3A
+P 8150 2050
+F 0 "D50" H 8160 2250 50  0000 L CNN
+F 1 "1N4148" H 8150 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 2250 50  0001 C CNN
+F 3 "" H 8150 2250 50  0001 C CNN
+	1    8150 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 1800 6850 2050
+Wire Wire Line
+	7550 2050 7550 2550
+Wire Wire Line
+	7550 1550 7550 2050
+Connection ~ 7550 2050
+$Comp
+L Diode:1N4148 D42
+U 1 1 5D5B1B38
+P 7400 2050
+F 0 "D42" H 7410 2250 50  0000 L CNN
+F 1 "1N4148" H 7400 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 2250 50  0001 C CNN
+F 3 "" H 7400 2250 50  0001 C CNN
+	1    7400 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 1800 6100 2050
+Wire Wire Line
+	6800 2050 6800 2550
+Wire Wire Line
+	6800 1550 6800 2050
+Connection ~ 6800 2050
+$Comp
+L Diode:1N4148 D34
+U 1 1 5D5B1B36
+P 6650 2050
+F 0 "D34" H 6660 2250 50  0000 L CNN
+F 1 "1N4148" H 6650 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 2250 50  0001 C CNN
+F 3 "" H 6650 2250 50  0001 C CNN
+	1    6650 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 1800 5350 2050
+Wire Wire Line
+	6050 2050 6050 2550
+Wire Wire Line
+	6050 1550 6050 2050
+Connection ~ 6050 2050
+$Comp
+L Diode:1N4148 D26
+U 1 1 5D5B1B34
+P 5900 2050
+F 0 "D26" H 5910 2250 50  0000 L CNN
+F 1 "1N4148" H 5900 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 2250 50  0001 C CNN
+F 3 "" H 5900 2250 50  0001 C CNN
+	1    5900 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1800 4600 2050
+Wire Wire Line
+	5300 2050 5300 2550
+Wire Wire Line
+	5300 1550 5300 2050
+Connection ~ 5300 2050
+$Comp
+L Diode:1N4148 D18
+U 1 1 5D5B1B32
+P 5150 2050
+F 0 "D18" H 5160 2250 50  0000 L CNN
+F 1 "1N4148" H 5150 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 2250 50  0001 C CNN
+F 3 "" H 5150 2250 50  0001 C CNN
+	1    5150 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 1800 3850 2050
+Wire Wire Line
+	4550 2050 4550 2550
+Wire Wire Line
+	4550 1550 4550 2050
+Connection ~ 4550 2050
+$Comp
+L Diode:1N4148 D10
+U 1 1 5D5B1B30
+P 4400 2050
+F 0 "D10" H 4410 2250 50  0000 L CNN
+F 1 "1N4148" H 4400 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 2250 50  0001 C CNN
+F 3 "" H 4400 2250 50  0001 C CNN
+	1    4400 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 1800 3100 1900
+Wire Wire Line
+	3100 1800 3850 1800
+Wire Wire Line
+	2900 1800 3100 1800
+Wire Wire Line
+	8350 1300 8350 1400
+Wire Wire Line
+	7600 1300 7600 1550
+Wire Wire Line
+	7600 1300 8350 1300
+Connection ~ 7600 1300
+$Comp
+L Diode:1N4148 D49
+U 1 1 5D5B1B2A
+P 8150 1550
+F 0 "D49" H 8160 1750 50  0000 L CNN
+F 1 "1N4148" H 8150 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8150 1750 50  0001 C CNN
+F 3 "" H 8150 1750 50  0001 C CNN
+	1    8150 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 1300 6850 1550
+Wire Wire Line
+	6850 1300 7600 1300
+Connection ~ 6850 1300
+$Comp
+L Diode:1N4148 D41
+U 1 1 5D5B1B28
+P 7400 1550
+F 0 "D41" H 7410 1750 50  0000 L CNN
+F 1 "1N4148" H 7400 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 7400 1750 50  0001 C CNN
+F 3 "" H 7400 1750 50  0001 C CNN
+	1    7400 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 1300 6100 1550
+Wire Wire Line
+	6100 1300 6850 1300
+Connection ~ 6100 1300
+$Comp
+L Diode:1N4148 D33
+U 1 1 5D5B1B26
+P 6650 1550
+F 0 "D33" H 6660 1750 50  0000 L CNN
+F 1 "1N4148" H 6650 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 6650 1750 50  0001 C CNN
+F 3 "" H 6650 1750 50  0001 C CNN
+	1    6650 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 1300 5350 1550
+Wire Wire Line
+	5350 1300 6100 1300
+Connection ~ 5350 1300
+$Comp
+L Diode:1N4148 D25
+U 1 1 5D5B1B24
+P 5900 1550
+F 0 "D25" H 5910 1750 50  0000 L CNN
+F 1 "1N4148" H 5900 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5900 1750 50  0001 C CNN
+F 3 "" H 5900 1750 50  0001 C CNN
+	1    5900 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1300 4600 1550
+Wire Wire Line
+	4600 1300 5350 1300
+Connection ~ 4600 1300
+$Comp
+L Diode:1N4148 D17
+U 1 1 5D5B1B22
+P 5150 1550
+F 0 "D17" H 5160 1750 50  0000 L CNN
+F 1 "1N4148" H 5150 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 5150 1750 50  0001 C CNN
+F 3 "" H 5150 1750 50  0001 C CNN
+	1    5150 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 1300 3850 1550
+Wire Wire Line
+	3850 1300 4600 1300
+Connection ~ 3850 1300
+$Comp
+L Diode:1N4148 D9
+U 1 1 5D5B1B20
+P 4400 1550
+F 0 "D9" H 4410 1750 50  0000 L CNN
+F 1 "1N4148" H 4400 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 4400 1750 50  0001 C CNN
+F 3 "" H 4400 1750 50  0001 C CNN
+	1    4400 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 1300 3100 1400
+Wire Wire Line
+	3100 1300 3850 1300
+Wire Wire Line
+	2900 1300 3100 1300
+Connection ~ 3100 1300
+Text HLabel 2900 1300 0    50   Input ~ 0
+input_r0
+Text HLabel 2900 1800 0    50   Input ~ 0
+input_r1
+Text HLabel 2900 2300 0    50   Input ~ 0
+input_r2
+Text HLabel 2900 2800 0    50   Input ~ 0
+input_r3
+Text HLabel 2900 3300 0    50   Input ~ 0
+input_r4
+Text HLabel 2900 3800 0    50   Input ~ 0
+input_r5
+Text HLabel 2900 4300 0    50   Input ~ 0
+input_r6
+Text HLabel 2900 4800 0    50   Input ~ 0
+input_r7
+Text HLabel 3800 5250 3    50   Input ~ 0
+input_c0
+Text HLabel 4550 5250 3    50   Input ~ 0
+input_c1
+Text HLabel 6050 5250 3    50   Input ~ 0
+input_c3
+Text HLabel 5300 5250 3    50   Input ~ 0
+input_c2
+Text HLabel 6800 5250 3    50   Input ~ 0
+input_c4
+Text HLabel 7550 5250 3    50   Input ~ 0
+input_c5
+Text HLabel 8300 5250 3    50   Input ~ 0
+input_c6
+Text HLabel 9050 5250 3    50   Input ~ 0
+input_c7
+$Comp
+L Custom:JumpSwitch J1
+U 6 1 5D7365A3
+P 3300 4050
+F 0 "J1" H 3300 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 4050 50  0001 C CNN
+F 3 "" H 3300 4050 50  0001 C CNN
+	6    3300 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J1
+U 7 1 5D742222
+P 3300 4550
+F 0 "J1" H 3300 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 4550 50  0001 C CNN
+F 3 "" H 3300 4550 50  0001 C CNN
+	7    3300 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J1
+U 8 1 5D74DFA5
+P 3300 5050
+F 0 "J1" H 3300 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 5050 50  0001 C CNN
+F 3 "" H 3300 5050 50  0001 C CNN
+	8    3300 5050
+	1    0    0    -1  
+$EndComp
+Connection ~ 3100 1800
+Connection ~ 3100 2300
+Connection ~ 3100 2800
+Connection ~ 3100 3300
+Connection ~ 3100 3800
+Connection ~ 3100 4300
+Connection ~ 3100 4800
+Wire Wire Line
+	3850 4800 4600 4800
+Wire Wire Line
+	3850 4300 4600 4300
+Wire Wire Line
+	3850 3800 4600 3800
+Wire Wire Line
+	3850 3300 4600 3300
+Wire Wire Line
+	3850 2800 4600 2800
+Wire Wire Line
+	3850 2300 4600 2300
+Wire Wire Line
+	3850 1800 4600 1800
+$Comp
+L Custom:JumpSwitch J2
+U 2 1 5D77F77C
+P 4050 2050
+F 0 "J2" H 4050 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 2050 50  0001 C CNN
+F 3 "" H 4050 2050 50  0001 C CNN
+	2    4050 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 1 1 5D77F782
+P 4050 1550
+F 0 "J2" H 4050 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 1550 50  0001 C CNN
+F 3 "" H 4050 1550 50  0001 C CNN
+	1    4050 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 3 1 5D77F788
+P 4050 2550
+F 0 "J2" H 4050 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 2550 50  0001 C CNN
+F 3 "" H 4050 2550 50  0001 C CNN
+	3    4050 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 4 1 5D77F78E
+P 4050 3050
+F 0 "J2" H 4050 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 3050 50  0001 C CNN
+F 3 "" H 4050 3050 50  0001 C CNN
+	4    4050 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 5 1 5D77F794
+P 4050 3550
+F 0 "J2" H 4050 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 3550 50  0001 C CNN
+F 3 "" H 4050 3550 50  0001 C CNN
+	5    4050 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 6 1 5D77F79A
+P 4050 4050
+F 0 "J2" H 4050 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 4050 50  0001 C CNN
+F 3 "" H 4050 4050 50  0001 C CNN
+	6    4050 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 7 1 5D77F7A0
+P 4050 4550
+F 0 "J2" H 4050 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 4550 50  0001 C CNN
+F 3 "" H 4050 4550 50  0001 C CNN
+	7    4050 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J2
+U 8 1 5D77F7A6
+P 4050 5050
+F 0 "J2" H 4050 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 4050 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4050 5050 50  0001 C CNN
+F 3 "" H 4050 5050 50  0001 C CNN
+	8    4050 5050
+	1    0    0    -1  
+$EndComp
+Connection ~ 3850 1800
+Connection ~ 3850 2300
+Connection ~ 3850 2800
+Connection ~ 3850 3300
+Connection ~ 3850 3800
+Connection ~ 3850 4300
+Connection ~ 3850 4800
+Wire Wire Line
+	4600 4800 5350 4800
+Wire Wire Line
+	4600 4300 5350 4300
+Wire Wire Line
+	4600 3800 5350 3800
+Wire Wire Line
+	4600 3300 5350 3300
+Wire Wire Line
+	4600 2800 5350 2800
+Wire Wire Line
+	4600 2300 5350 2300
+Wire Wire Line
+	4600 1800 5350 1800
+$Comp
+L Custom:JumpSwitch J3
+U 2 1 5D7D7CA3
+P 4800 2050
+F 0 "J3" H 4800 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 2050 50  0001 C CNN
+F 3 "" H 4800 2050 50  0001 C CNN
+	2    4800 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 1 1 5D7D7CA9
+P 4800 1550
+F 0 "J3" H 4800 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 1550 50  0001 C CNN
+F 3 "" H 4800 1550 50  0001 C CNN
+	1    4800 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 3 1 5D7D7CAF
+P 4800 2550
+F 0 "J3" H 4800 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 2550 50  0001 C CNN
+F 3 "" H 4800 2550 50  0001 C CNN
+	3    4800 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 4 1 5D7D7CB5
+P 4800 3050
+F 0 "J3" H 4800 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 3050 50  0001 C CNN
+F 3 "" H 4800 3050 50  0001 C CNN
+	4    4800 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 5 1 5D7D7CBB
+P 4800 3550
+F 0 "J3" H 4800 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 3550 50  0001 C CNN
+F 3 "" H 4800 3550 50  0001 C CNN
+	5    4800 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 6 1 5D7D7CC1
+P 4800 4050
+F 0 "J3" H 4800 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 4050 50  0001 C CNN
+F 3 "" H 4800 4050 50  0001 C CNN
+	6    4800 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 7 1 5D7D7CC7
+P 4800 4550
+F 0 "J3" H 4800 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 4550 50  0001 C CNN
+F 3 "" H 4800 4550 50  0001 C CNN
+	7    4800 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J3
+U 8 1 5D7D7CCD
+P 4800 5050
+F 0 "J3" H 4800 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 4800 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 4800 5050 50  0001 C CNN
+F 3 "" H 4800 5050 50  0001 C CNN
+	8    4800 5050
+	1    0    0    -1  
+$EndComp
+Connection ~ 4600 4800
+Connection ~ 4600 4300
+Connection ~ 4600 3800
+Connection ~ 4600 3300
+Connection ~ 4600 2800
+Connection ~ 4600 2300
+Connection ~ 4600 1800
+Wire Wire Line
+	5350 4800 6100 4800
+Wire Wire Line
+	5350 4300 6100 4300
+Wire Wire Line
+	5350 3800 6100 3800
+Wire Wire Line
+	5350 3300 6100 3300
+Wire Wire Line
+	5350 2800 6100 2800
+Wire Wire Line
+	5350 2300 6100 2300
+Wire Wire Line
+	5350 1800 6100 1800
+$Comp
+L Custom:JumpSwitch J4
+U 2 1 5D7ECD48
+P 5550 2050
+F 0 "J4" H 5550 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 2050 50  0001 C CNN
+F 3 "" H 5550 2050 50  0001 C CNN
+	2    5550 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 1 1 5D7ECD4F
+P 5550 1550
+F 0 "J4" H 5550 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 1550 50  0001 C CNN
+F 3 "" H 5550 1550 50  0001 C CNN
+	1    5550 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 3 1 5D7ECD56
+P 5550 2550
+F 0 "J4" H 5550 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 2550 50  0001 C CNN
+F 3 "" H 5550 2550 50  0001 C CNN
+	3    5550 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 4 1 5D7ECD5D
+P 5550 3050
+F 0 "J4" H 5550 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 3050 50  0001 C CNN
+F 3 "" H 5550 3050 50  0001 C CNN
+	4    5550 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 5 1 5D7ECD64
+P 5550 3550
+F 0 "J4" H 5550 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 3550 50  0001 C CNN
+F 3 "" H 5550 3550 50  0001 C CNN
+	5    5550 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 6 1 5D7ECD6B
+P 5550 4050
+F 0 "J4" H 5550 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 4050 50  0001 C CNN
+F 3 "" H 5550 4050 50  0001 C CNN
+	6    5550 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 7 1 5D7ECD72
+P 5550 4550
+F 0 "J4" H 5550 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 4550 50  0001 C CNN
+F 3 "" H 5550 4550 50  0001 C CNN
+	7    5550 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J4
+U 8 1 5D7ECD79
+P 5550 5050
+F 0 "J4" H 5550 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 5550 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 5550 5050 50  0001 C CNN
+F 3 "" H 5550 5050 50  0001 C CNN
+	8    5550 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6100 4800 6850 4800
+Wire Wire Line
+	6100 4300 6850 4300
+Wire Wire Line
+	6100 3800 6850 3800
+Wire Wire Line
+	6100 3300 6850 3300
+Wire Wire Line
+	6100 2800 6850 2800
+Wire Wire Line
+	6100 2300 6850 2300
+Wire Wire Line
+	6100 1800 6850 1800
+$Comp
+L Custom:JumpSwitch J5
+U 2 1 5D7F7A99
+P 6300 2050
+F 0 "J5" H 6300 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 2050 50  0001 C CNN
+F 3 "" H 6300 2050 50  0001 C CNN
+	2    6300 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 1 1 5D7F7AA0
+P 6300 1550
+F 0 "J5" H 6300 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 1550 50  0001 C CNN
+F 3 "" H 6300 1550 50  0001 C CNN
+	1    6300 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 3 1 5D7F7AA7
+P 6300 2550
+F 0 "J5" H 6300 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 2550 50  0001 C CNN
+F 3 "" H 6300 2550 50  0001 C CNN
+	3    6300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 4 1 5D7F7AAE
+P 6300 3050
+F 0 "J5" H 6300 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 3050 50  0001 C CNN
+F 3 "" H 6300 3050 50  0001 C CNN
+	4    6300 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 5 1 5D7F7AB5
+P 6300 3550
+F 0 "J5" H 6300 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 3550 50  0001 C CNN
+F 3 "" H 6300 3550 50  0001 C CNN
+	5    6300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 6 1 5D7F7ABC
+P 6300 4050
+F 0 "J5" H 6300 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 4050 50  0001 C CNN
+F 3 "" H 6300 4050 50  0001 C CNN
+	6    6300 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 7 1 5D7F7AC3
+P 6300 4550
+F 0 "J5" H 6300 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 4550 50  0001 C CNN
+F 3 "" H 6300 4550 50  0001 C CNN
+	7    6300 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J5
+U 8 1 5D7F7ACA
+P 6300 5050
+F 0 "J5" H 6300 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 6300 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 6300 5050 50  0001 C CNN
+F 3 "" H 6300 5050 50  0001 C CNN
+	8    6300 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 4800 7600 4800
+Wire Wire Line
+	6850 4300 7600 4300
+Wire Wire Line
+	6850 3800 7600 3800
+Wire Wire Line
+	6850 3300 7600 3300
+Wire Wire Line
+	6850 2800 7600 2800
+Wire Wire Line
+	6850 2300 7600 2300
+Wire Wire Line
+	6850 1800 7600 1800
+$Comp
+L Custom:JumpSwitch J6
+U 2 1 5D802D62
+P 7050 2050
+F 0 "J6" H 7050 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 2050 50  0001 C CNN
+F 3 "" H 7050 2050 50  0001 C CNN
+	2    7050 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 1 1 5D802D69
+P 7050 1550
+F 0 "J6" H 7050 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 1550 50  0001 C CNN
+F 3 "" H 7050 1550 50  0001 C CNN
+	1    7050 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 3 1 5D802D70
+P 7050 2550
+F 0 "J6" H 7050 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 2550 50  0001 C CNN
+F 3 "" H 7050 2550 50  0001 C CNN
+	3    7050 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 4 1 5D802D77
+P 7050 3050
+F 0 "J6" H 7050 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 3050 50  0001 C CNN
+F 3 "" H 7050 3050 50  0001 C CNN
+	4    7050 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 5 1 5D802D7E
+P 7050 3550
+F 0 "J6" H 7050 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 3550 50  0001 C CNN
+F 3 "" H 7050 3550 50  0001 C CNN
+	5    7050 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 6 1 5D802D85
+P 7050 4050
+F 0 "J6" H 7050 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 4050 50  0001 C CNN
+F 3 "" H 7050 4050 50  0001 C CNN
+	6    7050 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 7 1 5D802D8C
+P 7050 4550
+F 0 "J6" H 7050 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 4550 50  0001 C CNN
+F 3 "" H 7050 4550 50  0001 C CNN
+	7    7050 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J6
+U 8 1 5D802D93
+P 7050 5050
+F 0 "J6" H 7050 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 7050 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7050 5050 50  0001 C CNN
+F 3 "" H 7050 5050 50  0001 C CNN
+	8    7050 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 4800 8350 4800
+Wire Wire Line
+	7600 4300 8350 4300
+Wire Wire Line
+	7600 3800 8350 3800
+Wire Wire Line
+	7600 3300 8350 3300
+Wire Wire Line
+	7600 2800 8350 2800
+Wire Wire Line
+	7600 2300 8350 2300
+Wire Wire Line
+	7600 1800 8350 1800
+$Comp
+L Custom:JumpSwitch J7
+U 2 1 5D876ADC
+P 7800 2050
+F 0 "J7" H 7800 2184 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 2000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 2050 50  0001 C CNN
+F 3 "" H 7800 2050 50  0001 C CNN
+	2    7800 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J7
+U 1 1 5D876AE2
+P 7800 1550
+F 0 "J7" H 7800 1684 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 1500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 1550 50  0001 C CNN
+F 3 "" H 7800 1550 50  0001 C CNN
+	1    7800 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J7
+U 3 1 5D876AE8
+P 7800 2550
+F 0 "J7" H 7800 2684 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 2500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 2550 50  0001 C CNN
+F 3 "" H 7800 2550 50  0001 C CNN
+	3    7800 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J7
+U 4 1 5D876AEE
+P 7800 3050
+F 0 "J7" H 7800 3184 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 3000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 3050 50  0001 C CNN
+F 3 "" H 7800 3050 50  0001 C CNN
+	4    7800 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J7
+U 5 1 5D876AF4
+P 7800 3550
+F 0 "J7" H 7800 3684 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 3500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 3550 50  0001 C CNN
+F 3 "" H 7800 3550 50  0001 C CNN
+	5    7800 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J7
+U 6 1 5D876AFA
+P 7800 4050
+F 0 "J7" H 7800 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 4050 50  0001 C CNN
+F 3 "" H 7800 4050 50  0001 C CNN
+	6    7800 4050
+	1    0    0    -1  
+$EndComp
+Connection ~ 7600 1800
+Connection ~ 7600 2300
+Connection ~ 7600 2800
+Connection ~ 7600 3300
+Connection ~ 7600 3800
+Connection ~ 7600 4300
+Connection ~ 7600 4800
+$Comp
+L Custom:JumpSwitch J?
+U 7 1 5D8B302E
+P 7800 4550
+F 0 "J?" H 7800 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 4550 50  0001 C CNN
+F 3 "" H 7800 4550 50  0001 C CNN
+	7    7800 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 8 1 5D8B31FD
+P 7800 5050
+F 0 "J?" H 7800 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 7800 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 7800 5050 50  0001 C CNN
+F 3 "" H 7800 5050 50  0001 C CNN
+	8    7800 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 6 1 5D8B369B
+P 8550 4050
+F 0 "J?" H 8550 4184 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 4000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 4050 50  0001 C CNN
+F 3 "" H 8550 4050 50  0001 C CNN
+	6    8550 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 7 1 5D8B3862
+P 8550 4550
+F 0 "J?" H 8550 4684 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 4550 50  0001 C CNN
+F 3 "" H 8550 4550 50  0001 C CNN
+	7    8550 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 8 1 5D8B3A1A
+P 8550 5050
+F 0 "J?" H 8550 5184 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 5050 50  0001 C CNN
+F 3 "" H 8550 5050 50  0001 C CNN
+	8    8550 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D8EDB57
+P 8550 3550
+F 0 "SW?" H 8550 3400 50  0000 C CNN
+F 1 "SW_Push" H 8550 3500 50  0000 C CNN
+F 2 "" H 8550 3750 50  0001 C CNN
+F 3 "" H 8550 3750 50  0001 C CNN
+	1    8550 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 5 1 5D8EED41
+P 8550 3400
+F 0 "J?" H 8550 3500 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 3350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 3400 50  0001 C CNN
+F 3 "" H 8550 3400 50  0001 C CNN
+	5    8550 3400
+	1    0    0    -1  
+$EndComp
+Connection ~ 8350 3400
+Wire Wire Line
+	8750 3400 8750 3550
+Wire Wire Line
+	8350 3400 8350 3550
+Connection ~ 8750 3550
+Wire Wire Line
+	9050 1550 9050 2050
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D91195C
+P 8900 3050
+F 0 "D?" H 8910 3250 50  0000 L CNN
+F 1 "1N4148" H 8900 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 3250 50  0001 C CNN
+F 3 "" H 8900 3250 50  0001 C CNN
+	1    8900 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D911962
+P 8550 3050
+F 0 "SW?" H 8550 2900 50  0000 C CNN
+F 1 "SW_Push" H 8550 3000 50  0000 C CNN
+F 2 "" H 8550 3250 50  0001 C CNN
+F 3 "" H 8550 3250 50  0001 C CNN
+	1    8550 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 4 1 5D911968
+P 8550 2900
+F 0 "J?" H 8550 3000 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 2850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 2900 50  0001 C CNN
+F 3 "" H 8550 2900 50  0001 C CNN
+	4    8550 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 2900 8750 3050
+Connection ~ 8750 3050
+Connection ~ 8350 2900
+Wire Wire Line
+	8350 2900 8350 3050
+Connection ~ 9050 3050
+Wire Wire Line
+	9050 3050 9050 3550
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D91CC80
+P 8900 2550
+F 0 "D?" H 8910 2750 50  0000 L CNN
+F 1 "1N4148" H 8900 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 2750 50  0001 C CNN
+F 3 "" H 8900 2750 50  0001 C CNN
+	1    8900 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D91CC86
+P 8550 2550
+F 0 "SW?" H 8550 2400 50  0000 C CNN
+F 1 "SW_Push" H 8550 2500 50  0000 C CNN
+F 2 "" H 8550 2750 50  0001 C CNN
+F 3 "" H 8550 2750 50  0001 C CNN
+	1    8550 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 3 1 5D91CC8C
+P 8550 2400
+F 0 "J?" H 8550 2500 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 2350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 2400 50  0001 C CNN
+F 3 "" H 8550 2400 50  0001 C CNN
+	3    8550 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 2400 8750 2550
+Connection ~ 8750 2550
+Connection ~ 8350 2400
+Wire Wire Line
+	8350 2400 8350 2550
+Connection ~ 9050 2550
+Wire Wire Line
+	9050 2550 9050 3050
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D9288EC
+P 8900 2050
+F 0 "D?" H 8910 2250 50  0000 L CNN
+F 1 "1N4148" H 8900 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 2250 50  0001 C CNN
+F 3 "" H 8900 2250 50  0001 C CNN
+	1    8900 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D9288F2
+P 8550 2050
+F 0 "SW?" H 8550 1900 50  0000 C CNN
+F 1 "SW_Push" H 8550 2000 50  0000 C CNN
+F 2 "" H 8550 2250 50  0001 C CNN
+F 3 "" H 8550 2250 50  0001 C CNN
+	1    8550 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 2 1 5D9288F8
+P 8550 1900
+F 0 "J?" H 8550 2000 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 1850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 1900 50  0001 C CNN
+F 3 "" H 8550 1900 50  0001 C CNN
+	2    8550 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 1900 8750 2050
+Connection ~ 8750 2050
+Connection ~ 8350 1900
+Wire Wire Line
+	8350 1900 8350 2050
+Connection ~ 9050 2050
+Wire Wire Line
+	9050 2050 9050 2550
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D934820
+P 8900 1550
+F 0 "D?" H 8910 1750 50  0000 L CNN
+F 1 "1N4148" H 8900 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 8900 1750 50  0001 C CNN
+F 3 "" H 8900 1750 50  0001 C CNN
+	1    8900 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D934826
+P 8550 1550
+F 0 "SW?" H 8550 1400 50  0000 C CNN
+F 1 "SW_Push" H 8550 1500 50  0000 C CNN
+F 2 "" H 8550 1750 50  0001 C CNN
+F 3 "" H 8550 1750 50  0001 C CNN
+	1    8550 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 1 1 5D93482C
+P 8550 1400
+F 0 "J?" H 8550 1500 50  0000 C CNN
+F 1 "JumpSwitch" H 8550 1350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 8550 1400 50  0001 C CNN
+F 3 "" H 8550 1400 50  0001 C CNN
+	1    8550 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8750 1400 8750 1550
+Connection ~ 8750 1550
+Connection ~ 8350 1400
+Wire Wire Line
+	8350 1400 8350 1550
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D94DBD5
+P 3650 1550
+F 0 "D?" H 3660 1750 50  0000 L CNN
+F 1 "1N4148" H 3650 1450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 1750 50  0001 C CNN
+F 3 "" H 3650 1750 50  0001 C CNN
+	1    3650 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D94DBDB
+P 3300 1550
+F 0 "SW?" H 3300 1400 50  0000 C CNN
+F 1 "SW_Push" H 3300 1500 50  0000 C CNN
+F 2 "" H 3300 1750 50  0001 C CNN
+F 3 "" H 3300 1750 50  0001 C CNN
+	1    3300 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 1 1 5D94DBE1
+P 3300 1400
+F 0 "J?" H 3300 1500 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 1350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 1400 50  0001 C CNN
+F 3 "" H 3300 1400 50  0001 C CNN
+	1    3300 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 1400 3500 1550
+Connection ~ 3500 1550
+Connection ~ 3100 1400
+Wire Wire Line
+	3100 1400 3100 1550
+Wire Wire Line
+	3800 1550 3800 2050
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D972FEB
+P 3650 2050
+F 0 "D?" H 3660 2250 50  0000 L CNN
+F 1 "1N4148" H 3650 1950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 2250 50  0001 C CNN
+F 3 "" H 3650 2250 50  0001 C CNN
+	1    3650 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D972FF1
+P 3300 2050
+F 0 "SW?" H 3300 1900 50  0000 C CNN
+F 1 "SW_Push" H 3300 2000 50  0000 C CNN
+F 2 "" H 3300 2250 50  0001 C CNN
+F 3 "" H 3300 2250 50  0001 C CNN
+	1    3300 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 2 1 5D972FF7
+P 3300 1900
+F 0 "J?" H 3300 2000 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 1850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 1900 50  0001 C CNN
+F 3 "" H 3300 1900 50  0001 C CNN
+	2    3300 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 1900 3500 2050
+Connection ~ 3500 2050
+Connection ~ 3100 1900
+Wire Wire Line
+	3100 1900 3100 2050
+Connection ~ 3800 2050
+Wire Wire Line
+	3800 2050 3800 4050
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D9B29B3
+P 3650 2550
+F 0 "D?" H 3660 2750 50  0000 L CNN
+F 1 "1N4148" H 3650 2450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 2750 50  0001 C CNN
+F 3 "" H 3650 2750 50  0001 C CNN
+	1    3650 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D9B29BA
+P 3300 2550
+F 0 "SW?" H 3300 2400 50  0000 C CNN
+F 1 "SW_Push" H 3300 2500 50  0000 C CNN
+F 2 "" H 3300 2750 50  0001 C CNN
+F 3 "" H 3300 2750 50  0001 C CNN
+	1    3300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 3 1 5D9B29C1
+P 3300 2400
+F 0 "J?" H 3300 2500 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 2350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 2400 50  0001 C CNN
+F 3 "" H 3300 2400 50  0001 C CNN
+	3    3300 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 2400 3500 2550
+Connection ~ 3500 2550
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D9BF37B
+P 3650 3050
+F 0 "D?" H 3660 3250 50  0000 L CNN
+F 1 "1N4148" H 3650 2950 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 3250 50  0001 C CNN
+F 3 "" H 3650 3250 50  0001 C CNN
+	1    3650 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D9BF382
+P 3300 3050
+F 0 "SW?" H 3300 2900 50  0000 C CNN
+F 1 "SW_Push" H 3300 3000 50  0000 C CNN
+F 2 "" H 3300 3250 50  0001 C CNN
+F 3 "" H 3300 3250 50  0001 C CNN
+	1    3300 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 4 1 5D9BF389
+P 3300 2900
+F 0 "J?" H 3300 3000 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 2850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 2900 50  0001 C CNN
+F 3 "" H 3300 2900 50  0001 C CNN
+	4    3300 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 2900 3500 3050
+Connection ~ 3500 3050
+$Comp
+L Diode:1N4148 D?
+U 1 1 5D9CC091
+P 3650 3550
+F 0 "D?" H 3660 3750 50  0000 L CNN
+F 1 "1N4148" H 3650 3450 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323" H 3650 3750 50  0001 C CNN
+F 3 "" H 3650 3750 50  0001 C CNN
+	1    3650 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5D9CC098
+P 3300 3550
+F 0 "SW?" H 3300 3400 50  0000 C CNN
+F 1 "SW_Push" H 3300 3500 50  0000 C CNN
+F 2 "" H 3300 3750 50  0001 C CNN
+F 3 "" H 3300 3750 50  0001 C CNN
+	1    3300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom:JumpSwitch J?
+U 5 1 5D9CC09F
+P 3300 3400
+F 0 "J?" H 3300 3500 50  0000 C CNN
+F 1 "JumpSwitch" H 3300 3350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 3300 3400 50  0001 C CNN
+F 3 "" H 3300 3400 50  0001 C CNN
+	5    3300 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 3400 3500 3550
+Connection ~ 3500 3550
+$EndSCHEMATC

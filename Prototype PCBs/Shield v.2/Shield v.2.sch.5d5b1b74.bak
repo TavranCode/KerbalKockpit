@@ -1,0 +1,93 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Interface_Expansion:MCP23017_SS U1
+U 1 1 5C74629F
+P 3550 2950
+F 0 "U1" H 3550 4228 50  0000 C CNN
+F 1 "MCP23017_SS" H 3550 4137 50  0000 C CNN
+F 2 "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" H 3750 1950 50  0001 L CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf" H 3750 1850 50  0001 L CNN
+	1    3550 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Network08_US RN1
+U 1 1 5C746312
+P 4550 2550
+F 0 "RN1" V 3933 2550 50  0000 C CNN
+F 1 "R_Network08_US" V 4024 2550 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_8x0602" V 5025 2550 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 4550 2550 50  0001 C CNN
+	1    4550 2550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4250 2150 4350 2150
+Wire Wire Line
+	4250 2250 4350 2250
+Wire Wire Line
+	4250 2350 4350 2350
+Wire Wire Line
+	4250 2450 4350 2450
+Wire Wire Line
+	4250 2550 4350 2550
+Wire Wire Line
+	4250 2650 4350 2650
+Wire Wire Line
+	4250 2750 4350 2750
+Wire Wire Line
+	4250 2850 4350 2850
+Wire Wire Line
+	4350 2850 4850 2850
+Connection ~ 4350 2850
+Wire Wire Line
+	4350 2750 4850 2750
+Connection ~ 4350 2750
+Wire Wire Line
+	4350 2650 4850 2650
+Connection ~ 4350 2650
+Wire Wire Line
+	4350 2550 4850 2550
+Connection ~ 4350 2550
+Wire Wire Line
+	4350 2450 4850 2450
+Connection ~ 4350 2450
+Wire Wire Line
+	4350 2350 4850 2350
+Connection ~ 4350 2350
+Wire Wire Line
+	4350 2250 4850 2250
+Connection ~ 4350 2250
+$Comp
+L Connector:Conn_01x08_Male J1
+U 1 1 5C746B19
+P 5050 2550
+F 0 "J1" H 5023 2430 50  0000 R CNN
+F 1 "Conn_01x08_Male" H 5023 2521 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5050 2550 50  0001 C CNN
+F 3 "~" H 5050 2550 50  0001 C CNN
+	1    5050 2550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4350 2150 4350 2200
+Wire Wire Line
+	4350 2200 4850 2200
+Wire Wire Line
+	4850 2200 4850 2150
+Connection ~ 4350 2150
+$EndSCHEMATC

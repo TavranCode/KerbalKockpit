@@ -24,35 +24,35 @@ def cnia(ser, conn, vessel,mQ):
         input_buffer = ser.read(40)
 
         f_cnia_repeat = False
-        # SAS
-        # if vessel.control.sas != is_set(input_buffer[9], 2):
-            # msg_line = 'Set SAS Power to ' + ['Off', 'On'][vessel.control.sas]
-            # f_cnia_repeat = True
-            # conn.ui.message(msg_line, duration=1)
+        SAS
+        if vessel.control.sas != is_set(input_buffer[9], 2):
+            msg_line = 'Set SAS Power to ' + ['Off', 'On'][vessel.control.sas]
+            f_cnia_repeat = True
+            conn.ui.message(msg_line, duration=1)
 
-        # # Lights
-        # if vessel.control.lights != is_set(input_buffer[11], 1):
-            # msg_line = 'Set Lights to ' + ['Off', 'On'][vessel.control.lights]
-            # f_cnia_repeat = True
-            # conn.ui.message(msg_line, duration=1)
+        # Lights
+        if vessel.control.lights != is_set(input_buffer[11], 1):
+            msg_line = 'Set Lights to ' + ['Off', 'On'][vessel.control.lights]
+            f_cnia_repeat = True
+            conn.ui.message(msg_line, duration=1)
 
-        # # RCS
-        # if vessel.control.rcs != is_set(input_buffer[11], 2):
-            # msg_line = 'Set RCS to ' + ['Off', 'On'][vessel.control.rcs]
-            # f_cnia_repeat = True
-            # conn.ui.message(msg_line, duration=1)
+        # RCS
+        if vessel.control.rcs != is_set(input_buffer[11], 2):
+            msg_line = 'Set RCS to ' + ['Off', 'On'][vessel.control.rcs]
+            f_cnia_repeat = True
+            conn.ui.message(msg_line, duration=1)
 
-        # # Gear
-        # if vessel.control.gear == is_set(input_buffer[11], 4):  # Gear logic is reversed
-            # msg_line = 'Set Gear to ' + ['Up', 'Down'][vessel.control.gear]
-            # f_cnia_repeat = True
-            # conn.ui.message(msg_line, duration=1)
+        # Gear
+        if vessel.control.gear == is_set(input_buffer[11], 4):  # Gear logic is reversed
+            msg_line = 'Set Gear to ' + ['Up', 'Down'][vessel.control.gear]
+            f_cnia_repeat = True
+            conn.ui.message(msg_line, duration=1)
 
-        # # Park Brake
-        # if vessel.control.brakes != is_set(input_buffer[11], 6):
-            # msg_line = 'Set Park Brake to ' + ['Off', 'On'][vessel.control.brakes]
-            # f_cnia_repeat = True
-            # conn.ui.message(msg_line, duration=1)
+        # Park Brake
+        if vessel.control.brakes != is_set(input_buffer[11], 6):
+            msg_line = 'Set Park Brake to ' + ['Off', 'On'][vessel.control.brakes]
+            f_cnia_repeat = True
+            conn.ui.message(msg_line, duration=1)
 
         # Throttle
         if input_buffer[26] >= 10:

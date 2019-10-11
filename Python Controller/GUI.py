@@ -8,7 +8,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from Utilities import is_set, si_val, sec2time, SubframeLabel, SubframeVar, norm, bytes2int
 from Settings import *
 from PanelControl import panel_control
-from Plots import Launchplot, Orbitplot
 
 
 
@@ -30,131 +29,9 @@ class Application:
         # Create the notebook and define its tabs
         self.notebook = ttk.Notebook(root)
 
-        tab1 = ttk.Frame(self.notebook, borderwidth=10)
-        tab2 = ttk.Frame(self.notebook, borderwidth=10)
-        tab3 = ttk.Frame(self.notebook, borderwidth=10)
-        tab4 = ttk.Frame(self.notebook, borderwidth=10)
-        tab5 = ttk.Frame(self.notebook, borderwidth=10)
-        tab6 = ttk.Frame(self.notebook, borderwidth=10)
-        tab7 = ttk.Frame(self.notebook, borderwidth=10)
-        tab8 = ttk.Frame(self.notebook, borderwidth=10)
         tab9 = ttk.Frame(self.notebook, borderwidth=10)
 
-        self.notebook.add(tab1, text='Launch')
-        self.notebook.add(tab2, text='Orbital')
-        self.notebook.add(tab3, text='Landing')
-        self.notebook.add(tab4, text='Rendezvous')
-        self.notebook.add(tab5, text='Flight')
-        self.notebook.add(tab6, text='Runway')
-        self.notebook.add(tab7, text='Rover')
-        self.notebook.add(tab8, text='Systems')
         self.notebook.add(tab9, text='Maintenance')
-
-        # Tab 1 - Launch
-        self.T1L = ttk.Frame(tab1)
-        self.T1R = ttk.Frame(tab1)
-
-        self.T1_OI = SubframeLabel(self.T1L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
-                                                            'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
-                                                            'LAN:'))
-        self.T1_OI.pack()
-
-        self.T1_SI = SubframeLabel(self.T1L, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
-                                                              'Speed:', 'Vertical Speed:', 'Horizontal Speed:'))
-        self.T1_SI.pack()
-
-        self.T1_VI = SubframeLabel(self.T1R, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'))
-        self.T1_VI.pack()
-
-        self.T1_LP = Launchplot()
-
-        self.LpCanvas = FigureCanvasTkAgg(self.T1_LP.fig, master=self.T1R)
-        self.LpCanvas.draw()
-        self.LpCanvas.get_tk_widget().pack(anchor=N, expand=1, fill=X)
-
-        self.T1L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
-        self.T1R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
-
-        # Tab 2 - Orbital
-        self.T2L = ttk.Frame(tab2)
-        self.T2R = ttk.Frame(tab2)
-
-        self.T2_OI = SubframeLabel(self.T2L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
-                                                            'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
-                                                            'LAN:'))
-        self.T2_OI.pack()
-
-        self.T2_VI = SubframeLabel(self.T2L, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'))
-        self.T2_VI.pack()
-
-        self.T2_OP = Orbitplot()
-
-        self.OpCanvas = FigureCanvasTkAgg(self.T2_OP.fig, master=self.T2R)
-        self.OpCanvas._tkcanvas.config(highlightthickness=0)
-        self.OpCanvas.draw()
-        self.OpCanvas.get_tk_widget().pack(anchor=N, expand=1, fill=X)
-
-        ttk.Button(self.T2R, text="Switch View Mode", command=self.T2_OP.switch).pack(anchor=N)
-
-        self.T2L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
-        self.T2R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
-
-        # Tab 3 - Landing
-        self.T3L = ttk.Frame(tab3)
-        self.T3R = ttk.Frame(tab3)
-
-        self.T3_OI = SubframeLabel(self.T3L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
-                                                            'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
-                                                            'LAN:'))
-        self.T3_OI.pack()
-
-        self.T3_SI = SubframeLabel(self.T3L, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
-                                                              'Speed:', 'Vertical Speed:', 'Horizontal Speed:'))
-        self.T3_SI.pack()
-
-        self.T3_VI = SubframeLabel(self.T3R, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'))
-        self.T3_VI.pack()
-
-        self.T3L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
-        self.T3R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
-
-        # Tab 4 - Rendezvous
-        self.T4L = ttk.Frame(tab4)
-        self.T4R = ttk.Frame(tab4)
-
-        self.T4_OI = SubframeLabel(self.T4L, 'Orbit Info', ('Orbital Speed:', 'Apoapsis:', 'Periapsis:', 'Orbital Period:',
-                                                            'Time to Apoapsis:', 'Time to Periapsis:', 'Inclination:', 'Ecentricity:',
-                                                            'LAN:'))
-        self.T4_OI.pack()
-
-        self.T4_SI = SubframeLabel(self.T4L, 'Surface Info', ('Altitude (AGL):', 'Pitch:', 'Heading:', 'Roll:',
-                                                              'Speed:', 'Vertical Speed:', 'Horizontal Speed:'))
-        self.T4_SI.pack()
-
-        self.T4_TI = SubframeLabel(self.T4R, 'Target Info', ('Target:', 'Closest Approach:', 'Intercept Time:', 'Intercept Speed:',
-                                                             'Dist to Target:', 'Target Velocity',
-                                                             'Rel. Distance x:', 'Rel. Distance y:', 'Rel. Distance z:',
-                                                             'Rel. Velocity x:', 'Rel. Velocity y:', 'Rel. Velocity z:'))
-        self.T4_TI.pack()
-
-        self.T4_VI = SubframeLabel(self.T4R, 'Vessel Info', ('Vessel Mass:', 'Max Thrust:', 'Current Thrust:', 'Surface TWR:'))
-        self.T4_VI.pack()
-
-        self.T4L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
-        self.T4R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
-
-        # Tab 8 - Systems
-        self.T8L = ttk.Frame(tab8)
-        self.T8R = ttk.Frame(tab8)
-
-        self.T8_TRD = SubframeVar(self.T8L, 'Total Resources', 10)
-        self.T8_TRD.pack()
-
-        self.T8_SRD = SubframeVar(self.T8L, 'Decouple Stage Resources', 10)
-        self.T8_SRD.pack()
-
-        self.T8L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
-        self.T8R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
 
         # Tab 9 - Maintenance
         # Tab 9 --> Left Frame - Arduino Data
@@ -172,11 +49,6 @@ class Application:
         self.T9_AI = SubframeLabel(self.T9R, 'Analogue Inputs', ('Rotation X:', 'Rotation Y:', 'Rotation Z:', 'Translation X:', 'Translation Y:',
                                                                  'Translation Z:', 'Throttle:'))
         self.T9_AI.pack()
-
-        # self.T9_AP = SubframeLabel(self.T9R, 'Autoilot Status', ('System Power:', 'State:', 'Lateral - Connected:', 'Lateral - Mode:', 'Lateral - Setting:',
-                                                                 # 'Vertical - Connected:', 'Vertical - Mode:', 'Vertical - Setting:',
-                                                                 # 'Speed - Connected:', 'Speed - Mode:', 'Speed - Setting:'))
-        # self.T9_AP.pack()
 
         self.T9L.pack(anchor=N, side=LEFT, expand=1, fill=X, padx=5)
         self.T9R.pack(anchor=N, side=RIGHT, expand=1, fill=X, padx=5)
@@ -381,78 +253,6 @@ class Application:
                       si_val(self.max_thrust(), 3) + 'N',
                       si_val(self.thrust(), 3) + 'N',
                       '{0:.2f}'.format(twr)]
-
-        # Tab 1 - Launch
-        if self.notebook_page == 0:
-            self.T1_OI.update(OI_data)
-            self.T1_SI.update(SI_data)
-            self.T1_VI.update(VI_data)
-
-            self.T1_LP.animate(self.vessel, (self.latitude(), self.longitude()), self.mean_altitude())
-
-        # Tab 2 - Orbital
-        if self.notebook_page == 1:
-            self.T2_OI.update(OI_data)
-            self.T2_VI.update(VI_data)
-
-            self.T2_OP.animate(self.vessel, self.periapsis(), self.eccentricity(), self.ecc_anomaly(), self.inclination(), self.arg_periapsis())
-
-        # Tab 3 - Landing
-        if self.notebook_page == 2:
-            self.T3_OI.update(OI_data)
-            self.T3_VI.update(VI_data)
-            self.T3_SI.update(SI_data)
-
-        # Tab 4 - Rondezvous
-        if self.notebook_page == 3:
-            self.T4_OI.update(OI_data)
-            self.T4_VI.update(VI_data)
-            self.T4_SI.update(SI_data)
-
-            target_vessel = self.conn.space_center.target_vessel
-
-            if target_vessel is None:
-                T4_TI_data = ["No Target",
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '',
-                              '']
-            else:
-                target_pos = target_vessel.position(self.vessel.reference_frame)
-                target_vel = target_vessel.velocity(self.vessel.reference_frame)
-                T4_TI_data = [target_vessel.name,
-                              '',
-                              '',
-                              '',
-                              si_val(norm(target_pos), 1) + 'm',
-                              si_val(norm(target_vel), 1) + 'm/s',
-                              '{0:.2f}m'.format(target_pos[0]),
-                              '{0:.2f}m'.format(target_pos[1]),
-                              '{0:.2f}m'.format(target_pos[2]),
-                              '{0:.2f}m/s'.format(target_vel[0]),
-                              '{0:.2f}m/s'.format(target_vel[1]),
-                              '{0:.2f}m/s'.format(target_vel[2])]
-
-            self.T4_TI.update(T4_TI_data)
-
-        # Tab 8 = Systems
-        if self.notebook_page == 7:
-            res_vals = []
-            for res in self.res_streams:
-                res_vals.append('{0:.0f}'.format(res()))
-            self.T8_TRD.update(self.res_names, res_vals)
-
-            resIDS_vals = []
-            for res in self.resIDS_streams:
-                resIDS_vals.append('{0:.0f}'.format(res()))
-            self.T8_SRD.update(self.resIDS_names, resIDS_vals)
 
         # Tab 9 - Maintanance
         if self.notebook_page == 8:

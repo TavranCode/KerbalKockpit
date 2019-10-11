@@ -1,40 +1,20 @@
 /******************************************************************************
-Mux_Analog_Input
-SparkFun Multiplexer Analog Input Example
+Multiple Analog Mux and hardcoded input test.
+Based on: "SparkFun Multiplexer Analog Input Example
 Jim Lindblom @ SparkFun Electronics
 August 15, 2016
-https://github.com/sparkfun/74HC4051_8-Channel_Mux_Breakout
+https://github.com/sparkfun/74HC4051_8-Channel_Mux_Breakout"
 
-This sketch demonstrates how to use the SparkFun Multiplexer
-Breakout - 8 Channel (74HC4051) to read eight, separate
-analog inputs, using just a single ADC channel.
 
-Hardware Hookup:
-Mux Breakout ----------- Arduino
-     S0 ------------------- 2
-     S1 ------------------- 3
-     S2 ------------------- 4
-     Z -------------------- A0
-    VCC ------------------- 5V
-    GND ------------------- GND
-    (VEE should be connected to GND)
-
-The multiplexers independent I/O (Y0-Y7) can each be wired
-up to a potentiometer or any other analog signal-producing
-component.
-
-Development environment specifics:
-Arduino 1.6.9
-SparkFun Multiplexer Breakout - 8-Channel(74HC4051) v10
-(https://www.sparkfun.com/products/13906)
 ******************************************************************************/
 /////////////////////
 // Pin Definitions //
 /////////////////////
-const int selectPins[3] = {2, 3, 4}; // S0~2, S1~3, S2~4
-const int zOutput = 5; 
-const int zInput = A0; // Connect common (Z) to A0 (analog input)
-
+const int selectPins[3] = {8, 12, 13}; // S0, S1, S2
+const int zInputa = A0; // Connect common (Z) to A0 (analog input)
+const int zInputb = A1; // Connect common (Z) to A0 (analog input)
+const int DIMp = A2;
+const int bDIMp = A3;
 void setup() 
 {
   Serial.begin(9600); // Initialize the serial port
@@ -44,7 +24,10 @@ void setup()
     pinMode(selectPins[i], OUTPUT);
     digitalWrite(selectPins[i], HIGH);
   }
-  pinMode(zInput, INPUT); // Set up Z as an input
+  pinMode(zInputa, INPUT); // Set up Z as an input
+  pinMode(zInputb, INPUT);
+  pinMode(DIMp, INPUT);
+  pinMode(bDIMp, INPUT);
 
   // Print the header:
 //  Serial.println("Y0\tY1\tY2\tY3\tY4\tY5\tY6\tY7");
@@ -66,13 +49,17 @@ void selectAMuxPin(byte pin)
 
 void loop() 
 {
+  // Loop through the hard wired dimmers
+  //Serial.print(String(analogRead(DIMp))+" ");
+  //Serial.print(String(analogRead(bDIMp))+" ");
   // Loop through all eight pins.
-  for (byte pin=0; pin<=3; pin++)
+  for (byte pin=0; pin<=7; pin++)
   {
     selectAMuxPin(pin); // Select one at a time
-    int inputValue = analogRead(A0); // and read Z
-    Serial.print(String(inputValue) + " ");
+    int inputValuea = analogRead(zInputa); // and read Z1
+    int inputValueb = analogRead(zInputb); // and read Z2
+    //Serial.print(String(inputValuea) + " " + String(inputValueb) + " ");
+    Serial.print(String(inputValueb) + " ");
   }
   Serial.println();
-//  delay(1000);
 }
