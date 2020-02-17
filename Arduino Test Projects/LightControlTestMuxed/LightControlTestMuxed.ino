@@ -9,57 +9,44 @@ void mux_Tx(int adr, int reg, byte data) {
   Wire.endTransmission();          /* end the transmission */
 }
 
-const int analogInPin = A2;  // Analog input pin that the potentiometer is attached to
-
-int sensorValue = 0;        // value read from the pot
-int outputValue = 0;        // value output to the PWM (analog out)
-int outputValuei = 0;       // value output to the PWM inverted
-
 const int dimmerpin = 9;
 
-// The number we're going to display.
-byte count;
-byte fcount;
-
-const int on = 255;
-const int off = 0;
 
 void setup() {
 {
   Wire.begin();
   mux_Tx(0x27, 0x00, 0x00);  /* MUX 0x23, IODIRA, Set all to output (0) */
-  count = 0;
-  fcount = 0;
+  mux_Tx(0x27, 0x01, 0x00);  /* MUX 0x23, IODIRB, Set all to output (0) */
 }
     Serial.begin(9600);
+      mux_Tx(0x27,0x12, 0xFF); 
+      mux_Tx(0x27,0x13, 0xFF); 
+
 }
 
 void loop() {
   // read the analog in value:
-  sensorValue = analogRead(analogInPin);
+  // sensorValue = analogRead(analogInPin);
   // map it to the range of the analog out:
-  outputValue = map(sensorValue, 0, 1023, 250, 0);
-  outputValuei = map(sensorValue, 0, 1023, 0, 250);
+  //outputValue = 200; // map(sensorValue, 0, 1023, 250, 0);
+  //outputValuei = 200; // map(sensorValue, 0, 1023, 0, 250);
   // change the analog out value:
   // analogWrite(analogOutPin, outputValue);
-  analogWrite(dimmerpin,outputValuei);
-  if(fcount % 25 == 0) {
-    count++;
+    for (int fadeValue = 0 ; fadeValue <= 255; fadeValue += 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(dimmerpin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+  }
+
+  // fade out from max to min in increments of 5 points:
+  for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(dimmerpin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
   }
   
   //mux_Tx(0x27,0x00, count % 256); 
-  mux_Tx(0x27,0x00, 0xFF); 
-  mux_Tx(0x27,0x01, 0xFF); 
 
-  fcount++;
-  
-  Serial.print("fcount = ");
-  Serial.print(fcount);
-  Serial.print("\t count = ");
-  Serial.print(count);
-  Serial.print("\t analog = ");
-  Serial.print(outputValue);
-  Serial.print("\t analog2 = ");
-  Serial.println(outputValuei);
-  delay(20);
 }

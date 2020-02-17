@@ -1,0 +1,31 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# JumpSwitch-Custom
+#
+DEF ~JumpSwitch-Custom J 0 40 Y Y 8 F N
+F0 "J" 0 -50 50 H V C CNN
+F1 "JumpSwitch-Custom" 0 -50 50 H I C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+X ~ 1 -200 0 100 R 50 50 1 1 P
+X ~ 2 200 0 100 L 50 50 1 1 P
+X ~ 3 -200 0 100 R 50 50 2 1 P
+X ~ 4 200 0 100 L 50 50 2 1 P
+X ~ 5 -200 0 100 R 50 50 3 1 P
+X ~ 6 200 0 100 L 50 50 3 1 P
+X ~ 7 -200 0 100 R 50 50 4 1 P
+X ~ 8 200 0 100 L 50 50 4 1 P
+X ~ 10 200 0 100 L 50 50 5 1 P
+X ~ 9 -200 0 100 R 50 50 5 1 P
+X ~ 11 -200 0 100 R 50 50 6 1 P
+X ~ 12 200 0 100 L 50 50 6 1 P
+X ~ 13 -200 0 100 R 50 50 7 1 P
+X ~ 14 200 0 100 L 50 50 7 1 P
+X ~ 15 -200 0 100 R 50 50 8 1 P
+X ~ 16 200 0 100 L 50 50 8 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library

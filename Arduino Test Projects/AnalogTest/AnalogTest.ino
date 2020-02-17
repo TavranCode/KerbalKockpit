@@ -11,9 +11,14 @@ void setup() {
 }
 
 void loop() {
+  Serial.print(0);
+  Serial.print(" ");
   Serial.print(analogRead(A0));
   Serial.print(" ");
-  Serial.println(analogRead(A1));
-  delay(200);
+  Serial.print(analogRead(A1));
+  Serial.print(" ");
+  Serial.print(analogRead(A2));
+  Serial.print(" ");
+  Serial.println(1023);
+  
 }
-
