@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "C:\\Users\\Matt Peverill\\Dropbox\\KerbalKockpit\\Prototype PCBs\\Shield v.2\\Shield v.2.sch")
-    (date "2/14/2020 12:43:35 PM")
+    (date "3/9/2020 3:34:53 PM")
     (tool "Eeschema (5.1.5)-3")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -91,7 +91,7 @@
       (tstamp 5DDBEFC4))
     (comp (ref U1)
       (value 74HC4051)
-      (footprint Package_SO:SSOP-16_3.9x4.9mm_P0.635mm)
+      (footprint Package_SO:TSSOP-16_4.4x5mm_P0.65mm)
       (datasheet http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf)
       (libsource (lib 74xx) (part 74HC4051) (description "8-channel analog multiplexer/demultiplexer, DIP-16/SOIC-16/TSSOP-16"))
       (sheetpath (names /) (tstamps /))
