@@ -8,6 +8,7 @@ void pad(char* text);
 int mod(int x, int m);
 
 
+
 void sys_error(int code) {
   /* this function is called if a critical error exists. It flashes the error light as per the error code
      and blocks all other functions
