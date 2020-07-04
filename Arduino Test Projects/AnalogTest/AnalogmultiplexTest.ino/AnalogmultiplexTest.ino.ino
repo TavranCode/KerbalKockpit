@@ -10,11 +10,10 @@ https://github.com/sparkfun/74HC4051_8-Channel_Mux_Breakout"
 /////////////////////
 // Pin Definitions //
 /////////////////////
-const int selectPins[3] = {8, 12, 13}; // S0, S1, S2
+const int selectPins[3] = {15, 16, 14}; // S0, S1, S2
 const int zInputa = A0; // Connect common (Z) to A0 (analog input)
-const int zInputb = A1; //
-const int DIMp = A2;
-const int bDIMp = A3;
+const int DIMp = A1;
+const int bDIMp = A2;
 void setup() 
 {
   Serial.begin(9600); // Initialize the serial port
@@ -24,7 +23,7 @@ void setup()
     pinMode(selectPins[i], OUTPUT);
     digitalWrite(selectPins[i], HIGH);
   }
-  pinMode(zInputb, INPUT);
+  pinMode(zInputa, INPUT);
   pinMode(DIMp, INPUT);
   pinMode(bDIMp, INPUT);
 }
@@ -55,10 +54,6 @@ void loop()
     int inputValuea = analogRead(zInputa); // and read Z1
     //delayMicroseconds(150);
     inputValuea = analogRead(zInputa)/4; // and read Z1
-    int inputValueb = analogRead(zInputb); // and read Z2
-    //delayMicroseconds(150);
-    inputValueb = analogRead(zInputb)/4; // and read Z2
-    //Serial.print(String(inputValuea) + " " + String(inputValueb) + " ");
     Serial.print(String(inputValuea) + " ");
   }
   Serial.println();
