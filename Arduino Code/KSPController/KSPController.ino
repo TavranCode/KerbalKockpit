@@ -1,72 +1,62 @@
 #include <Wire.h>
+
 #include "KSPController.h"
 #include "utils.h"
 
+//#include <Joystick.h>
+//#define JOYSTICK_COUNT 2
+//
+//Joystick_ Joystick[JOYSTICK_COUNT] = {  
+//  Joystick_(0x01, JOYSTICK_TYPE_MULTI_AXIS, 32, 0, false, true, false, true, false, false, true, true, false, false, false),
+//  Joystick_(0x02, JOYSTICK_TYPE_MULTI_AXIS, 32, 1, true, true, false, true, true, false, false, false, true, true, true)
+//};
 
-/* start code */
 void setup() {
-  /* set the PWM frequency on pin 6 to avoid fan whine */
-  /* TCCR4B &= ~(B00000111);   /* set the three bits in TCCR2B to 0 */
-  /* TCCR4B |= B00000001;      /* set the last three bits in TCCR4B with our new value, 1 is max freq */
 
-  /* setup the digital output pins */
-//  for (i = c_first_pwm_pin; i <= c_last_pwm_pin; i++) {
-//    pinMode(i, OUTPUT);
-//  }
-  for (i = c_first_output_pin; i <= c_last_output_pin; i++) {
+  /* Pin Setup */
+  for (int i=0; i <= sizeof outputs; i++) {
     pinMode(i, OUTPUT);
   }
-
+  for (int i=0; i <= sizeof outputs; i++) {
+    pinMode(i, OUTPUT);
+  }
 
   /* turn on all the lights during the start up for a BIT check */
-  digitalWrite(c_power_led_pin, HIGH);
-  digitalWrite(c_error_led_pin, HIGH);
-  digitalWrite(c_overrun_led_pin, HIGH);
-//  analogWrite(c_ap_reset_pin, 255);
-//  analogWrite(c_ap_power_pin, 255);
+  digitalWrite(p.powerled, HIGH);
+  digitalWrite(p.errled, HIGH);
 
   /* set unused analogue input pins as digital outs forced low to prevent noise */
-  for (i = A1; i <= A3; i++) {
-    pinMode(i, OUTPUT);
-    digitalWrite(i, LOW);
-  }
+//  for (i = A1; i <= A3; i++) {
+//    pinMode(i, OUTPUT);
+//    digitalWrite(i, LOW);
+//  }
 
   /* wake up the I2C_bus */
   Wire.begin();
 
-  /* check we have all the MCP23017 chips */
-  for (byte a = c_first_mux_address; a < c_last_mux_address; a++)   /* chip addresses start at 0x20, max of 8 chips */
-  {
-    Wire.beginTransmission (a);
-    if (Wire.endTransmission () == 0) {
-      n_mux_chips_detected++;
-    }
-  }
-  if (n_mux_chips_detected != c_num_mux_chips) {
-    sys_error(c_error_code_mux_missing);
-  }
-  
   /* start serial comms */
-  Serial.begin(c_serial_speed);
+  Serial.begin();
   #ifdef DEBUG
   Serial.println("<Arduino is ready>");
   #endif
 
   /* hold to allow light BIT to be seen */
   delay(c_light_bit_time);
-  digitalWrite(c_power_led_pin, LOW);
-  digitalWrite(c_error_led_pin, LOW);
-  digitalWrite(c_overrun_led_pin, LOW);
-//  analogWrite(c_ap_reset_pin, 0);
-//  analogWrite(c_ap_power_pin, 0);
+  digitalWrite(p.powerled, LOW);
+  digitalWrite(p.errled, LOW);
+  //digitalWrite(c_overrun_led_pin, LOW);
 
   /* Setup Pins for Analog Multiplexing */
-  for (int i=0; i<3; i++)
+  for (i=0; i<3; i++)
   {
     pinMode(selectPins[i], OUTPUT);
     digitalWrite(selectPins[i], HIGH);
   }
-  pinMode(zInput, INPUT); // Set up Z as an input
+
+  /* Setup i2c multiplexers */
+  mux_Tx(add.matrix, IODIRA, 0x00); // Set IODIR of register A to output (0). GPIOB defaults input
+  mux_Tx(add.ledc, IODIRA, 00x00); // Set led io expander banks to output
+  mux_Tx(add.ledc, IODIRB, 00x00);
 }
 
 /* main code loop */
